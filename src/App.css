@@ -1,5 +1,6 @@
 .App {
   text-align: center;
+  flex-grow: 1; /* Allow content to grow and fill available space */
 }
 
 .App-logo {

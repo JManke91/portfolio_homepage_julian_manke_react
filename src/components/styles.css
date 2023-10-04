@@ -1,0 +1,148 @@
+
+  /* Set the background image on the body element */
+  body {
+    margin: 0; /* Remove default margin */
+    padding: 0; /* Remove default padding */
+    background-image: url('../../public/DJI_0111.jpg'); /* Relative path to the image */
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed; /* Fixed background image */
+    min-height: 100vh; /* Use min-height to ensure the body fills at least the viewport height */
+  }
+
+/* Header styles */
+.header {
+    background-color: transparent; /* Remove background color */
+    color: #fff;
+    text-align: center;
+    padding: 1rem;
+}
+
+/* Navigation menu styles */
+.nav-container {
+    display: flex;
+    justify-content: flex-end; /* Move the navigation to the top right */
+    padding-right: 8vw; /* Example: Set padding as a percentage of viewport width */
+    padding-top: 2vw; /* Add top padding to the navigation */
+  }
+
+/* Navigation menu styles */
+nav ul {
+    list-style: none;
+    padding: 0;
+}
+
+nav li {
+    display: inline;
+    margin-left: 20px; /* Adjust margin as needed */
+    transition: opacity 0.3s ease; /* Add a smooth opacity transition */
+    border: none; /* Remove the border */
+}
+
+/* Apply opacity change on hover */
+nav li:hover {
+    opacity: 0.3; /* Adjust the opacity value as needed */
+  }
+
+nav a {
+    text-decoration: none;
+    color: #fff;
+    font-weight: bold;
+}
+
+/* About section styles */
+.about {
+    padding: 2rem;
+}
+
+.about h1 {
+    color: #333;
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.about p {
+    color: #666;
+    font-size: 16px;
+}
+
+/* Portfolio section styles */
+.portfolio {
+    padding: 2rem;
+}
+
+.portfolio h2 {
+    color: #333;
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+/* Style your portfolio images as needed */
+.portfolio img {
+    max-width: 100%;
+    height: auto;
+    border: 2px solid #ddd;
+    margin: 10px;
+    transition: transform 0.3s ease-in-out;
+}
+
+/* Add hover effect to portfolio images */
+.portfolio img:hover {
+    transform: scale(1.05);
+}
+
+/* Contact section styles */
+.contact {
+    padding: 2rem;
+}
+
+.contact h2 {
+    color: #333;
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.contact p {
+    color: #666;
+    font-size: 16px;
+}
+
+/* Footer styles */
+.footer {
+    background-color: rgba(0, 0, 0, 0.7);
+    color: #fff;
+    text-align: center;
+    padding: 1rem;
+    position: absolute; /* Set the footer to absolute position */
+    bottom: 0; /* Position it at the bottom */
+    width: 100%; /* Make it full width */
+  }
+
+  /* Footer content styles */
+.footer-content {
+    display: flex; /* Display content and Instagram icon horizontally */
+    align-items: center; /* Center vertically within the footer */
+    justify-content: center; /* Center horizontally within the footer */
+  }
+
+  /* Instagram icon styles */
+.instagram-link {
+    text-decoration: none;
+    color: #fff; /* Set the color to white */
+    margin-left: 10px; /* Add spacing between the icon and other content */
+  }
+
+  /* Style the Instagram icon as needed */
+/* Style the Instagram icon as needed */
+.instagram-link svg {
+    fill: #fff;
+    transition: opacity 0.3s; /* Add a transition for the opacity property */
+  }
+
+  /* Change the opacity on hover */
+.instagram-link:hover svg {
+    opacity: 0.3; /* Change the opacity on hover */
+    cursor: pointer;
+  }
+
+/* Customize additional styles as needed */
