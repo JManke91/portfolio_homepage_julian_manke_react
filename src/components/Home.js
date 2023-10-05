@@ -1,21 +1,22 @@
 import React from 'react';
-import './Home.css'; // Import your CSS file
+import './Home.css'; // Assuming you have a CSS file for styling
+import Header from './Header'; // Import the Header component
 
 function Home() {
   return (
-    <div className="home-container">
-      <header className="header">
-        <div className="nav-container">
-          {/* Your navigation links */}
+    <div className="home">
+      <div className="image-container">
+        <img
+          src="/DJI_0111.jpg" // Path to your first image
+          alt="First Photo"
+          className="photo top-photo"
+        />
+        <img
+          src="/DJI_0092.jpg" // Path to your second image
+          alt="Second Photo"
+          className="photo"
+        />
         </div>
-      </header>
-      <div className="content">
-        <h1>Welcome to My Photography Portfolio</h1>
-        <p>
-          I'm a passionate photographer dedicated to capturing moments of beauty and inspiration.
-          Explore my portfolio to see my latest work.
-        </p>
-      </div>
     </div>
   );
 }

@@ -1,30 +1,46 @@
 /* Home component styles */
 .home {
-    /* Set the background image and cover the entire viewport */
-    background-image: url('../../public/DJI_0111.jpg'); /* Relative path to the image */
-    background-size: cover;
-    background-position: center;
-    height: 100vh; /* Make the component fill the entire viewport height */
-    color: #fff; /* Text color on top of the background image */
-    text-align: center;
-    padding: 2rem;
-  }
+  position: relative;
+  text-align: center;
+  color: #000;
+}
 
-  /* Home component styles */
-.home-container {
-    /* Set the background image and cover the entire viewport */
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-  }
-  
-  /* Additional styling for the text */
-  .home h1 {
-    font-size: 36px;
-    margin-bottom: 20px;
-  }
-  
-  .home p {
-    font-size: 18px;
-  }
-  
+.image-container {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  /* Set the container to the full viewport height */
+}
+
+
+.top-photo {
+  max-width: 100%;
+  width: 100%;
+  height: 100%;
+  /* Fill the entire container height */
+  object-fit: cover;
+  object-position: center top;
+  /* Center the image horizontally and align to the top */
+  z-index: 1;
+  /* Place the top photo behind other elements */
+}
+
+
+.photo {
+  max-width: 100%;
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  object-position: center top;
+  /* Center the image horizontally and align to the top */
+}
+
+/* Additional styling for the text */
+.home h1 {
+  font-size: 36px;
+  margin-bottom: 20px;
+}
+
+.home p {
+  font-size: 18px;
+}

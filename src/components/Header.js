@@ -2,6 +2,7 @@ import React from 'react';
 import './styles.css'; // Import the CSS file
 import { Link } from 'react-router-dom'; // Import Link from React Router
 
+
 function Header() {
     return (
       <header className="header">

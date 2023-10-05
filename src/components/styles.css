@@ -1,52 +1,89 @@
+/* Set the background image on the body element */
 
-  /* Set the background image on the body element */
-  body {
-    margin: 0; /* Remove default margin */
-    padding: 0; /* Remove default padding */
-    background-image: url('../../public/DJI_0111.jpg'); /* Relative path to the image */
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed; /* Fixed background image */
-    min-height: 100vh; /* Use min-height to ensure the body fills at least the viewport height */
-  }
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+}
 
 /* Header styles */
 .header {
-    background-color: transparent; /* Remove background color */
-    color: #fff;
-    text-align: center;
-    padding: 1rem;
+    background-color: transparent;
+    position: absolute;
+    /* Remove background color */
+    color: #000000;
+    width: 100%;
+    z-index: 2;
+    /* Ensure navigation elements are on top */
+    padding: 20px 0;
+    /* Add top and bottom padding (20px) and no left/right padding */
 }
 
 /* Navigation menu styles */
 .nav-container {
-    display: flex;
-    justify-content: flex-end; /* Move the navigation to the top right */
-    padding-right: 8vw; /* Example: Set padding as a percentage of viewport width */
-    padding-top: 2vw; /* Add top padding to the navigation */
-  }
+    max-width: 1200px;
+    /* Adjust as needed */
+    margin: 0 auto;
+
+}
+
+/* Use media queries for responsive padding adjustments */
+@media (max-width: 768px) {
+    padding: 0.5rem;
+    /* Adjust the padding for smaller screens */
+}
+
+/* Style for navigation elements within the <nav> element */
+nav {
+    color: #f50b0b;
+    position: fixed;
+    top: 0;
+    right: 0;
+    padding: 3rem;
+    /* Adjust the initial padding as desired */
+    /* Change the color of the navigation elements to black */
+}
 
 /* Navigation menu styles */
 nav ul {
     list-style: none;
     padding: 0;
+    margin: 0;
 }
 
-nav li {
+nav ul li {
     display: inline;
-    margin-left: 20px; /* Adjust margin as needed */
-    transition: opacity 0.3s ease; /* Add a smooth opacity transition */
-    border: none; /* Remove the border */
+    margin-right: 20px;
+    /* Adjust spacing as needed */
+    transition: opacity 0.3s ease;
+    /* Add a smooth transition for opacity changes */
+    opacity: 1;
+    /* Set the initial opacity */
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: #000000;
+    font-weight: bold;
+    opacity: 1;
+    /* Set the initial opacity */
+}
+
+nav ul li:last-child {
+    margin-right: 0;
+    /* Remove margin from the last element */
 }
 
 /* Apply opacity change on hover */
 nav li:hover {
-    opacity: 0.3; /* Adjust the opacity value as needed */
-  }
+    opacity: 0.3;
+    /* Adjust the opacity value as needed */
+}
 
 nav a {
     text-decoration: none;
-    color: #fff;
+    color: #000000;
+    /* Adjust text color of the navigation elements */
     font-weight: bold;
 }
 
@@ -113,36 +150,50 @@ nav a {
     color: #fff;
     text-align: center;
     padding: 1rem;
-    position: absolute; /* Set the footer to absolute position */
-    bottom: 0; /* Position it at the bottom */
-    width: 100%; /* Make it full width */
-  }
+    position: fixed;
+    ;
+    /* Set the footer to absolute position */
+    bottom: 0;
+    left: 0;
+    /* Position it at the bottom */
+    width: 100%;
+    z-index: 1;
+    /* Ensure it's above other content */
+    /* Make it full width */
+}
 
-  /* Footer content styles */
+/* Footer content styles */
 .footer-content {
-    display: flex; /* Display content and Instagram icon horizontally */
-    align-items: center; /* Center vertically within the footer */
-    justify-content: center; /* Center horizontally within the footer */
-  }
+    display: flex;
+    /* Display content and Instagram icon horizontally */
+    align-items: center;
+    /* Center vertically within the footer */
+    justify-content: center;
+    /* Center horizontally within the footer */
+}
 
-  /* Instagram icon styles */
+/* Instagram icon styles */
 .instagram-link {
     text-decoration: none;
-    color: #fff; /* Set the color to white */
-    margin-left: 10px; /* Add spacing between the icon and other content */
-  }
+    color: #fff;
+    /* Set the color to white */
+    margin-left: 10px;
+    /* Add spacing between the icon and other content */
+}
 
-  /* Style the Instagram icon as needed */
+/* Style the Instagram icon as needed */
 /* Style the Instagram icon as needed */
 .instagram-link svg {
     fill: #fff;
-    transition: opacity 0.3s; /* Add a transition for the opacity property */
-  }
+    transition: opacity 0.3s;
+    /* Add a transition for the opacity property */
+}
 
-  /* Change the opacity on hover */
+/* Change the opacity on hover */
 .instagram-link:hover svg {
-    opacity: 0.3; /* Change the opacity on hover */
+    opacity: 0.3;
+    /* Change the opacity on hover */
     cursor: pointer;
-  }
+}
 
 /* Customize additional styles as needed */
