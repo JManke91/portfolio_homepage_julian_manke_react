@@ -8,7 +8,16 @@ import Contact from './components/Contact';
 import Footer from './components/Footer';
 import Home from './components/Home'; // Import the Home component
 
+import BlogOverview from './components/BlogOverview';
+import BlogDetail from './components/BlogDetail';
+
 function App() {
+  // Sample blog data (you can load this from your JSON file or an API)
+  const blogPosts = [
+    { id: 1, title: 'My First Blog Post', content: 'This is the content of my first blog post.' },
+    { id: 2, title: 'Another Blog Post', content: 'This is another blog post.' },
+  ];
+
   return (
     <Router>
       <div className="App">
@@ -18,6 +27,10 @@ function App() {
           <Route path="/portfolio" element={<Portfolio />} />
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
+
+          <Route path="/blog" element={<BlogOverview blogPosts={blogPosts} />} />
+          <Route path="/blog/:id" element={<BlogDetail blogPosts={blogPosts} />} />
+          
           {/* Add more routes as needed */}
         </Routes>
         <Footer />
