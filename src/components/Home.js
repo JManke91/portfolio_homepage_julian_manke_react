@@ -1,22 +1,39 @@
 import React from 'react';
 import './Home.css'; // Assuming you have a CSS file for styling
 import Header from './Header'; // Import the Header component
+import { Parallax, ParallaxLayer } from '@react-spring/parallax'
+
+import first from './../DJI_0092.jpg';
+import second from './../DJI_0111.jpg';
 
 function Home() {
   return (
     <div className="home">
-      <div className="image-container">
-        <img
-          src="/DJI_0111.jpg" // Path to your first image
-          alt="First Photo"
-          className="photo top-photo"
+      <Parallax pages={2}>
+        <ParallaxLayer
+          offset={0}
+          speed={-0.1}
+          factor={1}
+          style={{
+            backgroundImage: `url(${first})`,
+            backgroundSize: 'cover',
+          }}
         />
-        <img
-          src="/DJI_0092.jpg" // Path to your second image
-          alt="Second Photo"
-          className="photo"
+
+        <ParallaxLayer
+          offset={0.9}
+          speed={0.1}
+          factor={1.2}
+          style={{
+            backgroundImage: `url(${second})`,
+            backgroundSize: 'cover',
+          }}
         />
-        </div>
+
+        <ParallaxLayer sticky={{ start: 1, end: 2 }} />
+
+
+      </Parallax>
     </div>
   );
 }
