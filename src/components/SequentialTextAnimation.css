@@ -1,0 +1,26 @@
+.text-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    font-family: 'Roboto', sans-serif;
+    font-size: 24px;
+    color: white;
+  }
+  
+  .text {
+    font-size: 2em;
+    color: white;
+    white-space: pre-line;
+    overflow: hidden;
+    border-right: 2px solid white;
+    display: inline-block;
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
+  }
+  
+  .text.visible {
+    opacity: 1;
+  }
+  
