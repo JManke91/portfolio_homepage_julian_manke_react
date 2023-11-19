@@ -1,13 +1,14 @@
+// Home.js
 import React from 'react';
 import './Home.css';
 import { Parallax, ParallaxLayer } from '@react-spring/parallax';
-
 import first from './../DJI_0092.jpg';
 import second from './../DJI_0111.jpg';
 
-import SequentialTextAnimation from './SequentialTextAnimation';
+import { Typewriter } from 'react-simple-typewriter'
 
 function Home() {
+
   return (
     <div className="home">
       <Parallax pages={2}>
@@ -22,7 +23,19 @@ function Home() {
           }}
         >
           {/* Text on the First Image */}
-          <SequentialTextAnimation />
+          <div className="text-container">
+            <div className="text">
+              <Typewriter
+                words={['Eat very long this is a very long text now and i would expect it to make a line break after reching the end of the width']}
+                loop={1}
+                cursor
+                cursorStyle='_'
+                typeSpeed={70}
+                deleteSpeed={50}
+                delaySpeed={1000}
+              />
+            </div>
+          </div>
         </ParallaxLayer>
 
         {/* Second Parallax Layer with Image */}
