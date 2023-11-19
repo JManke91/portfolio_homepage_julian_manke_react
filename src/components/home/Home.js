@@ -2,8 +2,10 @@
 import React from 'react';
 import './Home.css';
 import { Parallax, ParallaxLayer } from '@react-spring/parallax';
-import first from './../DJI_0092.jpg';
-import second from './../DJI_0111.jpg';
+
+// TODO: Load from cloud project with url instead of storing locally
+import first from './../../DJI_0092.jpg';
+import second from './../../DJI_0111.jpg';
 
 import { Typewriter } from 'react-simple-typewriter'
 

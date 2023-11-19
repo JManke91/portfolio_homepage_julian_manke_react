@@ -1,8 +1,7 @@
 import React from 'react';
-import './styles.css'; // Import the CSS file
+import './Footer.css'; 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faInstagram } from '@fortawesome/free-brands-svg-icons';
-import { faEnvelope } from '@fortawesome/free-regular-svg-icons'; // Import the email icon from free-regular-svg-icons
 
 function Footer() {
     return (

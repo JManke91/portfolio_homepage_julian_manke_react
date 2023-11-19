@@ -2,11 +2,11 @@ import React from 'react';
 import './App.css';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Header from './components/Header';
-import About from './components/About';
-import Portfolio from './components/Portfolio';
-import Contact from './components/Contact';
-import Footer from './components/Footer';
-import Home from './components/Home'; // Import the Home component
+import About from './components/about/About';
+import Portfolio from './components/portfolio/Portfolio';
+import Contact from './components/contact/Contact';
+import Footer from './components/footer/Footer';
+import Home from './components/home/Home';
 
 import BlogOverview from './components/BlogOverview';
 import BlogDetail from './components/BlogDetail';
