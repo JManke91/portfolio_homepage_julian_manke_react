@@ -3,10 +3,17 @@ import './Home.css';
 import { Parallax, ParallaxLayer } from '@react-spring/parallax';
 import { Typewriter } from 'react-simple-typewriter';
 
+import { fetchImageUrls } from '../../data/api';
+
 // Import constants
-import { getImageUrl } from '../../constants/constants';
+//import { getImageUrl } from '../../constants/constants';
+
 
 function Home() {
+  // LIFECYCLE:
+  // useState hook initializes the imageUrls state to an empty array, and the component renders with an initial state.
+  // When the Home component mounts, the useState hook initializes the imageUrls state to an empty array, and the component renders with an initial state.
+  // the state update triggers a re-render of the component.
   const [imageUrls, setImageUrls] = useState([]);
 
   useEffect(() => {
@@ -15,35 +22,16 @@ function Home() {
     // TODO: Provide proper error handling, if fetching of images fails
     // TODO: Make data fetching more generic, so logic can be used accross several use cases
     // TOOD: Implement repositories
-    async function fetchImageUrls() {
+    async function fetchData() {
       try {
-        const response = await fetch(getImageUrl());
-
-
-        if (!response.ok) {
-          throw new Error(`Failed to fetch image URLs. Status: ${response.status}`);
-        }
-
-        const data = await response.json();
-
-        // Assuming the response is an array of objects with a 'name' property
-        const imageNames = data.items
-          .filter((item) => !item.name.endsWith('/'))
-          .map((item) => item.mediaLink);
-
-        const firstImageURL = imageNames.length > 0 ? imageNames[0] : null;
-        const secondImageURL = imageNames.length > 1 ? imageNames[1] : null;
-
-        console.log('First Image URL:', firstImageURL);
-        console.log('Second Image URL:', secondImageURL);
-
-        setImageUrls([firstImageURL, secondImageURL]);
+        const urls = await fetchImageUrls();
+        setImageUrls(urls);
       } catch (error) {
-        console.error('Error fetching image URLs:', error);
+        console.error(error.message);
       }
     }
 
-    fetchImageUrls();
+    fetchData();
   }, []); // Empty dependency array means this effect runs once after the initial render
 
   return (
