@@ -3,7 +3,7 @@
     background-color: transparent;
     position: absolute;
     /* Remove background color */
-    color: #000000;
+    color: #ffffff;
     width: 100%;
     z-index: 2;
     /* Ensure navigation elements are on top */
@@ -16,5 +16,6 @@
     max-width: 1200px;
     /* Adjust as needed */
     margin: 0 auto;
+    color: #ffffff;
 
 }

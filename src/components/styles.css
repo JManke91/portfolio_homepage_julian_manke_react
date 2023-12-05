@@ -6,27 +6,6 @@ body {
     font-family: Arial, sans-serif;
 }
 
-/* Header styles */
-.header {
-    background-color: transparent;
-    position: absolute;
-    /* Remove background color */
-    color: #000000;
-    width: 100%;
-    z-index: 2;
-    /* Ensure navigation elements are on top */
-    padding: 20px 0;
-    /* Add top and bottom padding (20px) and no left/right padding */
-}
-
-/* Navigation menu styles */
-.nav-container {
-    max-width: 1200px;
-    /* Adjust as needed */
-    margin: 0 auto;
-
-}
-
 /* Use media queries for responsive padding adjustments */
 @media (max-width: 768px) {
     padding: 0.5rem;
@@ -63,7 +42,7 @@ nav ul li {
 
 nav ul li a {
     text-decoration: none;
-    color: #000000; /* Change color of navigation elements */
+    color: #ffffff; /* Change color of navigation elements */
     font-family: 'Futura', sans-serif;
     opacity: 1;
     /* Set the initial opacity */
