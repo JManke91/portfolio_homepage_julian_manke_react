@@ -5,10 +5,6 @@ import { Typewriter } from 'react-simple-typewriter';
 
 import { fetchImageUrls } from '../../data/api';
 
-// Import constants
-//import { getImageUrl } from '../../constants/constants';
-
-
 function Home() {
   // LIFECYCLE:
   // useState hook initializes the imageUrls state to an empty array, and the component renders with an initial state.

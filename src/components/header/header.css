@@ -1,0 +1,20 @@
+/* Header styles */
+.header {
+    background-color: transparent;
+    position: absolute;
+    /* Remove background color */
+    color: #000000;
+    width: 100%;
+    z-index: 2;
+    /* Ensure navigation elements are on top */
+    padding: 20px 0;
+    /* Add top and bottom padding (20px) and no left/right padding */
+}
+
+/* Navigation menu styles */
+.nav-container {
+    max-width: 1200px;
+    /* Adjust as needed */
+    margin: 0 auto;
+
+}
