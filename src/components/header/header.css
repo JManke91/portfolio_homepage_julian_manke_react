@@ -69,14 +69,14 @@
         /* Change color of navigation elements */
         font-family: 'Futura', sans-serif;
         opacity: 1;
-        font-size: 22px;
+        font-size: 30px;
         /* Set the initial opacity */
     }
 
     nav ul li {
         display: flex;
         /* Maybe change for mobile vertical layout */
-        margin-right: 30px;
+        margin-bottom: 20px;
         /* Adjust spacing of individual items */
         opacity: 1;
         /* Set the initial opacity */
