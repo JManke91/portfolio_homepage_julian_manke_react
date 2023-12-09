@@ -6,66 +6,6 @@ body {
     font-family: Arial, sans-serif;
 }
 
-/* Use media queries for responsive padding adjustments */
-@media (max-width: 768px) {
-    padding: 0.5rem;
-    /* Adjust the padding for smaller screens */
-}
-
-/* Style for navigation elements within the <nav> element */
-nav {
-    color: #f50b0b;
-    position: fixed;
-    top: 0;
-    right: 0;
-    padding: 3rem;
-    /* Adjust the initial padding as desired */
-    /* Change the color of the navigation elements to black */
-}
-
-/* Navigation menu styles */
-nav ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
-nav ul li {
-    display: inline;
-    margin-right: 20px;
-    /* Adjust spacing as needed */
-    transition: opacity 0.3s ease;
-    /* Add a smooth transition for opacity changes */
-    opacity: 1;
-    /* Set the initial opacity */
-}
-
-nav ul li a {
-    text-decoration: none;
-    color: #ffffff; /* Change color of navigation elements */
-    font-family: 'Futura', sans-serif;
-    opacity: 1;
-    /* Set the initial opacity */
-}
-
-nav ul li:last-child {
-    margin-right: 0;
-    /* Remove margin from the last element */
-}
-
-/* Apply opacity change on hover */
-nav li:hover {
-    opacity: 0.3;
-    /* Adjust the opacity value as needed */
-}
-
-nav a {
-    text-decoration: none;
-    color: #000000;
-    /* Adjust text color of the navigation elements */
-    font-weight: bold;
-}
-
 /* About section styles */
 .about {
     padding: 2rem;
