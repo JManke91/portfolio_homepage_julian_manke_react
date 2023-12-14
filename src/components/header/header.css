@@ -1,4 +1,5 @@
-/* Header styles */
+/* Header.css */
+
 .header {
     background-color: transparent;
     position: absolute;
@@ -8,144 +9,171 @@
     padding: 20px 0;
 }
 
-/* Use media queries for responsive padding adjustments */
-/* Smaller devices */
+.nav-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.menu-icon {
+    display: none;
+    /* Hide the menu icon initially for larger devices */
+    cursor: pointer;
+    color: #ffffff;
+}
+
+.menu-icon span {
+    height: 3px;
+    width: 25px;
+    background-color: #ffffff;
+    margin: 6px 0;
+    transition: 0.4s;
+}
+
+.nav-links {
+    display: flex;
+    /* Show the nav elements initially for larger devices */
+    position: fixed;
+    top: 5%;
+    right: 5%;
+
+    z-index: 1;
+    flex-direction: column;
+    align-items: flex-end;
+    /* Align nav elements to the top right */
+}
+
+.overlay {
+    display: none;
+    /* Hide the overlay initially for larger devices */
+}
+
+
+nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+}
+
+nav ul li {
+    display: inline;
+    margin-right: 30px;
+    transition: opacity 0.3s ease;
+    opacity: 1;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: #ffffff;
+    font-family: 'Futura', sans-serif;
+    opacity: 1;
+    font-size: 22px;
+}
+
+nav ul li:last-child {
+    margin-right: 0;
+}
+
+nav li:hover {
+    opacity: 0.3;
+}
+
+nav a {
+    text-decoration: none;
+    color: #000000;
+    font-weight: bold;
+}
+
 @media (max-width: 768px) {
 
-    .nav-container {
-        justify-content: center;
-        /* Center the elements horizontally */
-        position: relative;
-        /* Ensure the nav container establishes a stacking context */
-        z-index: 1;
-        /* Higher z-index for the nav container */
-    }
 
-    /* Style the overlay */
-    .overlay {
-        height: 100%;
-        width: 100%;
-        position: fixed;
-        z-index: -1;
-        top: 0;
-        right: 0;
-        /* Set initial opacity */
-        opacity: 0;
-        background-color: rgba(0, 0, 0, 0.8);
-        transition: 0.3s;
-    }
 
     .menu-icon {
         display: flex;
+        /* Show the menu icon initially for smaller devices */
         flex-direction: column;
-        cursor: pointer;
-        color: #ffffff;
+        justify-content: center;
+        /* Center the menu icon horizontally */
+        top: 20px;
+        /* Adjust the top position as needed */
+        left: 50%;
         align-items: center;
-        /* Center the menu button horizontally */
-    }
+        /* Center the menu icon vertically */
+        position: fixed;
+        transform: translateX(-50%);
 
-    .menu-icon span {
-        height: 3px;
-        width: 25px;
-        background-color: #ffffff;
-        margin: 6px 0;
-        transition: 0.4s;
+        z-index: 3;
+        /* ensure the menu button is on top */
     }
 
     .nav-links {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        transform: translateX(100%);
-    }
-
-    .nav-links.transition {
-        transition: all 0.3s;
-    }
-
-    nav ul li a {
-        text-decoration: none;
-        color: #ffffff;
-        /* Change color of navigation elements */
-        font-family: 'Futura', sans-serif;
-        opacity: 1;
-        font-size: 30px;
-        /* Set the initial opacity */
-    }
-
-    nav ul li {
-        display: flex;
-        /* Maybe change for mobile vertical layout */
-        margin-bottom: 20px;
-        /* Adjust spacing of individual items */
-        opacity: 1;
-        /* Set the initial opacity */
-    }
-}
-
-/* Larger devices */
-@media (min-width: 769px) {
-
-    .nav-links {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-    }
-
-    /* Style for navigation elements within the <nav> element */
-    nav {
+        opacity: 0;
+        /* Initial state for opacity transition */
+        visibility: hidden;
+        /* Initial state for visibility transition */
+        transition: none; /* No transition by default */
+        /* Transitions for opacity and visibility properties */
+        /* Hide the nav elements initially for smaller devices */
         position: fixed;
         top: 0;
         right: 0;
-        padding: 3rem;
-        /* Adjust the initial padding as desired */
-        /* Change the color of the navigation elements to black */
-    }
+        height: 100%;
+        width: 100%;
+        padding-top: 100px;
+        /* Adjust the top padding as needed */
 
-    /* Navigation menu styles */
-    nav ul {
-        list-style: none;
-        padding: 0;
-        margin: 0;
+        align-items: center;
+        /* Center the menu icon vertically */
+        background-color: rgba(0, 0, 0, 0.8);
+        z-index: 1;
+        flex-direction: column;
         display: flex;
     }
 
-    nav ul li {
-        display: inline;
-        /* Maybe change for mobile vertical layout */
-        margin-right: 30px;
-        /* Adjust spacing of individual items */
-        transition: opacity 0.3s ease;
-        /* Add a smooth transition for opacity changes */
+    .menu-open .nav-links {
+        visibility: visible;
         opacity: 1;
-        /* Set the initial opacity */
+        transition: opacity 0.5s ease, visibility 0.5s linear;
+      }
+
+    .nav-links ul {
+        flex-direction: column;
     }
 
-    nav ul li a {
-        text-decoration: none;
-        color: #ffffff;
-        /* Change color of navigation elements */
-        font-family: 'Futura', sans-serif;
+    .nav-links li {
+        margin-bottom: 20px;
+    }
+
+    .menu-open .menu-icon span:nth-child(1) {
+        transform: rotate(-45deg) translate(-5px, 6px);
+    }
+
+    .menu-open .menu-icon span:nth-child(2) {
+        opacity: 0;
+    }
+
+    .menu-open .menu-icon span:nth-child(3) {
+        transform: rotate(45deg) translate(-5px, -6px);
+    }
+
+    .overlay {
+        display: none;
+        /* Hide the overlay initially for smaller devices */
+        pointer-events: none;
+        /* Make the overlay non-interactive when hidden */
+        z-index: 2;
+        /* lower z-index for the overlay when it's not displayed */
+        /* start with 0 opacity */
+        transition: opacity 0.5s ease;
+        /* add a smooth transition */
+    }
+
+    .menu-open .overlay {
+        display: block;
+        /* Show the overlay when the menu is open on smaller devices */
         opacity: 1;
-        font-size: 22px;
-        /* Set the initial opacity */
-    }
-
-    nav ul li:last-child {
-        margin-right: 0;
-        /* Remove margin from the last element */
-    }
-
-    /* Apply opacity change on hover */
-    nav li:hover {
-        opacity: 0.3;
-        /* Adjust the opacity value as needed */
-    }
-
-    nav a {
-        text-decoration: none;
-        color: #000000;
-        /* Adjust text color of the navigation elements */
-        font-weight: bold;
+        pointer-events: auto;
+        /* Make the overlay interactive when shown */
     }
 }
