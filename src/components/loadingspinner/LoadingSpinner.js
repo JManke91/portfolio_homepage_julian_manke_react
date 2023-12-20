@@ -6,7 +6,7 @@ const LoadingSpinner = () => {
   return (
     <div className="loading-spinner-container">
       {/* Add your loading spinner content, such as a spinner animation or message */}
-      Loading...
+      <div className="spinner"></div>
     </div>
   );
 };
