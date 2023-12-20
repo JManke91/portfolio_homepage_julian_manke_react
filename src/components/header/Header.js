@@ -10,9 +10,7 @@ function Header() {
 
   const navRef = useRef(null);
 
-  // ASYNC OPERATION
   const toggleMenu = () => {
-    //setMenuOpen((prevMenuOpen) => !prevMenuOpen);
 
     if (!menuOpen) {
       setIsTransitionEnabled(true);
@@ -24,23 +22,28 @@ function Header() {
     }
   };
 
-  const onTransitionEnd = () => {
-    // Only set to false if menu is not open, i.e. has to be called AFTER "setMenu(false)" has async completed 
-    if (!menuOpen) {
-      console.log('onTransitionEnd called, setting isTransitionEnabled to false');
-      setIsTransitionEnabled(false);
-    }
-  };
 
   // Attach event listener to the DOM element after the component mounts
   useEffect(() => {
+    // This code runs after the component is mounted
+  
+    const onTransitionEnd = () => {
+      // Only set to false if menu is not open
+      if (!menuOpen) {
+        console.log('onTransitionEnd called, setting isTransitionEnabled to false');
+        setIsTransitionEnabled(false);
+      }
+    };
+  
     const navElement = navRef.current;
     navElement.addEventListener('transitionend', onTransitionEnd);
-
+  
+    // Cleanup the event listener when the component unmounts
     return () => {
       navElement.removeEventListener('transitionend', onTransitionEnd);
     };
-  }, []);
+  }, [menuOpen]); // Make sure "useEffect" runs again if "menuOpen" changes to assure "onTransitionEnd" uses the latest value
+  
 
   return (
     <header className={`header ${menuOpen ? 'menu-open' : ''}`}>
