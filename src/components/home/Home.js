@@ -48,7 +48,7 @@ function Home() {
             <div className="text">
               <Typewriter
                 words={[
-                  'Eat very long this is a very long text now and I would expect it to make a line break after reaching the end of the width',
+                  'Exploring the world, one frame at a time. Unveiling the silent stories etched in light and shadows.',
                 ]}
                 loop={1}
                 cursor
