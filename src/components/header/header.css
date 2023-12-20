@@ -76,7 +76,7 @@ nav ul li {
 
 nav ul li a {
     text-decoration: none;
-    color: #ffffff;
+    color: rgba(255, 255, 255, 0.8); /* White with 80% opacity */
     font-family: 'Futura', sans-serif;
     opacity: 1;
     font-size: 22px;
@@ -90,11 +90,7 @@ nav li:hover {
     opacity: 0.3;
 }
 
-nav a {
-    text-decoration: none;
-    color: #000000;
-   
-}
+
 
 @media (max-width: 768px) {
     /* Styling of menu icon */
