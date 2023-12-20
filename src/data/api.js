@@ -1,6 +1,5 @@
 // api.js
 
-import { getImageUrl } from '../constants/constants';
 import { contentfulConfig, getHomeImagesContentType } from './../constants/constants';
 import { createClient } from 'contentful';
 
@@ -11,8 +10,7 @@ const contentfulClient = createClient({
   accessToken: accessToken,
 });
 
-// TODO: Rename appropriately 
-export async function fetchImageUrls() {
+export async function getHomeImages() {
   try {
     const response = await contentfulClient.getEntries({
       content_type: getHomeImagesContentType(),

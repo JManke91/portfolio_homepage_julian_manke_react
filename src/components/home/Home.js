@@ -3,7 +3,7 @@ import './Home.css';
 import { Parallax, ParallaxLayer } from '@react-spring/parallax';
 import { Typewriter } from 'react-simple-typewriter';
 
-import { fetchImageUrls } from '../../data/api';
+import { getHomeImages } from '../../data/api';
 
 function Home() {
   // LIFECYCLE:
@@ -20,7 +20,7 @@ function Home() {
     // TOOD: Implement repositories
     async function fetchData() {
       try {
-        const urls = await fetchImageUrls();
+        const urls = await getHomeImages();
         setImageUrls(urls);
       } catch (error) {
         console.error(error.message);
