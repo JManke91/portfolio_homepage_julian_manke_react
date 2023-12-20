@@ -1,12 +1,14 @@
 // Header.js
 
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import './header.css';
 import { Link } from 'react-router-dom';
 
 function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [isTransitionEnabled, setIsTransitionEnabled] = useState(false);
+
+  const navRef = useRef(null);
 
   // ASYNC OPERATION
   const toggleMenu = () => {
@@ -15,18 +17,30 @@ function Header() {
     if (!menuOpen) {
       setIsTransitionEnabled(true);
       setMenuOpen(true);
-      console.log('isTransitionEnabled from toggleMenu:', isTransitionEnabled);
+      console.log('isTransitionEnabled from toggleMenu, setting to true:', isTransitionEnabled);
     } else {
-      //setIsTransitionEnabled(true);
+      console.log('toggleMenu, doing nothing to isTransitionEnabled')
       setMenuOpen(false);
     }
   };
 
-  const onAnimationEnd = () => {
-    // FIXME: NEVER BEING CALLED
-    console.log('onAnimationEnd called');
-    setIsTransitionEnabled(false);
+  const onTransitionEnd = () => {
+    // Only set to false if menu is not open, i.e. has to be called AFTER "setMenu(false)" has async completed 
+    if (!menuOpen) {
+      console.log('onTransitionEnd called, setting isTransitionEnabled to false');
+      setIsTransitionEnabled(false);
+    }
   };
+
+  // Attach event listener to the DOM element after the component mounts
+  useEffect(() => {
+    const navElement = navRef.current;
+    navElement.addEventListener('transitionend', onTransitionEnd);
+
+    return () => {
+      navElement.removeEventListener('transitionend', onTransitionEnd);
+    };
+  }, []);
 
   return (
     <header className={`header ${menuOpen ? 'menu-open' : ''}`}>
@@ -37,7 +51,7 @@ function Header() {
           <span></span>
         </div>
         <nav
-          onAnimationEnd={onAnimationEnd}
+          ref={navRef}
           className={`nav-links ${menuOpen ? 'open' : 'close'} ${isTransitionEnabled ? 'transition-enabled' : 'no-transition'
             }`}
         >
