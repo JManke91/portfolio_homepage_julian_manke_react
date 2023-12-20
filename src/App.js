@@ -8,19 +8,15 @@ import PortfolioDetail from './components/portfoliodetail/portfoliodetail';
 import Footer from './components/footer/Footer';
 import Home from './components/home/Home';
 
-import GetImageAndCaptionDataAndUpdateState from './components/portfoliogrid/getDataAndUpdateState';
-
 function App() {
-  // TODO: Fetch Data only when page is clicked
-  const { blogItemsData } = GetImageAndCaptionDataAndUpdateState();
 
   return (
     <Router>
       <div className="App">
         <Header />
         <Routes>
-          <Route path="/" element={<Home />} /> {/* Use the Home component */}
-          <Route path="/portfolio" element={<PortfolioGrid blogItemsData={blogItemsData} />} />
+          <Route path="/" element={<Home />} />
+          <Route path="/portfolio" element={<PortfolioGrid />} />
           <Route path="/portfolio/:id" element={<PortfolioDetail />} />
           <Route path="/about" element={<About />} />
 
