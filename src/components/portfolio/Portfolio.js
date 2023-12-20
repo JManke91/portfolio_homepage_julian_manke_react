@@ -1,9 +1,11 @@
+// Portfolio.js
+
 import React from 'react';
-import './../styles.css'; // Import the CSS file
+import './Portfolio.css'; // Import your new CSS file
 
 function Portfolio() {
     return (
-        <section id="portfolio" className="portfolio">
+        <section className="portfolio-section">
             <h2>Portfolio</h2>
             {/* Add your photography portfolio images and descriptions here */}
         </section>

@@ -82,22 +82,20 @@ nav li:hover {
 nav a {
     text-decoration: none;
     color: #000000;
-    font-weight: bold;
+   
 }
 
 @media (max-width: 768px) {
-
-
-
+    /* Styling of menu icon */
     .menu-icon {
         display: flex;
         /* Show the menu icon initially for smaller devices */
         flex-direction: column;
         justify-content: center;
         /* Center the menu icon horizontally */
-        top: 20px;
+        top: 25px;
+        right: 25px;
         /* Adjust the top position as needed */
-        left: 50%;
         align-items: center;
         /* Center the menu icon vertically */
         position: fixed;
@@ -107,33 +105,32 @@ nav a {
         /* ensure the menu button is on top */
     }
 
+    /* Styling of nav elements */
     .nav-links {
         opacity: 0;
-        transform: translateX(100%);
+        transform: translateX(-100%);
         /* Initially off-screen to the right */
         /* Initial state for opacity transition */
         visibility: hidden;
         /* Initial state for visibility transition */
         transition: none;
         /* No transition by default */
-        /* Transitions for opacity and visibility properties */
-        /* Hide the nav elements initially for smaller devices */
         position: fixed;
         top: 0;
-        right: 0;
+        left: 0;
         height: 100%;
         width: 100%;
         padding-top: 100px;
+        padding-left: 25px;
         /* Adjust the top padding as needed */
 
-        align-items: center;
+        align-items: flex-start;
         /* Center the menu icon vertically */
         background-color: rgba(0, 0, 0, 0.8);
         z-index: 1;
         flex-direction: column;
         display: flex;
         /* Needs to be there for the initial animation */
-        
     }
 
     .menu-open .nav-links {
@@ -147,7 +144,7 @@ nav a {
     .menu-closed .nav-links {
         opacity: 0;
         visibility: hidden;
-        transform: translateX(100%);
+        transform: translateX(-100%);
         /* Move off-screen to the right */
 
     }
@@ -201,5 +198,9 @@ nav a {
         opacity: 1;
         pointer-events: auto;
         /* Make the overlay interactive when shown */
+    }
+
+    .nav-links ul li a {
+        font-size: 28px; /* Adjust the font size as needed */
     }
 }
