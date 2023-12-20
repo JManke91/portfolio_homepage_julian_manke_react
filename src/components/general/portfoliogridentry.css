@@ -19,12 +19,13 @@
     filter: blur(10px);
   }
   
-  /* Styles the text */
+  /* Styles the caption */
   p {
     margin-top: 10px;
     font-weight: bold;
     /* Makes the text bold */
     font-size: 20px;
+    color: white; /* Set text color to white */
     /* Adjust the font size as needed */
     /* Add any other styling to the text if needed */
   }

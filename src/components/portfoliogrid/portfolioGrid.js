@@ -1,6 +1,7 @@
 // PortfolioGrid.js
 
 import React from 'react';
+import './portfoliogrid.css'; // Import your new CSS file
 import { Link } from 'react-router-dom';
 import Masonry, { ResponsiveMasonry } from 'react-responsive-masonry';
 import { motion } from 'framer-motion';
@@ -22,11 +23,12 @@ const PortfolioGrid = ({ blogItemsData }) => {
   ));
 
   return (
-    <motion.div className="App">
+    <div className="portfolio-grid-wrapper" >
+      {/* Add top padding to the entire grid */}
       <ResponsiveMasonry columnsCountBreakPoints={{ 500: 1, 700: 2, 768: 3 }}>
         <Masonry>{blogGridItems}</Masonry>
       </ResponsiveMasonry>
-    </motion.div>
+    </div>
   );
 };
 
