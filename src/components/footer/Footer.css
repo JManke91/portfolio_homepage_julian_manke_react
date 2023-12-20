@@ -3,9 +3,9 @@
     background-color: rgba(0, 0, 0, 0.7);
     color: #fff;
     text-align: center;
-    padding: 1rem;
+    padding-top: 1rem; /* Set padding to the top */
+    padding-bottom: 1rem; /* Set padding to the top */
     position: fixed;
-    ;
     /* Set the footer to absolute position */
     bottom: 0;
     left: 0;
@@ -31,7 +31,6 @@
     text-decoration: none;
     color: #fff;
     /* Set the color to white */
-    margin-left: 10px;
     /* Add spacing between the icon and other content */
 }
 
