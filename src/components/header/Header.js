@@ -1,5 +1,3 @@
-// Header.js
-
 import React, { useState, useEffect, useRef } from 'react';
 import './header.css';
 import { Link } from 'react-router-dom';
@@ -7,46 +5,46 @@ import { Link } from 'react-router-dom';
 function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [isTransitionEnabled, setIsTransitionEnabled] = useState(false);
+  const [isHeaderVisible, setIsHeaderVisible] = useState(true);
+  const [prevScrollPos, setPrevScrollPos] = useState(0);
 
   const navRef = useRef(null);
 
   const toggleMenu = () => {
-
     if (!menuOpen) {
       setIsTransitionEnabled(true);
       setMenuOpen(true);
-      console.log('isTransitionEnabled from toggleMenu, setting to true:', isTransitionEnabled);
     } else {
-      console.log('toggleMenu, doing nothing to isTransitionEnabled')
       setMenuOpen(false);
     }
   };
 
-
-  // Attach event listener to the DOM element after the component mounts
   useEffect(() => {
-    // This code runs after the component is mounted
-  
     const onTransitionEnd = () => {
-      // Only set to false if menu is not open
       if (!menuOpen) {
-        console.log('onTransitionEnd called, setting isTransitionEnabled to false');
         setIsTransitionEnabled(false);
       }
     };
-  
+
+    const handleScroll = () => {
+      const currentScrollPos = window.scrollY;
+      setIsHeaderVisible(prevScrollPos > currentScrollPos || currentScrollPos === 0);
+      setPrevScrollPos(currentScrollPos);
+    };
+
     const navElement = navRef.current;
     navElement.addEventListener('transitionend', onTransitionEnd);
-  
-    // Cleanup the event listener when the component unmounts
+
+    window.addEventListener('scroll', handleScroll);
+
     return () => {
       navElement.removeEventListener('transitionend', onTransitionEnd);
+      window.removeEventListener('scroll', handleScroll);
     };
-  }, [menuOpen]); // Make sure "useEffect" runs again if "menuOpen" changes to assure "onTransitionEnd" uses the latest value
-  
+  }, [menuOpen, setIsHeaderVisible, prevScrollPos]);
 
   return (
-    <header className={`header ${menuOpen ? 'menu-open' : ''}`}>
+    <header className={`header ${menuOpen ? 'menu-open' : ''} ${!isHeaderVisible ? 'header-hidden' : 'header-visible'}`}>
       <div className="nav-container">
         <div className="menu-icon" onClick={toggleMenu}>
           <span></span>
@@ -70,4 +68,3 @@ function Header() {
 }
 
 export default Header;
-
