@@ -8,3 +8,4 @@ export const contentfulConfig = {
 };
 
 export const getHomeImagesContentType = () => 'homeImage';
+export const getContentType = () => 'portfolioCoverImage';

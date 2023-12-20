@@ -3,7 +3,7 @@ import './Home.css';
 import { Parallax, ParallaxLayer } from '@react-spring/parallax';
 import { Typewriter } from 'react-simple-typewriter';
 
-import { getHomeImages } from '../../data/api';
+import { getHomeImages } from '../../data/contentful';
 
 function Home() {
   // LIFECYCLE:

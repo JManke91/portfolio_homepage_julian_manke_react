@@ -1,0 +1,30 @@
+.image-container {
+    margin-top: 10px;
+    /* Top margin for image + text */
+    display: flex;
+    flex-direction: column;
+    /* Stacks the items vertically */
+    align-items: center;
+    /* Centers items horizontally */
+    text-align: center;
+    /* Centers text horizontally (optional) */
+  }
+  
+  .image {
+    max-width: 100%;
+    transition: all 0.4s ease-in-out;
+  }
+  
+  .blur {
+    filter: blur(10px);
+  }
+  
+  /* Styles the text */
+  p {
+    margin-top: 10px;
+    font-weight: bold;
+    /* Makes the text bold */
+    font-size: 20px;
+    /* Adjust the font size as needed */
+    /* Add any other styling to the text if needed */
+  }
