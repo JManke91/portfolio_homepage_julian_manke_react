@@ -5,9 +5,11 @@ import Masonry, { ResponsiveMasonry } from 'react-responsive-masonry';
 import { motion } from 'framer-motion';
 import PortfolioGridEntry from '../general/PortfolioGridEntry';
 import { getCoverImagesDataFromContentful } from '../../data/contentful';
+import LoadingSpinner from './../loadingspinner/LoadingSpinner'; // Adjust the path based on your project structure
 
 const PortfolioGrid = () => {
   const [blogItemsData, setBlogItemsData] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -16,11 +18,17 @@ const PortfolioGrid = () => {
         setBlogItemsData(imagesAndCaptions);
       } catch (error) {
         console.error('Error fetching data:', error);
+      } finally {
+        setIsLoading(false);
       }
     };
 
     fetchData();
   }, []);
+
+  if (isLoading) {
+    return <LoadingSpinner />;
+  }
 
   const blogGridItems = blogItemsData.map((item, index) => (
     <motion.div

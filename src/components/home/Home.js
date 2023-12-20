@@ -1,34 +1,33 @@
+// Home.js
 import React, { useState, useEffect } from 'react';
 import './Home.css';
 import { Parallax, ParallaxLayer } from '@react-spring/parallax';
 import { Typewriter } from 'react-simple-typewriter';
 
 import { getHomeImages } from '../../data/contentful';
+import LoadingSpinner from '../loadingspinner/LoadingSpinner'; // Import the loading spinner component
 
 function Home() {
-  // LIFECYCLE:
-  // useState hook initializes the imageUrls state to an empty array, and the component renders with an initial state.
-  // When the Home component mounts, the useState hook initializes the imageUrls state to an empty array, and the component renders with an initial state.
-  // the state update triggers a re-render of the component.
   const [imageUrls, setImageUrls] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Function to fetch image URLs
-    // TODO: Fetch images in lower quality
-    // TODO: Provide proper error handling, if fetching of images fails
-    // TODO: Make data fetching more generic, so logic can be used accross several use cases
-    // TOOD: Implement repositories
     async function fetchData() {
       try {
         const urls = await getHomeImages();
         setImageUrls(urls);
+        setLoading(false); // Set loading to false when data is loaded
       } catch (error) {
         console.error(error.message);
       }
     }
 
     fetchData();
-  }, []); // Empty dependency array means this effect runs once after the initial render
+  }, []);
+
+  if (loading) {
+    return <LoadingSpinner />; // Display the loading spinner while data is being fetched
+  }
 
   return (
     <div className="home">

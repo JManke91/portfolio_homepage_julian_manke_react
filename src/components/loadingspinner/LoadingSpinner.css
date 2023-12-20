@@ -1,0 +1,12 @@
+/* LoadingSpinner.css */
+.loading-spinner-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    /* Set the container to the full viewport height */
+    background-color: black;
+    /* Add a black background color */
+    color: white;
+    /* Set text color to white */
+}
