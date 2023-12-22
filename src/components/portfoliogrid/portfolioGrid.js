@@ -47,7 +47,7 @@ const PortfolioGrid = () => {
   return (
     <div className="portfolio-grid-wrapper">
       {/* Add top padding to the entire grid */}
-      <ResponsiveMasonry columnsCountBreakPoints={{ 500: 1, 700: 2, 768: 3 }}>
+      <ResponsiveMasonry columnsCountBreakPoints={{ 500: 1, 1000: 2, 1100: 3 }}>
         <Masonry>{blogGridItems}</Masonry>
       </ResponsiveMasonry>
     </div>

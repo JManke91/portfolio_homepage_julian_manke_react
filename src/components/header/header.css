@@ -1,12 +1,12 @@
 /* Header.css */
 
 .header {
-    background-color: transparent;
     position: absolute;
     color: #ffffff;
     width: 100%;
     z-index: 2;
-    padding: 20px 0;
+    padding: 50px;
+    
     transition: opacity 0.5s ease, visibility 0.5s ease; /* Add transition for smooth hiding and showing with ease animation */
 }
 
@@ -47,6 +47,7 @@
     position: fixed;
     top: 5%;
     right: 5%;
+    
 
     z-index: 1;
     flex-direction: column;
@@ -76,18 +77,28 @@ nav ul li {
 
 nav ul li a {
     text-decoration: none;
-    color: rgba(255, 255, 255, 0.8); /* White with 80% opacity */
+    color: rgba(255, 255, 255, 0.8);
     font-family: 'Futura', sans-serif;
     opacity: 1;
     font-size: 22px;
+    transition: color 0.3s ease, text-decoration 0.3s ease;
+}
+
+nav ul:hover li:not(:hover) {
+    opacity: 0.3; /* Reduce the opacity of all other nav elements when a specific nav element is being hovered */
+}
+
+nav ul li:hover {
+    opacity: 1; /* Keep the opacity of the hovered element at 1 */
+}
+
+nav ul li:hover a {
+    color: orange;
+    text-decoration: underline;
 }
 
 nav ul li:last-child {
     margin-right: 0;
-}
-
-nav li:hover {
-    opacity: 0.3;
 }
 
 
@@ -107,7 +118,6 @@ nav li:hover {
         /* Center the menu icon vertically */
         position: fixed;
         transform: translateX(-50%);
-
         z-index: 3;
         /* ensure the menu button is on top */
     }
