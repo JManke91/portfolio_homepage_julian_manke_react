@@ -1,0 +1,8 @@
+.portfolio-grid-detail-wrapper {
+    padding-top: 70px;
+    /* Adjust the value as needed */
+    background-color: black;
+    /* Adjust the color as needed */
+    min-height: 100vh;
+    /* Ensure the background covers the entire viewport height */
+}

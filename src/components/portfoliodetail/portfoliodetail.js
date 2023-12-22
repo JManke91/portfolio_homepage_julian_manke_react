@@ -5,6 +5,7 @@ import { useParams } from 'react-router-dom';
 import Masonry, { ResponsiveMasonry } from 'react-responsive-masonry';
 import PortfolioGridEntry from '../general/PortfolioGridEntry';
 import { getPortfolioImageSetDataFromContentful } from '../../data/contentful';
+import './PortfolioDetail.css';
 
 const PortfolioDetail = () => {
     const { id } = useParams();
@@ -28,7 +29,7 @@ const PortfolioDetail = () => {
     ));
 
     return (
-        <div className="App">
+        <div className="portfolio-grid-detail-wrapper">
             <ResponsiveMasonry columnsCountBreakPoints={{ 500: 1, 768: 2, 1200: 3 }}>
                 <Masonry>{imageItems}</Masonry>
             </ResponsiveMasonry>

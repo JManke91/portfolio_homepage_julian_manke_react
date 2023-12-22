@@ -133,7 +133,7 @@ nav li:hover {
 
         align-items: flex-start;
         /* Center the menu icon vertically */
-        background-color: rgba(0, 0, 0, 0.8);
+        background-color: rgba(0, 0, 0, 0.9);
         z-index: 1;
         flex-direction: column;
         display: flex;
