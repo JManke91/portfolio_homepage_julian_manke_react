@@ -1,11 +1,10 @@
 // Home.js
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import './Home.css';
 import { Parallax, ParallaxLayer } from '@react-spring/parallax';
 import { Typewriter } from 'react-simple-typewriter';
-
 import { getHomeImages } from '../../data/contentful';
-import LoadingSpinner from '../loadingspinner/LoadingSpinner'; // Import the loading spinner component
+import LoadingSpinner from '../loadingspinner/LoadingSpinner';
 
 function Home() {
   const [imageUrls, setImageUrls] = useState([]);

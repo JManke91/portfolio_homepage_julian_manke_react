@@ -1,14 +1,16 @@
 import React, { useState, useEffect, useRef } from 'react';
 import './header.css';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [isTransitionEnabled, setIsTransitionEnabled] = useState(false);
   const [isHeaderVisible, setIsHeaderVisible] = useState(true);
   const [prevScrollPos, setPrevScrollPos] = useState(0);
+  const [activeLink, setActiveLink] = useState(null);
 
   const navRef = useRef(null);
+  const location = useLocation();
 
   const toggleMenu = () => {
     if (!menuOpen) {
@@ -43,6 +45,13 @@ function Header() {
     };
   }, [menuOpen, setIsHeaderVisible, prevScrollPos]);
 
+  useEffect(() => {
+    // Extract the route name from the location pathname
+    const currentRoute = location.pathname.split('/')[1];
+
+    setActiveLink(currentRoute || 'home'); // Set default to 'home' if no route is present
+  }, [location.pathname]);
+
   return (
     <header className={`header ${menuOpen ? 'menu-open' : ''} ${!isHeaderVisible ? 'header-hidden' : 'header-visible'}`}>
       <div className="nav-container">
@@ -57,9 +66,21 @@ function Header() {
             }`}
         >
           <ul>
-            <li><Link to="/" onClick={() => setMenuOpen(false)}>Home</Link></li>
-            <li><Link to="/portfolio" onClick={() => setMenuOpen(false)}>Portfolio</Link></li>
-            <li><Link to="/about" onClick={() => setMenuOpen(false)}>About</Link></li>
+            <li><Link
+              to="/"
+              onClick={() => setMenuOpen(false)}
+              className={activeLink === 'home' ? 'active' : ''}
+            >Home</Link></li>
+            <li><Link
+              to="/portfolio"
+              onClick={() => setMenuOpen(false)}
+              className={activeLink === 'portfolio' ? 'active' : ''}
+            >Portfolio</Link></li>
+            <li><Link
+              to="/about"
+              onClick={() => setMenuOpen(false)}
+              className={activeLink === 'about' ? 'active' : ''}
+            >About</Link></li>
           </ul>
         </nav>
       </div>
