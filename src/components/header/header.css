@@ -95,13 +95,13 @@ nav ul li:hover {
 }
 
 nav ul li:hover a {
-    color: orange;
+    color: white;
     text-decoration: underline;
 }
 
 /* Makes sure the clicked element changes color */
 nav ul li a.active {
-    color: orange;
+    color: white;
     text-decoration: underline;
 }
 
@@ -116,7 +116,7 @@ nav ul li:last-child {
 
     /* Add dark grey background color to the header for small devices and adjusts the height with padding */
     .nav-container {
-        background-color: rgba(0, 0, 0, 0.8);
+        background-color: rgba(0, 0, 0, 1.0);
         position: fixed;
         top: 0;
         left: 0;

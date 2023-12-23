@@ -42,6 +42,9 @@ function Home() {
           style={{
             backgroundImage: `url(${imageUrls[0]})`,
             backgroundSize: 'cover',
+            backgroundRepeat: 'no-repeat',
+            backgroundPosition: 'center',
+            width: '100%',
           }}
         >
           {/* Text on the First Image */}
@@ -70,6 +73,9 @@ function Home() {
           style={{
             backgroundImage: `url(${imageUrls[1]})`,
             backgroundSize: 'cover',
+            backgroundRepeat: 'no-repeat',
+            backgroundPosition: 'center',
+            width: '100%',
           }}
         />
 
