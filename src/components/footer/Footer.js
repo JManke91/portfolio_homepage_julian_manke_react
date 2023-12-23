@@ -9,7 +9,7 @@ function Footer() {
             <div className="footer-content">
                 {/* Your other footer content */}
                 <div className="follow-section">
-                    <p className="follow-text">Follow</p>
+                    
                     <div className="instagram-section">
                         <a
                             href="https://www.instagram.com/julian.manke/"

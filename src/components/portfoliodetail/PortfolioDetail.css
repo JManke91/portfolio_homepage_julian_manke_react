@@ -6,3 +6,7 @@
     min-height: 100vh;
     /* Ensure the background covers the entire viewport height */
 }
+
+.portfolio-grid-detail-wrapper {
+    margin-top: 80px;
+}

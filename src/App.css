@@ -1,5 +1,10 @@
 .App {
   /* Setup */
+  background-color: black; /* Set the background color to black */
+}
+
+body {
+  background-color: black; /* Set the background color to black */
 }
 
 .App-logo {
