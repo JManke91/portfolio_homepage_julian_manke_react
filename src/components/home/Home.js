@@ -1,20 +1,23 @@
 // Home.js
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import './Home.css';
 import { Parallax, ParallaxLayer } from '@react-spring/parallax';
 import { Typewriter } from 'react-simple-typewriter';
-import { getHomeImages } from '../../data/contentful';
+import { getHomeImages, fetchQuote } from '../../data/contentful';
 import LoadingSpinner from '../loadingspinner/LoadingSpinner';
 
 function Home() {
   const [imageUrls, setImageUrls] = useState([]);
+  const [quote, setQuote] = useState('');
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     async function fetchData() {
       try {
         const urls = await getHomeImages();
+        const quoteText = await fetchQuote();
         setImageUrls(urls);
+        setQuote(quoteText);
         setLoading(false); // Set loading to false when data is loaded
       } catch (error) {
         console.error(error.message);
@@ -46,7 +49,7 @@ function Home() {
             <div className="text">
               <Typewriter
                 words={[
-                  'Exploring the world, one frame at a time. Unveiling the silent stories etched in light and shadows.',
+                  quote
                 ]}
                 loop={1}
                 cursor

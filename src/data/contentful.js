@@ -10,6 +10,23 @@ const contentfulClient = createClient({
   accessToken: accessToken,
 });
 
+export async function fetchQuote() {
+  try {
+    const response = await contentfulClient.getEntries({
+      content_type: 'cite',
+    });
+
+    // Assume you have only one entry in your "cite" content type
+    const firstEntry = response.items[0];
+    const quoteText = firstEntry.fields.quote;
+    return quoteText;
+
+  } catch (error) {
+    console.error(error.message);
+    throw error;
+  }
+}
+
 export async function getHomeImages() {
   try {
     const response = await contentfulClient.getEntries({
