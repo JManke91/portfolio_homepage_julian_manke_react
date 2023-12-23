@@ -33,7 +33,7 @@ class PortfolioGridEntry extends Component {
           src={this.imageUrl}
           style={{
             width: "95%",
-            borderRadius: "8px",
+            // borderRadius: "8px",
             aspectRatio: aspectRatio ? aspectRatio : undefined,
           }}
           alt={"Default caption"}

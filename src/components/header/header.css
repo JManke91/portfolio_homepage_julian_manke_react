@@ -154,11 +154,14 @@ nav ul li:last-child {
 
         align-items: flex-start;
         /* Center the menu icon vertically */
-        background-color: rgba(0, 0, 0, 0.9);
+        background-color: rgba(0, 0, 0, 0.8);
         z-index: 1;
         flex-direction: column;
         display: flex;
         /* Needs to be there for the initial animation */
+
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
     }
 
     .menu-open .nav-links {
