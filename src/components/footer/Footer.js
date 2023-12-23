@@ -8,19 +8,23 @@ function Footer() {
       <footer className="footer">
         <div className="footer-content">
           {/* Your other footer content */}
-          <p className="follow-text">Follow</p>
-          <a
-            href="https://www.instagram.com/julian.manke/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="instagram-link"
-          >
-            <FontAwesomeIcon icon={faInstagram} size="2x" />
-          </a>
+          <div className="follow-section">
+            <p className="follow-text">Follow</p>
+            <div className="instagram-section">
+              <a
+                href="https://www.instagram.com/julian.manke/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="instagram-link"
+              >
+                <FontAwesomeIcon icon={faInstagram} size="2x" />
+              </a>
+              <p className="hello-text">Julian.Manke</p>
+            </div>
+          </div>
         </div>
       </footer>
     );
-  }
+}
 
 export default Footer;
-

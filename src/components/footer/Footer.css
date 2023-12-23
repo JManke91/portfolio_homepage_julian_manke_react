@@ -39,6 +39,7 @@
     /* Center horizontally within the footer */
 }
 
+
 /* Instagram icon styles */
 .instagram-link {
     text-decoration: none;
@@ -53,6 +54,7 @@
     fill: #fff;
     transition: opacity 0.3s;
     /* Add a transition for the opacity property */
+    margin-top: 25px; /* Add margin-top to vertically align the Instagram logo */
 }
 
 /* Change the opacity on hover */
@@ -64,8 +66,22 @@
 
 .follow-text {
     margin-right: 0.5rem; /* Add some spacing to the right of the text */
-    padding-top: 1.0rem;
     color: #fff; /* Set the color to white */
     font-weight: 100;
     font-size: 30px;
+}
+
+.follow-section {
+    display: flex;
+    align-items: center; /* Center vertically */
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&display=swap');
+
+/* Additional text styles */
+.hello-text {
+    font-family: 'Dancing Script', cursive;
+    color: #fff; /* Set the color to white */
+    font-size: 15px;
+    margin-top: 5px; /* Add some spacing between the Instagram logo and the "hello" text */
 }
