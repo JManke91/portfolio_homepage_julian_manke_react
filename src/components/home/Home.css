@@ -17,7 +17,7 @@
 .text {
   font-family: 'Courier New', Courier, monospace;
   font-weight: bold;
-  font-size: 34px;
+  font-size: 24px;
   color: white;
   max-width: 100%; /* Ensure text doesn't exceed its container width */
   text-align: center; /* Center the text within its container */

@@ -78,9 +78,12 @@ nav ul li {
 nav ul li a {
     text-decoration: none;
     color: rgba(255, 255, 255, 0.8);
-    font-family: 'Futura', sans-serif;
+    font-family: 'Karla';
+    font-weight: 400;
+    font-style: normal;
+    letter-spacing: 0.15em;
+    font-size: 18px;
     opacity: 1;
-    font-size: 22px;
     transition: color 0.3s ease, text-decoration 0.3s ease;
 }
 
