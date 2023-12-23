@@ -16,6 +16,10 @@
     /* Make it full width */
 }
 
+.instagram-section + .instagram-section {
+    margin-left: 20px; /* Adjust the margin as needed */
+}
+
 .footer:before {
     content: "";
     position: absolute;
