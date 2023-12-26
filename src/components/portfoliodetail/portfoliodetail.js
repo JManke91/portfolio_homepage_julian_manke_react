@@ -5,6 +5,7 @@ import { useParams } from 'react-router-dom';
 import Masonry, { ResponsiveMasonry } from 'react-responsive-masonry';
 import PortfolioGridEntry from '../general/PortfolioGridEntry';
 import { getPortfolioImageSetDataFromContentful } from '../../data/contentful';
+import LoadingSpinner from './../loadingspinner/LoadingSpinner'; // Adjust the path based on your project structure
 import './PortfolioDetail.css';
 
 const PortfolioDetail = () => {
@@ -12,21 +13,33 @@ const PortfolioDetail = () => {
     // Ensure id is a number, as it's coming from the URL parameters
     const portfolioImageSetId = id;
     const [imageSetData, setImageSetData] = useState([]);
+    const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
-        const fetchImageSetData = async () => {
-            const imageSetData = await getPortfolioImageSetDataFromContentful(portfolioImageSetId);
-            setImageSetData(imageSetData);
+        const fetchData = async () => {
+            try {
+                const imageSetData = await getPortfolioImageSetDataFromContentful(portfolioImageSetId);
+                setImageSetData(imageSetData);
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            } finally {
+                setIsLoading(false);
+            }
         };
 
-        fetchImageSetData();
+        fetchData();
     }, [portfolioImageSetId]);
+
 
     const imageItems = imageSetData.map((image, index) => (
         <div key={index} className="container">
             <PortfolioGridEntry imageUrl={image.imageUrl} caption={image.caption} />
         </div>
     ));
+
+    if (isLoading) {
+        return <LoadingSpinner />;
+    }
 
     return (
         <div className="portfolio-grid-detail-wrapper">

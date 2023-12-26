@@ -14,7 +14,18 @@
     z-index: 1;
     /* Ensure it's above other content */
     /* Make it full width */
+    transition: opacity 0.5s ease, visibility 0.5s ease;
 }
+
+.footer-hidden {
+    opacity: 0;
+    visibility: hidden;
+  }
+  
+  .footer-visible {
+    opacity: 1;
+    visibility: visible;
+  }
 
 .instagram-section + .instagram-section {
     margin-left: 20px; /* Adjust the margin as needed */
