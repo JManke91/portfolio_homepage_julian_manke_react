@@ -11,6 +11,16 @@
     /* Add transition for smooth hiding and showing with ease animation */
 }
 
+.header-footer-hidden .header {
+    opacity: 0;
+    visibility: hidden;
+}
+
+.header-footer-visible .header {
+    opacity: 1;
+    visibility: visible;
+}
+
 .header-hidden {
     opacity: 0;
     visibility: hidden;

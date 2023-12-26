@@ -35,10 +35,12 @@ const PortfolioDetail = () => {
 
     const openModal = (imageUrl) => {
         setSelectedImage(imageUrl);
+        document.body.classList.add('header-footer-hidden');
     };
 
     const closeModal = () => {
         setSelectedImage(null);
+        document.body.classList.remove('header-footer-hidden');
     };
 
 
@@ -53,7 +55,7 @@ const PortfolioDetail = () => {
     }
 
     return (
-        <div className="portfolio-grid-detail-wrapper">
+        <div className="portfolio-grid-detail-wrapper header-footer-visible">
             <ResponsiveMasonry columnsCountBreakPoints={{ 500: 1, 768: 2, 1200: 3 }}>
                 <Masonry>{imageItems}</Masonry>
             </ResponsiveMasonry>

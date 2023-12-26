@@ -1,13 +1,33 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import './ImageModal.css'; // Adjust the path based on your project structure
+import './ImageModal.css';
 
 const ImageModal = ({ imageUrl, onClose }) => {
+  const [isActive, setIsActive] = useState(false);
+
+  useEffect(() => {
+    setIsActive(true);
+  }, []);
+
+  const handleClose = () => {
+    setIsActive(false);
+  };
+
+  const handleTransitionEnd = () => {
+    if (!isActive) {
+      onClose();
+    }
+  };
+
   return (
-    <div className="image-modal-overlay" onClick={onClose}>
-      <div className="image-modal-content">
+    <div
+      className={`image-modal-overlay ${isActive ? 'active' : ''}`}
+      onClick={handleClose}
+      onTransitionEnd={handleTransitionEnd}
+    >
+      <div className={`image-modal-content ${isActive ? 'active' : ''}`}>
         <img className="enlarged-image" src={imageUrl} alt="Enlarged" />
-        <span className="close-button" onClick={onClose}>
+        <span className="close-button" onClick={handleClose}>
           &times;
         </span>
       </div>
