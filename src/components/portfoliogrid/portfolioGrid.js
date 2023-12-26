@@ -17,6 +17,7 @@ const PortfolioGrid = () => {
         const imagesAndCaptions = await getCoverImagesDataFromContentful();
         setBlogItemsData(imagesAndCaptions);
       } catch (error) {
+        // TODO: Proper error handling
         console.error('Error fetching data:', error);
       } finally {
         setIsLoading(false);

@@ -7,6 +7,8 @@ import PortfolioGridEntry from '../general/PortfolioGridEntry';
 import { getPortfolioImageSetDataFromContentful } from '../../data/contentful';
 import LoadingSpinner from './../loadingspinner/LoadingSpinner'; // Adjust the path based on your project structure
 import './PortfolioDetail.css';
+import ImageModal from '../imagemodal/ImageModal';
+
 
 const PortfolioDetail = () => {
     const { id } = useParams();
@@ -14,6 +16,7 @@ const PortfolioDetail = () => {
     const portfolioImageSetId = id;
     const [imageSetData, setImageSetData] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
+    const [selectedImage, setSelectedImage] = useState(null);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -30,9 +33,17 @@ const PortfolioDetail = () => {
         fetchData();
     }, [portfolioImageSetId]);
 
+    const openModal = (imageUrl) => {
+        setSelectedImage(imageUrl);
+    };
+
+    const closeModal = () => {
+        setSelectedImage(null);
+    };
+
 
     const imageItems = imageSetData.map((image, index) => (
-        <div key={index} className="container">
+        <div key={index} className="container" onClick={() => openModal(image.imageUrl)}>
             <PortfolioGridEntry imageUrl={image.imageUrl} caption={image.caption} />
         </div>
     ));
@@ -46,6 +57,8 @@ const PortfolioDetail = () => {
             <ResponsiveMasonry columnsCountBreakPoints={{ 500: 1, 768: 2, 1200: 3 }}>
                 <Masonry>{imageItems}</Masonry>
             </ResponsiveMasonry>
+
+            {selectedImage && <ImageModal imageUrl={selectedImage} onClose={closeModal} />}
         </div>
     );
 };

@@ -25,7 +25,7 @@ class PortfolioGridEntry extends Component {
     return (
 
       <div
-        className="image-container">
+        className="image-container" onClick={this.props.onClick}>
         <img onLoad={() => this.setState({
           imgLoaded: true
         })}
