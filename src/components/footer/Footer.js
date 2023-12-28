@@ -9,17 +9,22 @@ function Footer() {
 
     useEffect(() => {
         const handleScroll = () => {
-          const currentScrollPos = window.scrollY;
-          setIsFooterVisible(prevScrollPos > currentScrollPos || currentScrollPos === 0);
-          setPrevScrollPos(currentScrollPos);
+            const currentScrollPos = window.scrollY;
+            const scrollThreshold = 20; // Adjust this threshold as needed
+
+            if (Math.abs(prevScrollPos - currentScrollPos) > scrollThreshold) {
+                setIsFooterVisible(prevScrollPos > currentScrollPos || currentScrollPos === 0);
+                setPrevScrollPos(currentScrollPos);
+            }
         };
-    
+
+
         window.addEventListener('scroll', handleScroll);
-    
+
         return () => {
-          window.removeEventListener('scroll', handleScroll);
+            window.removeEventListener('scroll', handleScroll);
         };
-      }, [prevScrollPos]);
+    }, [prevScrollPos]);
 
     return (
         <footer className={`footer ${isFooterVisible ? 'footer-visible' : 'footer-hidden'}`}>

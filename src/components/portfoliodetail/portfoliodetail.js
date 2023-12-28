@@ -55,16 +55,19 @@ const PortfolioDetail = () => {
 
         const handleScroll = () => {
             const currentScrollPos = window.scrollY;
-            console.log('handle scroll..', prevScrollPos > currentScrollPos || currentScrollPos === 0);
-            setChangeBackButtonOpacity(prevScrollPos > currentScrollPos || currentScrollPos === 0);
-            setPrevScrollPos(currentScrollPos);
+            const scrollThreshold = 20; // Adjust this threshold as needed
+
+            if (Math.abs(prevScrollPos - currentScrollPos) > scrollThreshold) {
+                setChangeBackButtonOpacity(prevScrollPos > currentScrollPos || currentScrollPos === 0);
+                setPrevScrollPos(currentScrollPos);
+            }
 
             // Add or remove scrolling-down class
-        if (prevScrollPos > currentScrollPos) {
-            document.body.classList.remove('scrolling-down');
-        } else {
-            document.body.classList.add('scrolling-down');
-        }
+            if (prevScrollPos > currentScrollPos) {
+                document.body.classList.remove('scrolling-down');
+            } else {
+                document.body.classList.add('scrolling-down');
+            }
         };
 
         window.addEventListener('scroll', handleScroll);

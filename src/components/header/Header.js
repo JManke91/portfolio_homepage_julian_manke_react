@@ -41,9 +41,14 @@ function Header() {
 
     const handleScroll = () => {
       const currentScrollPos = window.scrollY;
-      setIsHeaderVisible(prevScrollPos > currentScrollPos || currentScrollPos === 0);
-      setPrevScrollPos(currentScrollPos);
+      const scrollThreshold = 20; // Adjust this threshold as needed
+    
+      if (Math.abs(prevScrollPos - currentScrollPos) > scrollThreshold) {
+        setIsHeaderVisible(prevScrollPos > currentScrollPos || currentScrollPos === 0);
+        setPrevScrollPos(currentScrollPos);
+      }
     };
+    
 
     const navElement = navRef.current;
     navElement.addEventListener('transitionend', onTransitionEnd);
