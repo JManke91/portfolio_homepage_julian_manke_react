@@ -8,7 +8,7 @@
 }
 
 .portfolio-grid-detail-wrapper {
-    margin-top: 7vh;
+    margin-top: 8vh;
 }
 
 .portfolio-grid-entry {
@@ -22,4 +22,25 @@
 .portfolio-grid-entry:active {
     filter: brightness(70%);
     /* Adjust the brightness value as needed */
+}
+
+.back-button {
+    position: fixed;
+    top: 20px;
+    /* Adjust the top position as needed */
+    left: 12px;
+    /* Adjust the left position as needed */
+    z-index: 2;
+    /* Ensure the button is above other content */
+    margin: 0;
+    padding: 10px;
+    /* Adjust padding as needed */
+    font-size: 12px;
+    /* Adjust font size as needed */
+    /* Button background color */
+    color: white;
+    background-color: transparent; /* Set background color to transparent */
+    border: 1px solid white; /* Add border around the text */
+    border-radius: 5px; /* Optional: Add border-radius for rounded corners */
+    cursor: pointer;
 }

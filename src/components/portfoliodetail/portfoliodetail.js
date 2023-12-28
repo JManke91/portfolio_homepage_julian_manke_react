@@ -1,7 +1,7 @@
 // PortfolioDetail.js
 
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import Masonry, { ResponsiveMasonry } from 'react-responsive-masonry';
 import PortfolioGridEntry from '../general/PortfolioGridEntry';
 import { getPortfolioImageSetDataFromContentful } from '../../data/contentful';
@@ -17,6 +17,7 @@ const PortfolioDetail = () => {
     const [imageSetData, setImageSetData] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [selectedImage, setSelectedImage] = useState(null);
+    const navigate = useNavigate();
 
     useEffect(() => {
         const fetchData = async () => {
@@ -43,14 +44,20 @@ const PortfolioDetail = () => {
         document.body.classList.remove('header-footer-hidden');
     };
 
+    const handleBack = () => {
+        // Use the navigate function to go back to the grid page
+        console.log('handle back clicked');
+        navigate('/portfolio');
+    };
+
 
     const imageItems = imageSetData.map((image, index) => (
         <div key={index} className="container">
-          <div className="portfolio-grid-entry" onClick={() => openModal(image.imageUrl)}>
-            <PortfolioGridEntry imageUrl={image.imageUrl} caption={image.caption} />
-          </div>
+            <div className="portfolio-grid-entry" onClick={() => openModal(image.imageUrl)}>
+                <PortfolioGridEntry imageUrl={image.imageUrl} caption={image.caption} />
+            </div>
         </div>
-      ));
+    ));
 
     if (isLoading) {
         return <LoadingSpinner />;
@@ -58,6 +65,9 @@ const PortfolioDetail = () => {
 
     return (
         <div className="portfolio-grid-detail-wrapper header-footer-visible">
+            <button className="back-button" onClick={handleBack}>
+                Previous
+            </button>
             <ResponsiveMasonry columnsCountBreakPoints={{ 500: 1, 768: 2, 1200: 3 }}>
                 <Masonry>{imageItems}</Masonry>
             </ResponsiveMasonry>
