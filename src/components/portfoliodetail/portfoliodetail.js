@@ -1,5 +1,3 @@
-// PortfolioDetail.js
-
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import Masonry, { ResponsiveMasonry } from 'react-responsive-masonry';
@@ -9,15 +7,15 @@ import LoadingSpinner from './../loadingspinner/LoadingSpinner'; // Adjust the p
 import './PortfolioDetail.css';
 import ImageModal from '../imagemodal/ImageModal';
 
-
 const PortfolioDetail = () => {
     const { id } = useParams();
-    // Ensure id is a number, as it's coming from the URL parameters
     const portfolioImageSetId = id;
     const [imageSetData, setImageSetData] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [selectedImage, setSelectedImage] = useState(null);
     const navigate = useNavigate();
+    const [prevScrollPos, setPrevScrollPos] = useState(0);
+    const [changeBackButtonOpacity, setChangeBackButtonOpacity] = useState(true);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -45,11 +43,34 @@ const PortfolioDetail = () => {
     };
 
     const handleBack = () => {
-        // Use the navigate function to go back to the grid page
-        console.log('handle back clicked');
         navigate('/portfolio');
     };
 
+
+
+    useEffect(() => {
+
+        const handleScroll = () => {
+            const currentScrollPos = window.scrollY;
+            console.log('handle scroll..', prevScrollPos > currentScrollPos || currentScrollPos === 0);
+            setChangeBackButtonOpacity(prevScrollPos > currentScrollPos || currentScrollPos === 0);
+            setPrevScrollPos(currentScrollPos);
+
+            // Add or remove scrolling-down class
+        if (prevScrollPos > currentScrollPos) {
+            document.body.classList.remove('scrolling-down');
+        } else {
+            document.body.classList.add('scrolling-down');
+        }
+        };
+
+        window.addEventListener('scroll', handleScroll);
+
+        return () => {
+
+            window.removeEventListener('scroll', handleScroll);
+        };
+    }, [prevScrollPos, setChangeBackButtonOpacity]);
 
     const imageItems = imageSetData.map((image, index) => (
         <div key={index} className="container">
@@ -65,7 +86,7 @@ const PortfolioDetail = () => {
 
     return (
         <div className="portfolio-grid-detail-wrapper header-footer-visible">
-            <button className="back-button" onClick={handleBack}>
+            <button className={`back-button ${changeBackButtonOpacity ? 'original' : 'changeOpacity'}`} onClick={handleBack}>
                 Previous
             </button>
             <ResponsiveMasonry columnsCountBreakPoints={{ 500: 1, 768: 2, 1200: 3 }}>

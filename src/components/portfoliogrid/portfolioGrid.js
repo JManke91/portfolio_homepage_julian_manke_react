@@ -34,9 +34,7 @@ const PortfolioGrid = () => {
   const blogGridItems = blogItemsData.map((item, index) => (
     <motion.div
       key={index}
-      whileHover={{
-        scale: 1.1,
-      }}
+      /*whileHover={{scale: 1.1,}}*/
       className="container"
     >
       <Link to={`/portfolio/${item.portfolioImageSetId}`} style={{ textDecoration: 'none', color: 'inherit' }}>

@@ -1,6 +1,6 @@
 /* Add this to your CSS file */
 .portfolio-grid-wrapper {
-    
+
     /* Adjust the value as needed */
     background-color: black;
     /* Adjust the color as needed */
@@ -9,6 +9,6 @@
 }
 
 
-    .portfolio-grid-wrapper {
-        margin-top: 8vh;   
-    }
+.portfolio-grid-wrapper {
+    margin-top: 8vh;
+}

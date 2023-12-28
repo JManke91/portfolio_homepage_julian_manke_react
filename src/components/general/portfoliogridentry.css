@@ -9,6 +9,11 @@
     text-align: center;
     /* Centers text horizontally (optional) */
   }
+
+  .image-container:hover .image {
+    filter: brightness(70%);
+    /* Adjust the brightness value as needed */
+  }
   
   .image {
     max-width: 100%;

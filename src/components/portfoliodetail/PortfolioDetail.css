@@ -11,17 +11,14 @@
     margin-top: 8vh;
 }
 
-.portfolio-grid-entry {
-    /* Your existing styles for portfolio grid entries */
-
-    /* Add a transition for smooth opacity change */
-    transition: opacity 0.3s ease;
+.scrolling-down .portfolio-grid-detail-wrapper .back-button.changeOpacity {
+    opacity: 0.5;
+    transition: opacity 0.5s ease;
 }
 
-.portfolio-grid-entry:hover,
-.portfolio-grid-entry:active {
-    filter: brightness(70%);
-    /* Adjust the brightness value as needed */
+.portfolio-grid-detail-wrapper .back-button.original {
+    opacity: 1;
+    transition: opacity 0.5s ease;
 }
 
 .back-button {
