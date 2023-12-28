@@ -16,15 +16,26 @@ function Header() {
     if (!menuOpen) {
       setIsTransitionEnabled(true);
       setMenuOpen(true);
+      disableScrolling();
     } else {
       setMenuOpen(false);
+      enableScrolling();
     }
   };
+
+  const disableScrolling = () => {
+    document.body.style.overflow = 'hidden';
+  }
+
+  const enableScrolling = () => {
+    document.body.style.overflow = 'visible';
+  }
 
   useEffect(() => {
     const onTransitionEnd = () => {
       if (!menuOpen) {
         setIsTransitionEnabled(false);
+        enableScrolling();
       }
     };
 
