@@ -16,6 +16,7 @@ const PortfolioDetail = () => {
     const navigate = useNavigate();
     const [prevScrollPos, setPrevScrollPos] = useState(0);
     const [changeBackButtonOpacity, setChangeBackButtonOpacity] = useState(true);
+    const [isModalOpen, setIsModalOpen] = useState(false);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -34,11 +35,13 @@ const PortfolioDetail = () => {
 
     const openModal = (imageUrl) => {
         setSelectedImage(imageUrl);
+        setIsModalOpen(true);
         document.body.classList.add('header-footer-hidden');
     };
 
     const closeModal = () => {
         setSelectedImage(null);
+        setIsModalOpen(false);
         document.body.classList.remove('header-footer-hidden');
     };
 
@@ -85,7 +88,7 @@ const PortfolioDetail = () => {
     }
 
     return (
-        <div className="portfolio-grid-detail-wrapper header-footer-visible">
+        <div className={`portfolio-grid-detail-wrapper header-footer-visible ${isModalOpen ? 'modal-open' : 'modal-closed'}`}>
             <button className={`back-button ${changeBackButtonOpacity ? 'original' : 'changeOpacity'}`} onClick={handleBack}>
                 Previous
             </button>
