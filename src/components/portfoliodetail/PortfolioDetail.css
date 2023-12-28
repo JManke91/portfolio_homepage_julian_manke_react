@@ -10,3 +10,16 @@
 .portfolio-grid-detail-wrapper {
     margin-top: 80px;
 }
+
+.portfolio-grid-entry {
+    /* Your existing styles for portfolio grid entries */
+
+    /* Add a transition for smooth opacity change */
+    transition: opacity 0.3s ease;
+}
+
+.portfolio-grid-entry:hover,
+.portfolio-grid-entry:active {
+    filter: brightness(70%);
+    /* Adjust the brightness value as needed */
+}

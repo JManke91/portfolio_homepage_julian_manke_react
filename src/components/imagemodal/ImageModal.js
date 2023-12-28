@@ -26,10 +26,12 @@ const ImageModal = ({ imageUrl, onClose }) => {
       onTransitionEnd={handleTransitionEnd}
     >
       <div className={`image-modal-content ${isActive ? 'active' : ''}`}>
-        <img className="enlarged-image" src={imageUrl} alt="Enlarged" />
-        <span className="close-button" onClick={handleClose}>
-          &times;
-        </span>
+        <div className="enlarged-image-container">
+          <img className="enlarged-image" src={imageUrl} alt="Enlarged" />
+          <span className="close-button" onClick={handleClose}>
+            &times;
+          </span>
+        </div>
       </div>
     </div>
   );

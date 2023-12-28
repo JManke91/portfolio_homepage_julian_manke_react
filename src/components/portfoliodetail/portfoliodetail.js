@@ -45,10 +45,12 @@ const PortfolioDetail = () => {
 
 
     const imageItems = imageSetData.map((image, index) => (
-        <div key={index} className="container" onClick={() => openModal(image.imageUrl)}>
+        <div key={index} className="container">
+          <div className="portfolio-grid-entry" onClick={() => openModal(image.imageUrl)}>
             <PortfolioGridEntry imageUrl={image.imageUrl} caption={image.caption} />
+          </div>
         </div>
-    ));
+      ));
 
     if (isLoading) {
         return <LoadingSpinner />;
