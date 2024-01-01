@@ -1,6 +1,6 @@
 // api.js
 
-import { contentfulConfig, getHomeImagesContentType, getContentType } from '../constants/constants';
+import { contentfulConfig, getHomeImagesContentType, getWorkCoverImageType } from '../constants/constants';
 import { createClient } from 'contentful';
 
 const { spaceId, accessToken } = contentfulConfig;
@@ -44,10 +44,12 @@ export async function getHomeImages() {
   }
 }
 
+// api.js
+
 export const getCoverImagesDataFromContentful = async () => {
   try {
     const response = await contentfulClient.getEntries({
-      content_type: getContentType(),
+      content_type: getWorkCoverImageType(),
       // Add any additional filters or options as needed
     });
 
@@ -56,10 +58,14 @@ export const getCoverImagesDataFromContentful = async () => {
     return response.items.map((item) => {
       console.log('Item Fields:', item.fields); // Log the fields of one item
 
+      const coverImageUrl = item.fields.coverImage?.fields.file.url || '';
+      const caption = item.fields.caption || '';
+      const portfolioImageSetId = item.sys.id || '';
+
       return {
-        imageUrl: item.fields.coverImage.fields.file.url,
-        caption: item.fields.caption,
-        portfolioImageSetId: item.fields.portfolioImageSet.sys.id,
+        imageUrl: coverImageUrl,
+        caption: caption,
+        portfolioImageSetId: portfolioImageSetId
       };
     });
   } catch (error) {
@@ -68,24 +74,53 @@ export const getCoverImagesDataFromContentful = async () => {
   }
 };
 
-export const getPortfolioImageSetDataFromContentful = async (portfolioImageSetId) => {
-  console.log('portfolioImageSetId is:', portfolioImageSetId);
+
+export const getPortfolioImageSetDataFromContentful = async (coverImageId, page = 1, limit = 1) => {
+  console.log('coverImageId parameter:', coverImageId);
 
   try {
-    const response = await contentfulClient.getEntry(portfolioImageSetId);
+    const response = await contentfulClient.getEntries({
+      'sys.id': coverImageId, // cover Image Id
+      content_type: 'workCoverImage',
+      limit: limit, // Set the limit
+      skip: (page - 1) * limit, // Calculate the skip based on the page number
+    });
 
     console.log('Contentful Response:', response);
 
-    if (!response.fields.images || response.fields.images.length === 0) {
-      console.log('No images found in the Contentful response.');
+    // Check if the "items" array exists and has items
+    if (!response.items || response.items.length === 0) {
+      console.log('No WorkCoverImage found in the Contentful response.');
+      return [];
     }
 
-    return response.fields.images?.map((image) => ({
-      imageUrl: image.fields.file.url,
-      caption: image.fields.caption,
-    })) || [];
+    // Assuming "workImages" is the correct field name for linked WorkImage entries
+    const workImages = response.items[0].fields.workImages;
+
+    // Map through the "workImages" and retrieve the image data
+    return workImages.map((workImage) => ({
+      imageUrl: workImage.fields.image.fields.file.url,
+      caption: workImage.fields.caption,
+    })).slice((page - 1) * limit, page * limit); // Apply pagination
   } catch (error) {
-    console.error('Error fetching PortfolioImageSet data from Contentful:', error);
+    console.error('Error fetching WorkImages data from Contentful:', error);
     return [];
   }
 };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

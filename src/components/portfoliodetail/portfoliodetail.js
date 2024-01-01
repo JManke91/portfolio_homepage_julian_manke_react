@@ -10,6 +10,7 @@ import ImageModal from '../imagemodal/ImageModal';
 const PortfolioDetail = () => {
     const { id } = useParams();
     const portfolioImageSetId = id;
+    console.log('Current portfolioImageSetId:', portfolioImageSetId);
     const [imageSetData, setImageSetData] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [selectedImage, setSelectedImage] = useState(null);
