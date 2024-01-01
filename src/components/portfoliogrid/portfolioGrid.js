@@ -7,6 +7,8 @@ import PortfolioGridEntry from '../general/PortfolioGridEntry';
 import { getCoverImagesDataFromContentful } from '../../data/contentful';
 import LoadingSpinner from './../loadingspinner/LoadingSpinner'; // Adjust the path based on your project structure
 
+import { DEVICE_WIDTH_PIXEL, COLUMN_COUNTS_LAYOUT } from '../../constants/constants';
+
 const PortfolioGrid = () => {
   const [blogItemsData, setBlogItemsData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -46,7 +48,11 @@ const PortfolioGrid = () => {
   return (
     <div className="portfolio-grid-wrapper">
       {/* Add top padding to the entire grid */}
-      <ResponsiveMasonry columnsCountBreakPoints={{ 500: 1, 1000: 2, 1100: 3 }}>
+      <ResponsiveMasonry columnsCountBreakPoints={{
+        [DEVICE_WIDTH_PIXEL.SMALL]: COLUMN_COUNTS_LAYOUT.SMALL,
+        [DEVICE_WIDTH_PIXEL.MEDIUM]: COLUMN_COUNTS_LAYOUT.MEDIUM,
+        [DEVICE_WIDTH_PIXEL.LARGE]: COLUMN_COUNTS_LAYOUT.LARGE
+      }}>
         <Masonry>{blogGridItems}</Masonry>
       </ResponsiveMasonry>
     </div>

@@ -7,6 +7,7 @@ import LoadingSpinner from './../loadingspinner/LoadingSpinner'; // Adjust the p
 import './PortfolioDetail.css';
 import ImageModal from '../imagemodal/ImageModal';
 import InfiniteScroll from 'react-infinite-scroll-component';
+import { DEVICE_WIDTH_PIXEL, COLUMN_COUNTS_LAYOUT, MAX_NUMBER_ROWS_LAYOUT } from '../../constants/constants';
 
 const PortfolioDetail = () => {
     const { id } = useParams();
@@ -21,11 +22,27 @@ const PortfolioDetail = () => {
     const [page, setPage] = useState(1);
     const [maxPages, setMaxPages] = useState(1); // Assuming initial value is 1
 
-    const limit = 1;
+    // TODO: Use constants
+    const calculateLimit = () => {
+        const screenWidth = window.innerWidth;
+
+        // Adjust these values based on your layout configuration
+        if (screenWidth >= DEVICE_WIDTH_PIXEL.LARGE) {
+            // Large screens, 3 columns x 2 rows
+            return COLUMN_COUNTS_LAYOUT.LARGE*MAX_NUMBER_ROWS_LAYOUT;
+        } else if (screenWidth >= DEVICE_WIDTH_PIXEL.MEDIUM) {
+            // Medium screens, 2 columns x 2 rows
+            return COLUMN_COUNTS_LAYOUT.MEDIUM*MAX_NUMBER_ROWS_LAYOUT;
+        } else {
+            // Small screens, 1 column x 2-3 rows
+            return COLUMN_COUNTS_LAYOUT.SMALL*MAX_NUMBER_ROWS_LAYOUT;
+        }
+    };
 
     useEffect(() => {
         const fetchData = async () => {
             try {
+                const limit = calculateLimit();
                 const { data, maxPages } = await getPortfolioImageSetDataFromContentful(portfolioImageSetId, page, limit);
                 console.log('getting new data for page:', page);
                 setMaxPages(maxPages);
@@ -104,14 +121,6 @@ const PortfolioDetail = () => {
             setPage((prevPage) => prevPage + 1);
         }
     };
-
-    const imageItems = imageSetData.map((image, index) => (
-        <div key={index} className="container">
-            <div className="portfolio-grid-entry" onClick={() => openModal(image.imageUrl)}>
-                <PortfolioGridEntry imageUrl={image.imageUrl} caption={image.caption} />
-            </div>
-        </div>
-    ));
 
     if (isLoading) {
         return <LoadingSpinner />;

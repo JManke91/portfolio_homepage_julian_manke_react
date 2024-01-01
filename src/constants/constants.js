@@ -11,3 +11,9 @@ export const getHomeImagesContentType = () => 'homeImage';
 export const getContentType = () => 'portfolioCoverImage';
 export const getWorkCoverImageType = () => 'workCoverImage';
 export const getWorkImageType = () => 'workImage';
+
+// Layout
+// Constants for responsive breakpoints and column counts
+export const DEVICE_WIDTH_PIXEL = { SMALL: 500, MEDIUM: 1000, LARGE: 1100 };
+export const COLUMN_COUNTS_LAYOUT = { SMALL: 1, MEDIUM: 2, LARGE: 3 };
+export const MAX_NUMBER_ROWS_LAYOUT = 2;
