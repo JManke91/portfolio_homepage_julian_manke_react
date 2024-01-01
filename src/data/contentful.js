@@ -2,7 +2,7 @@
 
 import { contentfulConfig, getHomeImagesContentType, getWorkCoverImageType, getWorkImageType } from '../constants/constants';
 import { createClient } from 'contentful';
-import { calculateImageParameters } from '../components/general/ImageUtils'
+import { calculateImageParameters, calculateCoverImageParameters } from '../components/general/ImageUtils'
 
 const { spaceId, accessToken } = contentfulConfig;
 
@@ -59,12 +59,25 @@ export const getCoverImagesDataFromContentful = async () => {
     return response.items.map((item) => {
       console.log('Item Fields:', item.fields); // Log the fields of one item
 
-      const coverImageUrl = item.fields.coverImage?.fields.file.url || '';
+      //const coverImageUrl = item.fields.coverImage?.fields.file.url || '';
       const caption = item.fields.caption || '';
       const portfolioImageSetId = item.sys.id || '';
 
+      const { width, height, quality } = calculateCoverImageParameters();
+
+      // Construct the image URLs with device-specific parameters
+      // const workImages = response.items.map((item) => {
+        //const imageUrl = `${item.fields.image.fields.file.url}?w=${width}&h=${height}&q=${quality}`;
+       // return {
+         // imageUrl,
+          //caption: item.fields.caption,
+        //};
+      //});
+
+      const imageUrl = `${item.fields.coverImage.fields.file.url}?w=${width}&h=${height}&q=${quality}`;
+
       return {
-        imageUrl: coverImageUrl,
+        imageUrl: imageUrl,
         caption: caption,
         portfolioImageSetId: portfolioImageSetId
       };
@@ -84,7 +97,7 @@ export const getPortfolioImageSetDataFromContentful = async (coverImageId, page 
     const { width, height, quality } = calculateImageParameters();
 
     const response = await contentfulClient.getEntries({
-      content_type: getWorkImageType(), 
+      content_type: getWorkImageType(),
       'fields.coverImage.sys.id': coverImageId, // Filter for elememts with coverImageId
       limit: limit,
       skip: (page - 1) * limit, // Calculate the skip based on the page number
