@@ -6,11 +6,11 @@ import { getPortfolioImageSetDataFromContentful } from '../../data/contentful';
 import LoadingSpinner from './../loadingspinner/LoadingSpinner'; // Adjust the path based on your project structure
 import './PortfolioDetail.css';
 import ImageModal from '../imagemodal/ImageModal';
+import InfiniteScroll from 'react-infinite-scroll-component';
 
 const PortfolioDetail = () => {
     const { id } = useParams();
     const portfolioImageSetId = id;
-    console.log('Current portfolioImageSetId:', portfolioImageSetId);
     const [imageSetData, setImageSetData] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [selectedImage, setSelectedImage] = useState(null);
@@ -18,12 +18,27 @@ const PortfolioDetail = () => {
     const [prevScrollPos, setPrevScrollPos] = useState(0);
     const [changeBackButtonOpacity, setChangeBackButtonOpacity] = useState(true);
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [page, setPage] = useState(1);
+    const [maxPages, setMaxPages] = useState(1); // Assuming initial value is 1
 
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const imageSetData = await getPortfolioImageSetDataFromContentful(portfolioImageSetId);
-                setImageSetData(imageSetData);
+                const { data, maxPages } = await getPortfolioImageSetDataFromContentful(portfolioImageSetId, page);
+                console.log('getting new data for page:', page);
+                setMaxPages(maxPages);
+                console.log('setting max pages:', maxPages);
+                setImageSetData((prevData) => {
+                    // Identify existing image URLs
+                    const existingImageUrls = new Set(prevData.map((image) => image.imageUrl));
+
+                    // Filter out new data that already exists in the previous data
+                    const newDataWithoutDuplicates = data.filter((image) => !existingImageUrls.has(image.imageUrl));
+
+                    // Combine previous data with the filtered new data
+                    return [...prevData, ...newDataWithoutDuplicates];
+                });
+
             } catch (error) {
                 console.error('Error fetching data:', error);
             } finally {
@@ -32,7 +47,7 @@ const PortfolioDetail = () => {
         };
 
         fetchData();
-    }, [portfolioImageSetId]);
+    }, [portfolioImageSetId, page]);
 
     const openModal = (imageUrl) => {
         setSelectedImage(imageUrl);
@@ -79,6 +94,15 @@ const PortfolioDetail = () => {
         };
     }, [prevScrollPos, setChangeBackButtonOpacity]);
 
+    const loadMore = () => {
+        // Load more data only if there are more pages to load
+        console.log('loadMore called');
+        if (page < maxPages) {
+            console.log('loadMore called and incrementing page number');
+            setPage((prevPage) => prevPage + 1);
+        }
+    };
+
     const imageItems = imageSetData.map((image, index) => (
         <div key={index} className="container">
             <div className="portfolio-grid-entry" onClick={() => openModal(image.imageUrl)}>
@@ -96,9 +120,24 @@ const PortfolioDetail = () => {
             <button className={`back-button ${changeBackButtonOpacity ? 'original' : 'changeOpacity'}`} onClick={handleBack}>
                 Previous
             </button>
-            <ResponsiveMasonry columnsCountBreakPoints={{ 500: 1, 768: 2, 1200: 3 }}>
-                <Masonry>{imageItems}</Masonry>
-            </ResponsiveMasonry>
+            <InfiniteScroll
+                dataLength={imageSetData.length}
+                next={loadMore}
+                hasMore={page < maxPages}
+                loader={<LoadingSpinner />}
+            >
+                <ResponsiveMasonry columnsCountBreakPoints={{ 500: 1, 768: 2, 1200: 3 }}>
+                    <Masonry>
+                        {imageSetData.map((image, index) => (
+                            <div key={index} className="container">
+                                <div className="portfolio-grid-entry" onClick={() => openModal(image.imageUrl)}>
+                                    <PortfolioGridEntry imageUrl={image.imageUrl} caption={image.caption} />
+                                </div>
+                            </div>
+                        ))}
+                    </Masonry>
+                </ResponsiveMasonry>
+            </InfiniteScroll>
 
             {selectedImage && <ImageModal imageUrl={selectedImage} onClose={closeModal} />}
         </div>

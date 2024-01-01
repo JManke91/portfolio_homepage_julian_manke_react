@@ -75,13 +75,13 @@ export const getCoverImagesDataFromContentful = async () => {
 };
 
 
-export const getPortfolioImageSetDataFromContentful = async (coverImageId, page = 1, limit = 1) => {
+export const getPortfolioImageSetDataFromContentful = async (coverImageId, page = 1, limit = 3) => {
   console.log('coverImageId parameter:', coverImageId);
 
   try {
     const response = await contentfulClient.getEntries({
-      'sys.id': coverImageId, // cover Image Id
-      content_type: 'workCoverImage',
+      content_type: 'workImage', // TODO: Use constant
+      'fields.coverImage.sys.id': coverImageId, // Filter for elememts with coverImageId
       limit: limit, // Set the limit
       skip: (page - 1) * limit, // Calculate the skip based on the page number
     });
@@ -91,36 +91,23 @@ export const getPortfolioImageSetDataFromContentful = async (coverImageId, page 
     // Check if the "items" array exists and has items
     if (!response.items || response.items.length === 0) {
       console.log('No WorkCoverImage found in the Contentful response.');
-      return [];
+      return { data: [], maxPages: 1 };
     }
 
     // Assuming "workImages" is the correct field name for linked WorkImage entries
-    const workImages = response.items[0].fields.workImages;
+    const workImages = response.items.map((item) => ({
+      imageUrl: item.fields.image.fields.file.url,
+      caption: item.fields.caption,
+    }));
 
-    // Map through the "workImages" and retrieve the image data
-    return workImages.map((workImage) => ({
-      imageUrl: workImage.fields.image.fields.file.url,
-      caption: workImage.fields.caption,
-    })).slice((page - 1) * limit, page * limit); // Apply pagination
+    const totalItems = response.total || 0;
+    const maxPages = Math.ceil(totalItems / limit);
+    console.log('getPortfolioImageSetDataFromContentful totalItems:', response.total);
+    console.log('getPortfolioImageSetDataFromContentful calculated max pages:', maxPages);
+
+    return { data: workImages, maxPages };
   } catch (error) {
     console.error('Error fetching WorkImages data from Contentful:', error);
-    return [];
+    return { data: [], maxPages: 1 };
   }
 };
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
