@@ -17,3 +17,8 @@ export const getWorkImageType = () => 'workImage';
 export const DEVICE_WIDTH_PIXEL = { SMALL: 500, MEDIUM: 1000, LARGE: 1100 };
 export const COLUMN_COUNTS_LAYOUT = { SMALL: 1, MEDIUM: 2, LARGE: 3 };
 export const MAX_NUMBER_ROWS_LAYOUT = 2;
+
+// Responsive API Request
+export const IMAGE_WIDTH_PIXEL = { LARGE: 3200, MEDIUM: 2400, SMALL: 1600};
+export const IMAGE_QUALITY = { LARGE: 80, MEDIUM: 70, SMALL: 60 };
+export const ASPECT_RATIO = 16 / 9;

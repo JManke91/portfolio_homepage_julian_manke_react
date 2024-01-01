@@ -2,6 +2,7 @@
 
 import { contentfulConfig, getHomeImagesContentType, getWorkCoverImageType, getWorkImageType } from '../constants/constants';
 import { createClient } from 'contentful';
+import { calculateImageParameters } from '../components/general/ImageUtils'
 
 const { spaceId, accessToken } = contentfulConfig;
 
@@ -79,6 +80,9 @@ export const getPortfolioImageSetDataFromContentful = async (coverImageId, page 
   console.log('coverImageId parameter:', coverImageId);
 
   try {
+    // Calculate device-specific image parameters
+    const { width, height, quality } = calculateImageParameters();
+
     const response = await contentfulClient.getEntries({
       content_type: getWorkImageType(), 
       'fields.coverImage.sys.id': coverImageId, // Filter for elememts with coverImageId
@@ -94,11 +98,14 @@ export const getPortfolioImageSetDataFromContentful = async (coverImageId, page 
       return { data: [], maxPages: 1 };
     }
 
-    // Assuming "workImages" is the correct field name for linked WorkImage entries
-    const workImages = response.items.map((item) => ({
-      imageUrl: item.fields.image.fields.file.url,
-      caption: item.fields.caption,
-    }));
+    // Construct the image URLs with device-specific parameters
+    const workImages = response.items.map((item) => {
+      const imageUrl = `${item.fields.image.fields.file.url}?w=${width}&h=${height}&q=${quality}`;
+      return {
+        imageUrl,
+        caption: item.fields.caption,
+      };
+    });
 
     const totalItems = response.total || 0;
     const maxPages = Math.ceil(totalItems / limit);
