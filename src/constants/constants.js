@@ -10,3 +10,4 @@ export const contentfulConfig = {
 export const getHomeImagesContentType = () => 'homeImage';
 export const getContentType = () => 'portfolioCoverImage';
 export const getWorkCoverImageType = () => 'workCoverImage';
+export const getWorkImageType = () => 'workImage';

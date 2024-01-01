@@ -1,6 +1,6 @@
 // api.js
 
-import { contentfulConfig, getHomeImagesContentType, getWorkCoverImageType } from '../constants/constants';
+import { contentfulConfig, getHomeImagesContentType, getWorkCoverImageType, getWorkImageType } from '../constants/constants';
 import { createClient } from 'contentful';
 
 const { spaceId, accessToken } = contentfulConfig;
@@ -80,9 +80,9 @@ export const getPortfolioImageSetDataFromContentful = async (coverImageId, page 
 
   try {
     const response = await contentfulClient.getEntries({
-      content_type: 'workImage', // TODO: Use constant
+      content_type: getWorkImageType(), 
       'fields.coverImage.sys.id': coverImageId, // Filter for elememts with coverImageId
-      limit: limit, // Set the limit
+      limit: limit,
       skip: (page - 1) * limit, // Calculate the skip based on the page number
     });
 

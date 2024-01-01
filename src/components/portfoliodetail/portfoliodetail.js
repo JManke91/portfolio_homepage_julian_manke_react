@@ -21,10 +21,12 @@ const PortfolioDetail = () => {
     const [page, setPage] = useState(1);
     const [maxPages, setMaxPages] = useState(1); // Assuming initial value is 1
 
+    const limit = 1;
+
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const { data, maxPages } = await getPortfolioImageSetDataFromContentful(portfolioImageSetId, page);
+                const { data, maxPages } = await getPortfolioImageSetDataFromContentful(portfolioImageSetId, page, limit);
                 console.log('getting new data for page:', page);
                 setMaxPages(maxPages);
                 console.log('setting max pages:', maxPages);
