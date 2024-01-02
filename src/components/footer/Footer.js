@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import './Footer.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faInstagram } from '@fortawesome/free-brands-svg-icons';
+import _debounce from 'lodash/debounce';
+import { DEBOUNCE_SCROLLING } from '../../constants/constants';
 
 function Footer() {
     const [isFooterVisible, setIsFooterVisible] = useState(true);
@@ -18,11 +20,14 @@ function Footer() {
             }
         };
 
+        // Debouncing necessary to avoid bug in Safari, in which nav bar re appears when scrolling to the top woth bouncing
+        const debouncedHandleScroll = _debounce(handleScroll, DEBOUNCE_SCROLLING); // Adjust the debounce delay
 
-        window.addEventListener('scroll', handleScroll);
+
+        window.addEventListener('scroll', debouncedHandleScroll);
 
         return () => {
-            window.removeEventListener('scroll', handleScroll);
+            window.removeEventListener('scroll', debouncedHandleScroll);
         };
     }, [prevScrollPos]);
 

@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import './header.css';
 import { Link, useLocation } from 'react-router-dom';
+import _debounce from 'lodash/debounce';
+import { DEBOUNCE_SCROLLING } from '../../constants/constants';
 
 function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -48,16 +50,17 @@ function Header() {
         setPrevScrollPos(currentScrollPos);
       }
     };
-    
 
+    const debouncedHandleScroll = _debounce(handleScroll, DEBOUNCE_SCROLLING); // Adjust the debounce delay
+    
     const navElement = navRef.current;
     navElement.addEventListener('transitionend', onTransitionEnd);
 
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', debouncedHandleScroll);
 
     return () => {
       navElement.removeEventListener('transitionend', onTransitionEnd);
-      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('scroll', debouncedHandleScroll);
     };
   }, [menuOpen, setIsHeaderVisible, prevScrollPos]);
 
