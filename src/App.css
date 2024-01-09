@@ -1,10 +1,10 @@
 .App {
   /* Setup */
-  background-color: black; /* Set the background color to black */
+  background-color: rgb(15, 15, 15, 0.9); /* Dark gray color */
 }
 
 body {
-  background-color: black; /* Set the background color to black */
+  background-color: rgb(15, 15, 15, 1.0); /* Dark gray color */
 }
 
 .App-logo {

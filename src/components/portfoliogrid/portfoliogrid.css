@@ -2,7 +2,7 @@
 .portfolio-grid-wrapper {
 
     /* Adjust the value as needed */
-    background-color: black;
+    background-color: rgb(15, 15, 15, 0.9); /* Dark gray color */
     /* Adjust the color as needed */
     min-height: 100vh;
     /* Ensure the background covers the entire viewport height */
