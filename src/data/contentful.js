@@ -14,7 +14,7 @@ const contentfulClient = createClient({
 export async function fetchAboutPagedata() {
   try {
     const response = await contentfulClient.getEntries({
-      content_type: getAboutPageType,
+      content_type: getAboutPageType(),
     })
 
     console.log('fetchAboutPagedata response:', response);
