@@ -7,7 +7,13 @@
 
 /* Style the link */
 a {
-  color: blue;
+  color: #3498db; /* Set link color to a shade of blue */
+  text-decoration: none; /* Remove underline */
+  transition: color 0.3s ease-in-out; /* Add a smooth color transition on hover */
+}
+
+a:hover {
+  color: #2980b9; /* Change color on hover */
 }
 
 .image-overlay {

@@ -42,8 +42,8 @@ const OpenStreetMap = ({ gpxFileUrl }) => {
 
 
       map.whenReady(() => {
-        map.fitBounds(bounds, { padding: [10, 10] });
-        map.setZoom(2); // Set the desired zoom level
+        map.fitBounds(bounds, { padding: [20, 20] });
+        map.setZoom(3); // Set the desired zoom level
 
         // Visualize bounds as a rectangle
         // const rectangle = L.rectangle(bounds, { color: 'red', weight: 2 }).addTo(map);

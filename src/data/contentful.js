@@ -74,11 +74,17 @@ export async function getHomeImages() {
   try {
     const response = await contentfulClient.getEntries({
       content_type: getHomeImagesContentType(),
-      // Add any additional filters or options as needed
+      order: 'sys.createdAt', // Sorting by creation date in descending order
     });
 
+    // Calculate device-specific image parameters
+    const { width, height, quality } = calculateImageParameters();
+
     // Assuming the response is an array of entries with a 'fields' property
-    const imageUrls = response.items.map((item) => item.fields.image.fields.file.url);
+    const imageUrls = response.items.map((item) => {
+      const imageUrl = `${item.fields.image.fields.file.url}?w=${width}&h=${height}&q=${quality}`;
+      return imageUrl;
+    });
 
     return imageUrls;
   } catch (error) {
