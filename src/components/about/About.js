@@ -2,7 +2,9 @@ import React, { useState, useEffect } from 'react';
 import './About.css'; // Import the CSS file
 import OpenStreetMap from '../general/OpenStreetMap';
 import { fetchAboutPagedata } from '../../data/contentful';
-import LoadingSpinner from './../loadingspinner/LoadingSpinner'; // Adjust the path based on your project structure
+import LoadingSpinner from './../loadingspinner/LoadingSpinner';
+import ReactMarkdown from 'react-markdown';
+import { Link } from 'react-router-dom';
 
 function About() {
     const [routeInformation, setRouteInformation] = useState();
@@ -62,7 +64,26 @@ function About() {
 
             <section className="about-image-section">
                 <div className="text-container">
-                    <p>{aboutText}</p>
+                    <ReactMarkdown
+                        components={{
+                            a: ({ node, ...props }) => (
+                                props.href.startsWith('/') ? (
+                                    <Link to={props.href}>{props.children}</Link>
+                                ) : (
+                                    <a href={props.href} target="_blank" rel="noopener noreferrer">
+                                        {props.children}
+                                    </a>
+                                )
+                            ),
+                            p: ({ node, ...props }) => <p>{props.children}</p>,
+                            span: ({ node, ...props }) => <span>{props.children}</span>,
+                        }}
+                    >
+                        {aboutText}
+                    </ReactMarkdown>
+
+
+
                 </div>
                 <div className="image-container">
                     <img src={aboutPhotoURL} alt="About Photo" />

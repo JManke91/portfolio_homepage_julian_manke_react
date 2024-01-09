@@ -5,6 +5,11 @@
   padding-bottom: 4%;
 }
 
+/* Style the link */
+a {
+  color: blue;
+}
+
 .map-container,
 .route-info-container,
 .text-container,
@@ -49,6 +54,7 @@
 
 /* New styles for the image section */
 .about-image-section {
+  margin-bottom: 4%;
   display: flex;
   justify-content: center;
   margin-top: 3%;
