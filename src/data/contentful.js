@@ -1,6 +1,6 @@
 // api.js
 
-import { contentfulConfig, getHomeImagesContentType, getWorkCoverImageType, getWorkImageType } from '../constants/constants';
+import { contentfulConfig, getHomeImagesContentType, getWorkCoverImageType, getWorkImageType, getCiteType, getAboutPageType } from '../constants/constants';
 import { createClient } from 'contentful';
 import { calculateImageParameters, calculateCoverImageParameters } from '../components/general/ImageUtils'
 
@@ -11,10 +11,52 @@ const contentfulClient = createClient({
   accessToken: accessToken,
 });
 
+export async function fetchAboutPagedata() {
+  try {
+    const response = await contentfulClient.getEntries({
+      content_type: getAboutPageType,
+    })
+
+    console.log('fetchAboutPagedata response:', response);
+
+    // Extract relevant data
+    const aboutData = response.items.map(item => {
+      const gpxFileUrl = item.fields.gpxFile?.fields.file.url;
+      const routeInformation = item.fields.routeInformation;
+      const totalDistance = item.fields.totalDistance;
+      const aboutText = item.fields.aboutText;
+
+      // Extract aboutPhoto information
+      const aboutPhoto = item.fields.aboutPhoto;
+      const aboutPhotoURL = aboutPhoto?.fields.file.url;
+
+      // Calculate image parameters and construct the responsive image URL
+      const { width, height, quality } = calculateImageParameters();
+      const responsiveAboutPhotoURL = aboutPhotoURL
+        ? `${aboutPhotoURL}?w=${width}&h=${height}&q=${quality}`
+        : '';
+
+      return {
+        gpxFileUrl,
+        routeInformation,
+        totalDistance,
+        aboutPhotoURL: responsiveAboutPhotoURL,
+        aboutText,
+      };
+    });
+
+    return aboutData;
+
+  } catch (error) {
+    console.log(error.message);
+    throw error;
+  }
+}
+
 export async function fetchQuote() {
   try {
     const response = await contentfulClient.getEntries({
-      content_type: 'cite',
+      content_type: getCiteType(),
     });
 
     // Assume you have only one entry in your "cite" content type
@@ -67,11 +109,11 @@ export const getCoverImagesDataFromContentful = async () => {
 
       // Construct the image URLs with device-specific parameters
       // const workImages = response.items.map((item) => {
-        //const imageUrl = `${item.fields.image.fields.file.url}?w=${width}&h=${height}&q=${quality}`;
-       // return {
-         // imageUrl,
-          //caption: item.fields.caption,
-        //};
+      //const imageUrl = `${item.fields.image.fields.file.url}?w=${width}&h=${height}&q=${quality}`;
+      // return {
+      // imageUrl,
+      //caption: item.fields.caption,
+      //};
       //});
 
       const imageUrl = `${item.fields.coverImage.fields.file.url}?w=${width}&h=${height}&q=${quality}`;

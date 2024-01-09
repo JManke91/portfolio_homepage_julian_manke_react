@@ -11,6 +11,8 @@ export const getHomeImagesContentType = () => 'homeImage';
 export const getContentType = () => 'portfolioCoverImage';
 export const getWorkCoverImageType = () => 'workCoverImage';
 export const getWorkImageType = () => 'workImage';
+export const getCiteType = () => 'cite';
+export const getAboutPageType = () => 'aboutPage';
 
 // Debounce Scrolling
 export const DEBOUNCE_SCROLLING = 50; 

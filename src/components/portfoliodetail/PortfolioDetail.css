@@ -8,7 +8,7 @@
 }
 
 .portfolio-grid-detail-wrapper {
-    margin-top: 8vh;
+    padding-top: 8vh;
 }
 
 .scrolling-down .portfolio-grid-detail-wrapper:not(.modal-open) .back-button.changeOpacity {
