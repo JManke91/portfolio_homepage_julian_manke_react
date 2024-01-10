@@ -49,19 +49,6 @@ function About() {
 
     return (
         <>
-            <section id="about" className="about">
-                <div className="map-container">
-                    {gpxFileUrl && <OpenStreetMap gpxFileUrl={gpxFileUrl} />}
-                </div>
-                <div className="route-info-container">
-                    <p>{routeInformation}</p>
-                </div>
-            </section>
-
-            <section className="horizontal-line-section">
-                <div className="horizontal-line"></div>
-            </section>
-
             <section className="about-image-section">
                 <div className="text-wrapper">
                     <ReactMarkdown
@@ -86,6 +73,19 @@ function About() {
                 <div className="image-container">
                     <div className="image-overlay"></div>
                     <img src={aboutPhotoURL} alt="About Photo" />
+                </div>
+            </section>
+
+            <section className="horizontal-line-section">
+                <div className="horizontal-line"></div>
+            </section>
+
+            <section id="about" className="about">
+                <div className="map-container">
+                    {gpxFileUrl && <OpenStreetMap gpxFileUrl={gpxFileUrl} />}
+                </div>
+                <div className="route-info-container">
+                    <p>{routeInformation}</p>
                 </div>
             </section>
         </>
