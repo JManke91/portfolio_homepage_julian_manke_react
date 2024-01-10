@@ -257,7 +257,12 @@ nav ul li:last-child {
     }
 
     .nav-links ul li a {
-        font-size: 28px;
+        font-size: 30px;
+        font-weight: 400;
+        font-style: normal;
+        letter-spacing: 0em;
+        line-height: 1em;
+        text-transform: none;
         /* Adjust the font size as needed */
     }
 }

@@ -63,7 +63,7 @@ function About() {
             </section>
 
             <section className="about-image-section">
-                <div className="text-container">
+                <div className="text-wrapper">
                     <ReactMarkdown
                         components={{
                             a: ({ node, ...props }) => (
