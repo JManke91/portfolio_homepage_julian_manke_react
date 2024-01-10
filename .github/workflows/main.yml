@@ -12,6 +12,9 @@ jobs:
       uses: actions/setup-node@v2
       with:
         node-version: '16'
+
+    - name: Unset CI variable
+      run: echo "CI=" >> $GITHUB_ENV
       
     - name: 🔨 Build Project
       run: |
