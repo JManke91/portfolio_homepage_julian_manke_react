@@ -17,8 +17,6 @@ export async function fetchAboutPagedata() {
       content_type: getAboutPageType(),
     })
 
-    console.log('fetchAboutPagedata response:', response);
-
     // Extract relevant data
     const aboutData = response.items.map(item => {
       const gpxFileUrl = item.fields.gpxFile?.fields.file.url;
@@ -102,8 +100,6 @@ export const getCoverImagesDataFromContentful = async () => {
       // Add any additional filters or options as needed
     });
 
-    console.log('Contentful API Response:', response);
-
     return response.items.map((item) => {
       console.log('Item Fields:', item.fields); // Log the fields of one item
 
@@ -138,8 +134,6 @@ export const getCoverImagesDataFromContentful = async () => {
 
 
 export const getPortfolioImageSetDataFromContentful = async (coverImageId, page = 1, limit = 3) => {
-  console.log('coverImageId parameter:', coverImageId);
-
   try {
     // Calculate device-specific image parameters
     const { width, height, quality } = calculateImageParameters();
@@ -155,7 +149,9 @@ export const getPortfolioImageSetDataFromContentful = async (coverImageId, page 
 
     // Check if the "items" array exists and has items
     if (!response.items || response.items.length === 0) {
-      console.log('No WorkCoverImage found in the Contentful response.');
+      if (process.env.NODE_ENV === 'development') {
+        console.log('No WorkCoverImage found in the Contentful response.');
+      }
       return { data: [], maxPages: 1 };
     }
 
@@ -170,12 +166,10 @@ export const getPortfolioImageSetDataFromContentful = async (coverImageId, page 
 
     const totalItems = response.total || 0;
     const maxPages = Math.ceil(totalItems / limit);
-    console.log('getPortfolioImageSetDataFromContentful totalItems:', response.total);
-    console.log('getPortfolioImageSetDataFromContentful calculated max pages:', maxPages);
 
     return { data: workImages, maxPages };
   } catch (error) {
-    console.error('Error fetching WorkImages data from Contentful:', error);
+    console.error('Error fetching WorkImages data from CMS:', error);
     return { data: [], maxPages: 1 };
   }
 };

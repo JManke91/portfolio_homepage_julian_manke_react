@@ -11,7 +11,6 @@ function About() {
     const [gpxFileUrl, setGpxFileUrl] = useState();
     const [isLoading, setIsLoading] = useState(true);
     const [aboutPhotoURL, setAboutPhotoURL] = useState();
-    const [totalDistance, setTotalDistance] = useState();
     const [aboutText, setAboutText] = useState();
 
     useEffect(() => {
@@ -21,19 +20,15 @@ function About() {
 
                 if (aboutData && aboutData.length > 0) {
                     const firstEntry = aboutData[0];
-                    console.log('content:', firstEntry);
 
                     const aboutPhotoURL = firstEntry.aboutPhotoURL;
-                    const totalDistance = firstEntry.totalDistance;
                     const aboutText = firstEntry.aboutText;
 
                     setRouteInformation(firstEntry.routeInformation);
                     setGpxFileUrl(firstEntry.gpxFileUrl);
                     setAboutPhotoURL(aboutPhotoURL);
-                    setTotalDistance(totalDistance);
                     setAboutText(aboutText);
                 }
-                // set data
             } catch (error) {
                 console.error(error.message);
             } finally {
@@ -71,7 +66,7 @@ function About() {
                 </div>
                 <div className="image-container">
                     <div className="image-overlay"></div>
-                    <img src={aboutPhotoURL} alt="About Photo" />
+                    <img src={aboutPhotoURL} alt="About" />
                 </div>
                 
             </section>

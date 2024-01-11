@@ -29,13 +29,13 @@ const PortfolioDetail = () => {
         // Adjust these values based on your layout configuration
         if (screenWidth >= DEVICE_WIDTH_PIXEL.LARGE) {
             // Large screens, 3 columns x 2 rows
-            return COLUMN_COUNTS_LAYOUT.LARGE*MAX_NUMBER_ROWS_LAYOUT;
+            return COLUMN_COUNTS_LAYOUT.LARGE * MAX_NUMBER_ROWS_LAYOUT;
         } else if (screenWidth >= DEVICE_WIDTH_PIXEL.MEDIUM) {
             // Medium screens, 2 columns x 2 rows
-            return COLUMN_COUNTS_LAYOUT.MEDIUM*MAX_NUMBER_ROWS_LAYOUT;
+            return COLUMN_COUNTS_LAYOUT.MEDIUM * MAX_NUMBER_ROWS_LAYOUT;
         } else {
             // Small screens, 1 column x 2-3 rows
-            return COLUMN_COUNTS_LAYOUT.SMALL*MAX_NUMBER_ROWS_LAYOUT;
+            return COLUMN_COUNTS_LAYOUT.SMALL * MAX_NUMBER_ROWS_LAYOUT;
         }
     };
 
@@ -44,9 +44,13 @@ const PortfolioDetail = () => {
             try {
                 const limit = calculateLimit();
                 const { data, maxPages } = await getPortfolioImageSetDataFromContentful(portfolioImageSetId, page, limit);
-                console.log('getting new data for page:', page);
+                if (process.env.NODE_ENV === 'development') {
+                    console.log('getting new data for page:', page);
+                }
                 setMaxPages(maxPages);
-                console.log('setting max pages:', maxPages);
+                if (process.env.NODE_ENV === 'development') {
+                    console.log('setting max pages:', maxPages);
+                }
                 setImageSetData((prevData) => {
                     // Identify existing image URLs
                     const existingImageUrls = new Set(prevData.map((image) => image.imageUrl));
@@ -115,9 +119,10 @@ const PortfolioDetail = () => {
 
     const loadMore = () => {
         // Load more data only if there are more pages to load
-        console.log('loadMore called');
+        if (process.env.NODE_ENV === 'development') {
+            console.log('loadMore called');
+        }
         if (page < maxPages) {
-            console.log('loadMore called and incrementing page number');
             setPage((prevPage) => prevPage + 1);
         }
     };
