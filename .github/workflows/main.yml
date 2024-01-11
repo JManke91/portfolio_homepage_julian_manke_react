@@ -27,3 +27,4 @@ jobs:
         server: ftp.shotat24fps.com
         username: Julian@shotat24fps.com
         password: ${{ secrets.password }}
+        server-dir: public_html/
