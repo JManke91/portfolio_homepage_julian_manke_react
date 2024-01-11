@@ -7,7 +7,7 @@
 
 /* Style the link */
 a {
-  color: #008080;
+  color: rgba(64,64,64,.9);
 }
 
 .image-overlay {
@@ -16,7 +16,7 @@ a {
   left: 0;
   width: 100%;
   height: 100%;
-  /* background: linear-gradient(to bottom, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0.2) 100%);*/
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.4) 100%);
 }
 
 .map-container,
@@ -38,14 +38,14 @@ a {
 
 .map-container,
 .text-wrapper {
-  padding-left: 4%;
-  padding-right: 2%;
+  margin-left: 4%;
+  margin-right: 2%;
 }
 
 .route-info-container,
 .image-container {
-  padding-right: 4%;
-  padding-left: 2%;
+  margin-right: 4%;
+  margin-left: 2%;
 }
 
 
@@ -100,6 +100,13 @@ a {
     /* Adjust the percentage for padding as needed */
     padding-right: 8%;
     /* Adjust the percentage for padding as needed */
+  }
+
+  .map-container,
+  .route-info-container,
+  .text-wrapper,
+  .image-container {
+    margin: 0;
   }
 
   .text-wrapper {
