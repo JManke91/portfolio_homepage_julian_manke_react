@@ -28,11 +28,3 @@ jobs:
         username: Julian@shotat24fps.com
         password: ${{ secrets.password }}
         server-dir: public_html/
-        exclude: |
-          **/.git*
-          **/.git*/**
-          **/public/**
-          **/src/**
-          README.md
-          package-lock.json
-          package.json
