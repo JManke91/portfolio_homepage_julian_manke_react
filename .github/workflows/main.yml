@@ -28,3 +28,4 @@ jobs:
         username: Julian@shotat24fps.com
         password: ${{ secrets.password }}
         server-dir: public_html/
+        local-dir: ./build/
