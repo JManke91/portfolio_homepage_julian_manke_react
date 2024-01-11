@@ -56,7 +56,9 @@ const OpenStreetMap = ({ gpxFileUrl }) => {
       })
 
     } else {
-      console.log('Not available');
+      if (process.env.NODE_ENV === 'development') {
+        console.log('Not available');
+      }
     }
   };
 
