@@ -2,6 +2,7 @@
   display: flex;
   justify-content: center;
   margin-top: 4%;
+  margin-bottom: 5%;
 }
 
 /* Style the link */
@@ -19,12 +20,20 @@ a {
 }
 
 .map-container,
-.route-info-container,
-.text-wrapper,
-.image-container {
-  margin: 0 auto; /* Center the container */
-  box-sizing: border-box; /* Make sure content does not exceed device */
+.route-info-container {
+  /* Make sure content does not exceed device */
   width: 45%;
+}
+
+.image-container {
+  box-sizing: border-box;
+  /* Include padding and border in the width */
+  width: 45%;
+  /* Subtract padding (4% left + 2% right) */
+}
+
+.text-wrapper {
+  width: 100%;
 }
 
 .map-container,
@@ -64,9 +73,9 @@ a {
 .about-image-section {
   display: flex;
   justify-content: center;
-  margin-top: 70px;
+  margin-top: 8vh;
   margin-bottom: 4%;
-  
+
   /*margin-bottom: 4%; */
 }
 
@@ -77,21 +86,21 @@ a {
 
 @media (max-width: 768px) {
   .about {
-      flex-direction: column-reverse;
-      margin-bottom: 10%;
-      
+    flex-direction: column-reverse;
+    margin-bottom: 10%;
+    padding-top: 20px;
   }
 
   .map-container,
   .route-info-container,
   .text-wrapper,
   .image-container {
-      width: 90%;
-      padding-left: 5%; /* Adjust the percentage for padding as needed */
-      padding-right: 5%; /* Adjust the percentage for padding as needed */
+    width: 84%;
+    padding-left: 8%;
+    /* Adjust the percentage for padding as needed */
+    padding-right: 8%;
+    /* Adjust the percentage for padding as needed */
   }
-
-  
 
   .text-wrapper {
     padding-top: 5%;
@@ -104,12 +113,7 @@ a {
 
   /* New styles for the image section in smaller devices */
   .about-image-section {
-      flex-direction: column-reverse;
-      padding-bottom: 20px;
-  }
-
-  .about {
-    padding-bottom: 0;
-    padding-top: 20px;
+    flex-direction: column-reverse;
+    padding-bottom: 20px;
   }
 }

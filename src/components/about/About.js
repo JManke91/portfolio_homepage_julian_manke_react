@@ -68,12 +68,12 @@ function About() {
                     >
                         {aboutText}
                     </ReactMarkdown>
-
                 </div>
                 <div className="image-container">
                     <div className="image-overlay"></div>
                     <img src={aboutPhotoURL} alt="About Photo" />
                 </div>
+                
             </section>
 
             <section className="horizontal-line-section">
