@@ -101,22 +101,11 @@ export const getCoverImagesDataFromContentful = async () => {
     });
 
     return response.items.map((item) => {
-      console.log('Item Fields:', item.fields); // Log the fields of one item
 
-      //const coverImageUrl = item.fields.coverImage?.fields.file.url || '';
       const caption = item.fields.caption || '';
       const portfolioImageSetId = item.sys.id || '';
 
       const { width, height, quality } = calculateCoverImageParameters();
-
-      // Construct the image URLs with device-specific parameters
-      // const workImages = response.items.map((item) => {
-      //const imageUrl = `${item.fields.image.fields.file.url}?w=${width}&h=${height}&q=${quality}`;
-      // return {
-      // imageUrl,
-      //caption: item.fields.caption,
-      //};
-      //});
 
       const imageUrl = `${item.fields.coverImage.fields.file.url}?w=${width}&h=${height}&q=${quality}`;
 
