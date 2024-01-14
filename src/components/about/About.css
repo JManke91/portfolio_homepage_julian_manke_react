@@ -1,3 +1,5 @@
+/* About.css */
+
 .about {
   display: flex;
   justify-content: center;
@@ -48,7 +50,6 @@ a {
   margin-left: 2%;
 }
 
-
 .map-container {
   z-index: 1;
 }
@@ -75,8 +76,6 @@ a {
   justify-content: center;
   margin-top: 8vh;
   margin-bottom: 4%;
-
-  /*margin-bottom: 4%; */
 }
 
 .image-container img {
@@ -116,7 +115,6 @@ a {
   .map-container {
     margin-top: 5%;
   }
-
 
   /* New styles for the image section in smaller devices */
   .about-image-section {

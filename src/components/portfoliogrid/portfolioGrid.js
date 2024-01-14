@@ -3,9 +3,10 @@ import './portfoliogrid.css';
 import { Link } from 'react-router-dom';
 import Masonry, { ResponsiveMasonry } from 'react-responsive-masonry';
 import { motion } from 'framer-motion';
+import { fadeInUpVariants } from './../general/FramerMotionAnimations'
 import PortfolioGridEntry from '../general/PortfolioGridEntry';
 import { getCoverImagesDataFromContentful } from '../../data/contentful';
-import LoadingSpinner from './../loadingspinner/LoadingSpinner'; // Adjust the path based on your project structure
+import LoadingSpinner from './../loadingspinner/LoadingSpinner';
 
 import { DEVICE_WIDTH_PIXEL, COLUMN_COUNTS_LAYOUT } from '../../constants/constants';
 
@@ -37,15 +38,18 @@ const PortfolioGrid = () => {
     <motion.div
       key={index}
       /*whileHover={{scale: 1.1,}}*/
+      variants={fadeInUpVariants}
       className="container"
+      initial="hidden"
+      animate="visible"
     >
       <Link to={`/portfolio/${item.portfolioImageSetId}`} style={{ textDecoration: 'none', color: 'inherit' }}>
         <PortfolioGridEntry imageUrl={item.imageUrl} caption={item.caption} aspectRatio={1 / 1} />
       </Link>
     </motion.div>
-  ));
+    ));
 
-  return (
+    return (
     <div className="portfolio-grid-wrapper">
       {/* Add top padding to the entire grid */}
       <ResponsiveMasonry columnsCountBreakPoints={{
@@ -56,7 +60,7 @@ const PortfolioGrid = () => {
         <Masonry>{blogGridItems}</Masonry>
       </ResponsiveMasonry>
     </div>
-  );
+    );
 };
 
-export default PortfolioGrid;
+    export default PortfolioGrid;
