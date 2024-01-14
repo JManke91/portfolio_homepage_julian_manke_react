@@ -88,10 +88,10 @@ nav ul li {
 nav ul li a {
     text-decoration: none;
     color: rgba(255, 255, 255, 0.8);
-    font-family: 'Karla';
-    font-weight: 400;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 300;
     font-style: normal;
-    letter-spacing: 0.15em;
+    letter-spacing: 0em;
     font-size: 18px;
     opacity: 1;
     transition: color 0.3s ease, text-decoration 0.3s ease;
@@ -110,12 +110,14 @@ nav ul li:hover {
 nav ul li:hover a {
     color: white;
     text-decoration: underline;
+    text-underline-offset: 8px; /* Add your preferred offset value */
 }
 
 /* Makes sure the clicked element changes color */
 nav ul li a.active {
     color: white;
     text-decoration: underline;
+    text-underline-offset: 8px; /* Add your preferred offset value */
 }
 
 
@@ -261,8 +263,9 @@ nav ul li:last-child {
         font-weight: 400;
         font-style: normal;
         letter-spacing: 0em;
-        line-height: 1em;
+        
         text-transform: none;
+        font-family: 'Poppins', sans-serif;
         /* Adjust the font size as needed */
     }
 }

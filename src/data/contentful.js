@@ -23,6 +23,8 @@ export async function fetchAboutPagedata() {
       const routeInformation = item.fields.routeInformation;
       const totalDistance = item.fields.totalDistance;
       const aboutText = item.fields.aboutText;
+      const aboutHeader = item.fields.aboutHeader;
+      const routeHeader = item.fields.routeHeader;
 
       // Extract aboutPhoto information
       const aboutPhoto = item.fields.aboutPhoto;
@@ -40,6 +42,8 @@ export async function fetchAboutPagedata() {
         totalDistance,
         aboutPhotoURL: responsiveAboutPhotoURL,
         aboutText,
+        aboutHeader,
+        routeHeader,
       };
     });
 

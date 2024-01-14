@@ -5,12 +5,14 @@ import { fetchAboutPagedata } from '../../data/contentful';
 import LoadingSpinner from './../loadingspinner/LoadingSpinner';
 import ReactMarkdown from 'react-markdown';
 import { Link } from 'react-router-dom';
-import { motion } from 'framer-motion'; 
+import { motion } from 'framer-motion';
 import { fadeInUpVariants } from './../general/FramerMotionAnimations'
 
 function About() {
   const [routeInformation, setRouteInformation] = useState();
   const [gpxFileUrl, setGpxFileUrl] = useState();
+  const [headerText, setHeaderText] = useState();
+  const [routeHeader, setRouteHeader] = useState()
   const [isLoading, setIsLoading] = useState(true);
   const [aboutPhotoURL, setAboutPhotoURL] = useState();
   const [aboutText, setAboutText] = useState();
@@ -30,6 +32,8 @@ function About() {
           setGpxFileUrl(firstEntry.gpxFileUrl);
           setAboutPhotoURL(aboutPhotoURL);
           setAboutText(aboutText);
+          setHeaderText(firstEntry.aboutHeader);
+          setRouteHeader(firstEntry.routeHeader);
         }
       } catch (error) {
         console.error(error.message);
@@ -53,6 +57,7 @@ function About() {
           initial="hidden"
           animate="visible"
         >
+          <h2>{headerText}</h2>
           <ReactMarkdown
             components={{
               a: ({ node, ...props }) => (
@@ -92,6 +97,7 @@ function About() {
           {gpxFileUrl && <OpenStreetMap gpxFileUrl={gpxFileUrl} />}
         </div>
         <div className="route-info-container">
+          <h2>{routeHeader}</h2>
           <p>{routeInformation}</p>
         </div>
       </section>
