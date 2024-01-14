@@ -19,7 +19,7 @@ export const DEBOUNCE_SCROLLING = 50;
 
 // Layout
 // Constants for responsive breakpoints and column counts
-export const DEVICE_WIDTH_PIXEL = { SMALL: 500, MEDIUM: 1000, LARGE: 1100 };
+export const DEVICE_WIDTH_PIXEL = { SMALL: 500, MEDIUM: 768, LARGE: 1200 };
 export const COLUMN_COUNTS_LAYOUT = { SMALL: 1, MEDIUM: 2, LARGE: 3 };
 export const MAX_NUMBER_ROWS_LAYOUT = 2;
 
