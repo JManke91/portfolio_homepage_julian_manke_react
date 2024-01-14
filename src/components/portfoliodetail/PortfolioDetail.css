@@ -4,7 +4,9 @@
     background-color: rgb(15, 15, 15, 0.9); /* Dark gray color */
     /* Adjust the color as needed */
     min-height: 100vh;
+    margin-bottom: 5%;
     /* Ensure the background covers the entire viewport height */
+
 }
 
 .portfolio-grid-detail-wrapper {
