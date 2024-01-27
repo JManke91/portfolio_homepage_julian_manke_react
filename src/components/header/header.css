@@ -4,11 +4,31 @@
     position: absolute;
     color: #ffffff;
     width: 100%;
-    z-index: 2;
+    z-index: 10;
     padding: 20px 0;
-
     transition: opacity 0.5s ease, visibility 0.5s ease;
     /* Add transition for smooth hiding and showing with ease animation */
+}
+
+.favicon {
+    display: flex;
+    align-items: center; /* Center vertically */
+    /* position: fixed; */
+}
+
+.favicon img {
+    width: 40px;
+    /* Maintain the aspect ratio */
+    height: auto;
+    /* Adjust margin as needed */
+    margin-left: 50vw; /* Center horizontally using 50% of the viewport width */
+    transform: translateX(-50%);
+}
+
+.nav-links {
+    position: fixed;
+    right: 0;
+    padding-right: 5%;
 }
 
 .header-footer-hidden .header {
@@ -35,6 +55,10 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    top: 0;
+    left: 0;
+    right: 0;
+    /* Change to flex-start */
 }
 
 .menu-icon {
@@ -52,18 +76,6 @@
     transition: 0.4s;
 }
 
-.nav-links {
-    display: flex;
-    /* Show the nav elements initially for larger devices */
-    position: fixed;
-    top: 5%;
-    right: 5%;
-
-    z-index: 1;
-    flex-direction: column;
-    align-items: flex-end;
-    /* Align nav elements to the top right */
-}
 
 .overlay {
     display: none;
@@ -110,14 +122,16 @@ nav ul li:hover {
 nav ul li:hover a {
     color: white;
     text-decoration: underline;
-    text-underline-offset: 8px; /* Add your preferred offset value */
+    text-underline-offset: 8px;
+    /* Add your preferred offset value */
 }
 
 /* Makes sure the clicked element changes color */
 nav ul li a.active {
     color: white;
     text-decoration: underline;
-    text-underline-offset: 8px; /* Add your preferred offset value */
+    text-underline-offset: 8px;
+    /* Add your preferred offset value */
 }
 
 
@@ -133,24 +147,37 @@ nav ul li:last-child {
     .nav-container {
         background-color: rgba(0, 0, 0, 1.0);
         position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
+        padding: 15px; /* determines height of nav bar additionally to content size*/
         z-index: 1;
-        padding: 40px;
     }
 
+    /* Adjust to avoid logo jumping when changing device size */
+   /* .favicon img {
+        
+        transform: translateX(-50%);
+    }
+    */
+
+    /* Compensate for changes in the size of av-container due to changing nav element size */
+    .favicon img {
+        margin-left: calc(50vw - 15px);
+        margin-top: 5px;
+    }
+
+    
     /* Styling of menu icon */
     .menu-icon {
         display: flex;
         /* Show the menu icon initially for smaller devices */
         flex-direction: column;
         justify-content: center;
-        /* Center the menu icon horizontally */
-        top: 15px;
-        right: 15px;
+        align-items: flex-end;
+        /* Align the menu icon to the right */
+        right: 0;
+        padding-right: 5%;
+
         /* Adjust the top position as needed */
-        align-items: center;
+
         /* Center the menu icon vertically */
         position: fixed;
         transform: translateX(-50%);
@@ -263,7 +290,7 @@ nav ul li:last-child {
         font-weight: 400;
         font-style: normal;
         letter-spacing: 0em;
-        
+
         text-transform: none;
         font-family: 'Poppins', sans-serif;
         /* Adjust the font size as needed */

@@ -32,13 +32,15 @@ class PortfolioGridEntry extends Component {
           className={this.state.imgLoaded ? 'image' : 'image blur'}
           src={this.imageUrl}
           style={{
-            width: "95%",
+            width: "100%",
+            display: "block",
+            //width: "95%",
             // borderRadius: "8px",
             aspectRatio: aspectRatio ? aspectRatio : undefined,
           }}
           alt={"Default caption"}
         />
-        {this.state.imgLoaded && <p>{this.caption}</p>}
+        {this.state.imgLoaded && this.caption && <p>{this.caption}</p>}
       </div>
     );
   }

@@ -1,15 +1,16 @@
 /* Add this to your CSS file */
 .portfolio-grid-wrapper {
-
     /* Adjust the value as needed */
-    background-color: rgb(15, 15, 15, 0.9); /* Dark gray color */
-    /* Adjust the color as needed */
-    min-height: 100vh;
-    /* Ensure the background covers the entire viewport height */
-}
+    background-color: rgb(15, 15, 15, 0.9);
+    /* Dark gray color */
+    overflow: hidden;
+    /* Hide content overflowing the wrapper */
+    box-sizing: border-box;
 
+    padding-top: 75px;
+    margin-bottom: 55px;
 
-.portfolio-grid-wrapper {
-    padding-top: 8vh;
-    margin-bottom: 5%;
+    /* TODO: Use styling in .js file to be able to use constants */
+    padding-left: 24px;
+    padding-right: 24px;
 }

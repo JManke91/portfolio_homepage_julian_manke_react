@@ -3,6 +3,7 @@ import './header.css';
 import { Link, useLocation } from 'react-router-dom';
 import _debounce from 'lodash/debounce';
 import { DEBOUNCE_SCROLLING } from '../../constants/constants';
+import logo from '../../images/wb_logo.png';
 
 function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -44,7 +45,7 @@ function Header() {
     const handleScroll = () => {
       const currentScrollPos = window.scrollY;
       const scrollThreshold = 20; // Adjust this threshold as needed
-    
+
       if (Math.abs(prevScrollPos - currentScrollPos) > scrollThreshold) {
         setIsHeaderVisible(prevScrollPos > currentScrollPos || currentScrollPos === 0);
         setPrevScrollPos(currentScrollPos);
@@ -52,7 +53,7 @@ function Header() {
     };
 
     const debouncedHandleScroll = _debounce(handleScroll, DEBOUNCE_SCROLLING); // Adjust the debounce delay
-    
+
     const navElement = navRef.current;
     navElement.addEventListener('transitionend', onTransitionEnd);
 
@@ -78,6 +79,9 @@ function Header() {
           <span></span>
           <span></span>
           <span></span>
+        </div>
+        <div className="favicon">
+          <img src={logo} alt="logo" />
         </div>
         <nav
           ref={navRef}

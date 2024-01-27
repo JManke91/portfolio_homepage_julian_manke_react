@@ -31,3 +31,6 @@ export const ASPECT_RATIO = 16 / 9;
 export const ASPECT_RATIO_COVER_IMAGES = 1 / 1;
 export const COVER_IMAGE_WIDTH_PIXEL = { LARGE: 1600, MEDIUM: 1200, SMALL: 800};
 export const COVER_IMAGE_QUALITY = { LARGE: 60, MEDIUM: 50, SMALL: 40 };
+
+// Masonry Layout constants
+export const GUTTER_VALUE = '24px'; // Set your desired gutter value here

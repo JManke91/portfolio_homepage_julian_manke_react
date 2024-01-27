@@ -1,41 +1,38 @@
 .image-container {
-    margin-top: 10px;
-    /* Top margin for image + text */
-    display: flex;
-    flex-direction: column;
-    /* Stacks the items vertically */
-    align-items: center;
-    /* Centers items horizontally */
-    text-align: center;
-    /* Centers text horizontally (optional) */
-  }
+  text-align: center;
+  width: 100%;
 
-  .image-container:hover .image {
-    filter: brightness(70%);
-    /* Adjust the brightness value as needed */
-  }
-  
-  .image {
-    max-width: 100%;
-    transition: all 0.4s ease-in-out;
-    cursor: pointer;
-  }
-  
-  .blur {
-    filter: blur(10px);
-  }
-  
-
-   p {
-    font-family: 'Poppins'; /* Use the Poppins font family */
-    font-weight: 300;
-    font-size: 20px;
-    font-style: normal;
-    line-height: 1.4em;
-    /*  letter-spacing: 0.1em; */
-    letter-spacing: .03em;
-    margin-top: 10px;
-    color: rgba(255, 255, 255, 0.8); /* Caption text color */
-  }
+  padding: 0; /* Remove padding to prevent extra width */
+  margin: 0; /* Remove margin to prevent extra width */
+}
 
 
+.image-container:hover .image {
+  filter: brightness(70%);
+  /* Adjust the brightness value as needed */
+}
+
+.image {
+  transition: all 0.4s ease-in-out;
+  cursor: pointer;
+}
+
+.blur {
+  filter: blur(10px);
+}
+
+
+p {
+  font-family: 'Poppins';
+  /* Use the Poppins font family */
+  font-weight: 300;
+  font-size: 20px;
+  font-style: normal;
+  line-height: 1.4em;
+  /*  letter-spacing: 0.1em; */
+  letter-spacing: .03em;
+  /* TODO: This margin should only be there for PortfolioGrid  */
+  margin-top: 10px;
+  color: rgba(255, 255, 255, 0.8);
+  /* Caption text color */
+}

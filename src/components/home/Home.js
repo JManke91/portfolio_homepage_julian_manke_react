@@ -1,15 +1,42 @@
-// Home.js
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import './Home.css';
-import { Parallax, ParallaxLayer } from '@react-spring/parallax';
-import { Typewriter } from 'react-simple-typewriter';
 import { getHomeImages, fetchQuote } from '../../data/contentful';
 import LoadingSpinner from '../loadingspinner/LoadingSpinner';
+import { homeTextCloudVariants } from './../general/FramerMotionAnimations'
+import {
+  motion,
+  useScroll,
+  useTransform,
+  easeOut,
+  useAnimation
+} from "framer-motion";
+
 
 function Home() {
   const [imageUrls, setImageUrls] = useState([]);
   const [quote, setQuote] = useState('');
   const [loading, setLoading] = useState(true);
+  const ref = useRef(null);
+
+  const mainAnimationControl = useAnimation();
+  const imageAnimationControl = useAnimation();
+
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ['start start', 'end start'],
+  });
+
+  const backgroundY = useTransform(scrollYProgress, [0, 1], ['0%', '100%']);
+
+  const bottomY = useTransform(
+    scrollYProgress,
+    [0, 1],
+    ['100%', '0%'],
+    easeOut,
+  );
+
+  const textY = useTransform(scrollYProgress, [0, 1], ['0%', '800%']);
+
 
   useEffect(() => {
     async function fetchData() {
@@ -18,69 +45,74 @@ function Home() {
         const quoteText = await fetchQuote();
         setImageUrls(urls);
         setQuote(quoteText);
-        setLoading(false); // Set loading to false when data is loaded
       } catch (error) {
         console.error(error.message);
+      } finally {
+        setLoading(false);
+        imageAnimationControl.start("visible");
+        mainAnimationControl.start("visible");
       }
     }
 
     fetchData();
   }, []);
 
+  useEffect(() => {
+  }, [scrollYProgress]);
+
   if (loading) {
-    return <LoadingSpinner />; // Display the loading spinner while data is being fetched
+    return <LoadingSpinner />;
   }
 
   return (
-    <div className="home">
-      <Parallax pages={2}>
-        {/* First Parallax Layer with Image */}
-        <ParallaxLayer
-          offset={0}
-          speed={-0.1}
-          factor={1}
+    <div>
+      <div
+        ref={ref}
+        className="home"
+      >
+
+        <motion.h1
+          variants={homeTextCloudVariants}
+          initial="hidden"
+          animate={mainAnimationControl}
+          style={{
+            y: textY,
+            x: '-50%', // Center horizontally
+            width: '80%', // Adjust the width as needed
+
+          }}
+          className='home-text'
+
+        >
+          {quote}
+        </motion.h1>
+
+        <motion.div
+          className="background-image"
           style={{
             backgroundImage: `url(${imageUrls[0]})`,
-            backgroundSize: 'cover',
-            backgroundRepeat: 'no-repeat',
-            backgroundPosition: 'center',
-            width: '100%',
-          }}
-        >
-          {/* Text on the First Image */}
-          <div className="text-container">
-            <div className="text">
-              <Typewriter
-                words={[
-                  quote
-                ]}
-                loop={1}
-                cursor
-                cursorStyle="_"
-                typeSpeed={70}
-                deleteSpeed={50}
-                delaySpeed={1000}
-              />
-            </div>
-          </div>
-        </ParallaxLayer>
 
-        {/* Second Parallax Layer with Image */}
-        <ParallaxLayer
-          offset={0.9}
-          speed={0.1}
-          factor={1.2}
-          style={{
-            backgroundImage: `url(${imageUrls[1]})`,
-            backgroundSize: 'cover',
-            backgroundRepeat: 'no-repeat',
-            backgroundPosition: 'center',
-            width: '100%',
           }}
         />
 
-        <ParallaxLayer sticky={{ start: 1, end: 2 }} />
-      </Parallax>
+        <motion.div
+          className="foreground-image"
+          style={{
+            backgroundImage: `url(${imageUrls[2]})`,
+
+          }}
+        />
+
+        <motion.div
+          className="bottom-image"
+          style={{
+            backgroundImage: `url(${imageUrls[1]})`,
+
+
+            y: bottomY,
+          }}
+        />
+      </div>
     </div>
   );
 }

@@ -7,7 +7,7 @@ import LoadingSpinner from './../loadingspinner/LoadingSpinner'; // Adjust the p
 import './PortfolioDetail.css';
 import ImageModal from '../imagemodal/ImageModal';
 import InfiniteScroll from 'react-infinite-scroll-component';
-import { DEVICE_WIDTH_PIXEL, COLUMN_COUNTS_LAYOUT, MAX_NUMBER_ROWS_LAYOUT } from '../../constants/constants';
+import { DEVICE_WIDTH_PIXEL, COLUMN_COUNTS_LAYOUT, MAX_NUMBER_ROWS_LAYOUT, GUTTER_VALUE } from '../../constants/constants';
 
 const PortfolioDetail = () => {
     const { id } = useParams();
@@ -143,7 +143,7 @@ const PortfolioDetail = () => {
                 loader={<LoadingSpinner />}
             >
                 <ResponsiveMasonry columnsCountBreakPoints={{ 500: 1, 768: 2, 1200: 3 }}>
-                    <Masonry>
+                    <Masonry gutter={GUTTER_VALUE}> 
                         {imageSetData.map((image, index) => (
                             <div key={index} className="container">
                                 <div className="portfolio-grid-entry" onClick={() => openModal(image.imageUrl)}>

@@ -5,8 +5,9 @@ import { fetchAboutPagedata } from '../../data/contentful';
 import LoadingSpinner from './../loadingspinner/LoadingSpinner';
 import ReactMarkdown from 'react-markdown';
 import { Link } from 'react-router-dom';
-import { motion } from 'framer-motion';
+import { motion, useAnimation } from 'framer-motion';
 import { fadeInUpVariants } from './../general/FramerMotionAnimations'
+import Reveal from './../general/Reveal';
 
 function About() {
   const [routeInformation, setRouteInformation] = useState();
@@ -16,6 +17,8 @@ function About() {
   const [isLoading, setIsLoading] = useState(true);
   const [aboutPhotoURL, setAboutPhotoURL] = useState();
   const [aboutText, setAboutText] = useState();
+
+  const mainAnimationControl = useAnimation();
 
   useEffect(() => {
     async function fetchData() {
@@ -39,6 +42,8 @@ function About() {
         console.error(error.message);
       } finally {
         setIsLoading(false);
+        // control the state of the animation
+        mainAnimationControl.start("visible");
       }
     }
     fetchData();
@@ -55,7 +60,7 @@ function About() {
           className="text-wrapper"
           variants={fadeInUpVariants}
           initial="hidden"
-          animate="visible"
+          animate={mainAnimationControl}
         >
           <h2>{headerText}</h2>
           <ReactMarkdown
@@ -81,7 +86,7 @@ function About() {
           className="image-container"
           variants={fadeInUpVariants}
           initial="hidden"
-          animate="visible"
+          animate={mainAnimationControl}
         >
           <div className="image-overlay"></div>
           <img src={aboutPhotoURL} alt="About" />
@@ -89,17 +94,38 @@ function About() {
       </section>
 
       <section className="horizontal-line-section">
-        <div className="horizontal-line"></div>
+        <motion.div
+          className="horizontal-line"
+          variants={fadeInUpVariants}
+          initial="hidden"
+          animate={mainAnimationControl}
+        >
+        </motion.div>
       </section>
 
       <section id="about" className="about">
-        <div className="map-container">
+        <motion.div
+          className="map-container"
+          variants={fadeInUpVariants}
+          initial="hidden"
+          animate={mainAnimationControl}
+        >
           {gpxFileUrl && <OpenStreetMap gpxFileUrl={gpxFileUrl} />}
-        </div>
-        <div className="route-info-container">
+        </motion.div>
+
+        <motion.div
+          className="route-info-container"
+          variants={fadeInUpVariants}
+          initial="hidden"
+          animate={mainAnimationControl}
+        >
           <h2>{routeHeader}</h2>
-          <p>{routeInformation}</p>
-        </div>
+          <Reveal>
+            <p>{routeInformation}</p>
+          </Reveal>
+        </motion.div>
+
+
       </section>
     </>
   );
