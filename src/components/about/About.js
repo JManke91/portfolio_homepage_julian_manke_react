@@ -1,3 +1,4 @@
+// Imports
 import React, { useState, useEffect } from 'react';
 import './About.css'; // Import the CSS file
 import OpenStreetMap from '../general/OpenStreetMap';
@@ -10,6 +11,7 @@ import { fadeInUpVariants } from './../general/FramerMotionAnimations'
 import Reveal from './../general/Reveal';
 
 function About() {
+  // State
   const [routeInformation, setRouteInformation] = useState();
   const [gpxFileUrl, setGpxFileUrl] = useState();
   const [headerText, setHeaderText] = useState();
@@ -18,8 +20,10 @@ function About() {
   const [aboutPhotoURL, setAboutPhotoURL] = useState();
   const [aboutText, setAboutText] = useState();
 
+  // Animation controls
   const mainAnimationControl = useAnimation();
 
+  // React Hooks
   useEffect(() => {
     async function fetchData() {
       try {
@@ -49,6 +53,7 @@ function About() {
     fetchData();
   }, []);
 
+  // Rendering
   if (isLoading) {
     return <LoadingSpinner />;
   }

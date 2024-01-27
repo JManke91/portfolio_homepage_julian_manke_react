@@ -1,3 +1,4 @@
+// Imports
 import React, { useState, useEffect, useRef } from 'react';
 import './header.css';
 import { Link, useLocation } from 'react-router-dom';
@@ -6,15 +7,18 @@ import { DEBOUNCE_SCROLLING } from '../../constants/constants';
 import logo from '../../images/wb_logo.png';
 
 function Header() {
+  // State
   const [menuOpen, setMenuOpen] = useState(false);
   const [isTransitionEnabled, setIsTransitionEnabled] = useState(false);
   const [isHeaderVisible, setIsHeaderVisible] = useState(true);
   const [prevScrollPos, setPrevScrollPos] = useState(0);
   const [activeLink, setActiveLink] = useState(null);
 
+  // References
   const navRef = useRef(null);
   const location = useLocation();
 
+  // State Controls
   const toggleMenu = () => {
     if (!menuOpen) {
       setIsTransitionEnabled(true);
@@ -34,6 +38,7 @@ function Header() {
     document.body.style.overflow = 'visible';
   }
 
+  // React Hooks
   useEffect(() => {
     const onTransitionEnd = () => {
       if (!menuOpen) {
@@ -72,6 +77,7 @@ function Header() {
     setActiveLink(currentRoute || 'home'); // Set default to 'home' if no route is present
   }, [location.pathname]);
 
+  // Render
   return (
     <header className={`header ${menuOpen ? 'menu-open' : ''} ${!isHeaderVisible ? 'header-hidden' : 'header-visible'}`}>
       <div className="nav-container">

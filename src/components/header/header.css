@@ -7,21 +7,17 @@
     z-index: 10;
     padding: 20px 0;
     transition: opacity 0.5s ease, visibility 0.5s ease;
-    /* Add transition for smooth hiding and showing with ease animation */
 }
 
 .favicon {
     display: flex;
-    align-items: center; /* Center vertically */
-    /* position: fixed; */
+    align-items: center;
 }
 
 .favicon img {
     width: 40px;
-    /* Maintain the aspect ratio */
     height: auto;
-    /* Adjust margin as needed */
-    margin-left: 50vw; /* Center horizontally using 50% of the viewport width */
+    margin-left: 50vw;
     transform: translateX(-50%);
 }
 
@@ -123,7 +119,6 @@ nav ul li:hover a {
     color: white;
     text-decoration: underline;
     text-underline-offset: 8px;
-    /* Add your preferred offset value */
 }
 
 /* Makes sure the clicked element changes color */
@@ -131,7 +126,6 @@ nav ul li a.active {
     color: white;
     text-decoration: underline;
     text-underline-offset: 8px;
-    /* Add your preferred offset value */
 }
 
 
@@ -151,13 +145,6 @@ nav ul li:last-child {
         z-index: 1;
     }
 
-    /* Adjust to avoid logo jumping when changing device size */
-   /* .favicon img {
-        
-        transform: translateX(-50%);
-    }
-    */
-
     /* Compensate for changes in the size of av-container due to changing nav element size */
     .favicon img {
         margin-left: calc(50vw - 15px);
@@ -168,7 +155,6 @@ nav ul li:last-child {
     /* Styling of menu icon */
     .menu-icon {
         display: flex;
-        /* Show the menu icon initially for smaller devices */
         flex-direction: column;
         justify-content: center;
         align-items: flex-end;
@@ -189,10 +175,7 @@ nav ul li:last-child {
     .nav-links {
         opacity: 0;
         transform: translateX(-100%);
-        /* Initially off-screen to the right */
-        /* Initial state for opacity transition */
         visibility: hidden;
-        /* Initial state for visibility transition */
         transition: none;
         /* No transition by default */
         position: fixed;
@@ -202,16 +185,12 @@ nav ul li:last-child {
         width: 100%;
         padding-top: 100px;
         padding-left: 25px;
-        /* Adjust the top padding as needed */
-
         align-items: flex-start;
         /* Center the menu icon vertically */
         background-color: rgba(0, 0, 0, 0.8);
         z-index: 1;
         flex-direction: column;
         display: flex;
-        /* Needs to be there for the initial animation */
-
         /* Adds a background blur to the overlay */
         backdrop-filter: blur(8px);
         -webkit-backdrop-filter: blur(8px);
@@ -270,10 +249,8 @@ nav ul li:last-child {
         pointer-events: none;
         /* Make the overlay non-interactive when hidden */
         z-index: 2;
-        /* lower z-index for the overlay when it's not displayed */
         /* start with 0 opacity */
         transition: opacity 0.5s ease;
-        /* add a smooth transition */
     }
 
     .menu-open .overlay {
@@ -282,7 +259,6 @@ nav ul li:last-child {
         opacity: 1;
         z-index: 2;
         pointer-events: auto;
-        /* Make the overlay interactive when shown */
     }
 
     .nav-links ul li a {
@@ -293,6 +269,5 @@ nav ul li:last-child {
 
         text-transform: none;
         font-family: 'Poppins', sans-serif;
-        /* Adjust the font size as needed */
     }
 }

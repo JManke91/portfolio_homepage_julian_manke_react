@@ -1,3 +1,4 @@
+// Imports
 import React, { useState, useEffect, useRef } from 'react';
 import './Home.css';
 import { getHomeImages, fetchQuote } from '../../data/contentful';
@@ -13,11 +14,15 @@ import {
 
 
 function Home() {
+  // State
   const [imageUrls, setImageUrls] = useState([]);
   const [quote, setQuote] = useState('');
   const [loading, setLoading] = useState(true);
+
+  // References
   const ref = useRef(null);
 
+  // Animation Controls
   const mainAnimationControl = useAnimation();
   const imageAnimationControl = useAnimation();
 
@@ -37,7 +42,7 @@ function Home() {
 
   const textY = useTransform(scrollYProgress, [0, 1], ['0%', '800%']);
 
-
+  // React Hooks
   useEffect(() => {
     async function fetchData() {
       try {
@@ -60,6 +65,7 @@ function Home() {
   useEffect(() => {
   }, [scrollYProgress]);
 
+  // Render
   if (loading) {
     return <LoadingSpinner />;
   }

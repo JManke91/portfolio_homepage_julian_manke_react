@@ -34,8 +34,6 @@ class PortfolioGridEntry extends Component {
           style={{
             width: "100%",
             display: "block",
-            //width: "95%",
-            // borderRadius: "8px",
             aspectRatio: aspectRatio ? aspectRatio : undefined,
           }}
           alt={"Default caption"}
