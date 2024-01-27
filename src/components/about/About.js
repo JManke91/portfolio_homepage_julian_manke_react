@@ -20,9 +20,6 @@ function About() {
   const [aboutPhotoURL, setAboutPhotoURL] = useState();
   const [aboutText, setAboutText] = useState();
 
-  // Animation controls
-  const mainAnimationControl = useAnimation();
-
   // React Hooks
   useEffect(() => {
     async function fetchData() {
@@ -46,8 +43,6 @@ function About() {
         console.error(error.message);
       } finally {
         setIsLoading(false);
-        // control the state of the animation
-        mainAnimationControl.start("visible");
       }
     }
     fetchData();
@@ -65,7 +60,7 @@ function About() {
           className={styles['text-wrapper']}
           variants={fadeInUpVariants}
           initial="hidden"
-          animate={mainAnimationControl}
+          animate="visible"
         >
           <h2>{headerText}</h2>
           <ReactMarkdown
@@ -91,7 +86,7 @@ function About() {
           className={styles['image-container']}
           variants={fadeInUpVariants}
           initial="hidden"
-          animate={mainAnimationControl}
+          animate="visible"
         >
           <div className={styles['image-overlay']}></div>
           <img src={aboutPhotoURL} alt="About" />
@@ -103,7 +98,7 @@ function About() {
           className={styles['horizontal-line']}
           variants={fadeInUpVariants}
           initial="hidden"
-          animate={mainAnimationControl}
+          animate="visible"
         >
         </motion.div>
       </section>
@@ -113,7 +108,7 @@ function About() {
           className={styles['map-container']}
           variants={fadeInUpVariants}
           initial="hidden"
-          animate={mainAnimationControl}
+          animate="visible"
         >
           {gpxFileUrl && <OpenStreetMap gpxFileUrl={gpxFileUrl} />}
         </motion.div>
@@ -122,7 +117,7 @@ function About() {
           className={styles['route-info-container']}
           variants={fadeInUpVariants}
           initial="hidden"
-          animate={mainAnimationControl}
+          animate="visible"
         >
           <h2>{routeHeader}</h2>
           <Reveal>

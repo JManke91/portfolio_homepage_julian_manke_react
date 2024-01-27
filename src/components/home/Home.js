@@ -23,25 +23,22 @@ function Home() {
   const ref = useRef(null);
 
   // Animation Controls
-  const mainAnimationControl = useAnimation();
-  const imageAnimationControl = useAnimation();
-
+  // FIXME: might cause issues with Safari when scrolling to the very bottom quickly
   const { scrollYProgress } = useScroll({
     target: ref,
-    offset: ['start start', 'end start'],
+    offset: ['0% 0%', '100% 0%'], // Adjusted offset values
   });
-
-  const backgroundY = useTransform(scrollYProgress, [0, 1], ['0%', '100%']);
 
   const bottomY = useTransform(
     scrollYProgress,
-    [0, 1],
-    ['100%', '0%'],
+    [0, 1.0],
+    ['90%', '80%'],
     easeOut,
   );
 
   const textY = useTransform(scrollYProgress, [0, 1], ['0%', '800%']);
-
+  const textOpacity = useTransform(scrollYProgress, [0, 0.45], [1, 0]);
+  
   // React Hooks
   useEffect(() => {
     async function fetchData() {
@@ -53,9 +50,7 @@ function Home() {
       } catch (error) {
         console.error(error.message);
       } finally {
-        setLoading(false);
-        imageAnimationControl.start("visible");
-        mainAnimationControl.start("visible");
+        setLoading(false);    
       }
     }
 
@@ -80,9 +75,10 @@ function Home() {
         <motion.h1
           variants={homeTextCloudVariants}
           initial="hidden"
-          animate={mainAnimationControl}
+          animate={'visible'}
           style={{
             y: textY,
+            opacity: textOpacity,
             x: '-50%', // Center horizontally
             width: '80%', // Adjust the width as needed
 
@@ -114,8 +110,8 @@ function Home() {
           style={{
             backgroundImage: `url(${imageUrls[1]})`,
 
-
             y: bottomY,
+            transition: 'transform 0.3s ease',
           }}
         />
       </div>
