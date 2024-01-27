@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+// Imports
+import React, { useState, useEffect, useRef } from 'react';
 import './Footer.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faInstagram } from '@fortawesome/free-brands-svg-icons';
@@ -6,16 +7,29 @@ import _debounce from 'lodash/debounce';
 import { DEBOUNCE_SCROLLING } from '../../constants/constants';
 
 function Footer() {
+    // State
     const [isFooterVisible, setIsFooterVisible] = useState(true);
     const [prevScrollPos, setPrevScrollPos] = useState(0);
 
+    // References
+    const footerRef = useRef(null);
+
+    // React Hooks
     useEffect(() => {
         const handleScroll = () => {
             const currentScrollPos = window.scrollY;
             const scrollThreshold = 20; // Adjust this threshold as needed
 
+            const windowHeight = window.innerHeight;
+            const myPadding = 0.4 * window.innerHeight;
+            const footerHeight = footerRef.current.clientHeight + myPadding;
+
             if (Math.abs(prevScrollPos - currentScrollPos) > scrollThreshold) {
-                setIsFooterVisible(prevScrollPos > currentScrollPos || currentScrollPos === 0);
+                setIsFooterVisible(
+                    prevScrollPos > currentScrollPos ||
+                    currentScrollPos + footerHeight >= windowHeight ||
+                    currentScrollPos === 0
+                );
                 setPrevScrollPos(currentScrollPos);
             }
         };
@@ -32,7 +46,7 @@ function Footer() {
     }, [prevScrollPos]);
 
     return (
-        <footer className={`footer ${isFooterVisible ? 'footer-visible' : 'footer-hidden'}`}>
+        <footer ref={footerRef} className={`footer ${isFooterVisible ? 'footer-visible' : 'footer-hidden'}`}>
             <div className="footer-content">
                 {/* Your other footer content */}
                 <div className="follow-section">

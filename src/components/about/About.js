@@ -1,6 +1,6 @@
 // Imports
 import React, { useState, useEffect } from 'react';
-import './About.css'; // Import the CSS file
+import styles from './About.module.css';
 import OpenStreetMap from '../general/OpenStreetMap';
 import { fetchAboutPagedata } from '../../data/contentful';
 import LoadingSpinner from './../loadingspinner/LoadingSpinner';
@@ -60,9 +60,9 @@ function About() {
 
   return (
     <>
-      <section className="about-image-section">
+      <section className={styles['about-image-section']}>
         <motion.div
-          className="text-wrapper"
+          className={styles['text-wrapper']}
           variants={fadeInUpVariants}
           initial="hidden"
           animate={mainAnimationControl}
@@ -88,19 +88,19 @@ function About() {
         </motion.div>
 
         <motion.div
-          className="image-container"
+          className={styles['image-container']}
           variants={fadeInUpVariants}
           initial="hidden"
           animate={mainAnimationControl}
         >
-          <div className="image-overlay"></div>
+          <div className={styles['image-overlay']}></div>
           <img src={aboutPhotoURL} alt="About" />
         </motion.div>
       </section>
 
-      <section className="horizontal-line-section">
+      <section className={styles['horizontal-line-section']}>
         <motion.div
-          className="horizontal-line"
+          className={styles['horizontal-line']}
           variants={fadeInUpVariants}
           initial="hidden"
           animate={mainAnimationControl}
@@ -108,9 +108,9 @@ function About() {
         </motion.div>
       </section>
 
-      <section id="about" className="about">
+      <section id="about" className={styles['about']}>
         <motion.div
-          className="map-container"
+          className={styles['map-container']}
           variants={fadeInUpVariants}
           initial="hidden"
           animate={mainAnimationControl}
@@ -119,7 +119,7 @@ function About() {
         </motion.div>
 
         <motion.div
-          className="route-info-container"
+          className={styles['route-info-container']}
           variants={fadeInUpVariants}
           initial="hidden"
           animate={mainAnimationControl}

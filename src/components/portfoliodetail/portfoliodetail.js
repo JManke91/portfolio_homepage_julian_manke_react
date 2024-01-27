@@ -8,6 +8,8 @@ import './PortfolioDetail.css';
 import ImageModal from '../imagemodal/ImageModal';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { DEVICE_WIDTH_PIXEL, COLUMN_COUNTS_LAYOUT, MAX_NUMBER_ROWS_LAYOUT, GUTTER_VALUE } from '../../constants/constants';
+import { motion } from 'framer-motion';
+import { fadeInUpVariants } from './../general/FramerMotionAnimations'
 
 const PortfolioDetail = () => {
     const { id } = useParams();
@@ -143,13 +145,23 @@ const PortfolioDetail = () => {
                 loader={<LoadingSpinner />}
             >
                 <ResponsiveMasonry columnsCountBreakPoints={{ 500: 1, 768: 2, 1200: 3 }}>
-                    <Masonry gutter={GUTTER_VALUE}> 
+                    <Masonry gutter={GUTTER_VALUE}>
                         {imageSetData.map((image, index) => (
-                            <div key={index} className="container">
-                                <div className="portfolio-grid-entry" onClick={() => openModal(image.imageUrl)}>
+                            <motion.div
+                                key={index}
+                                className="container"
+                                variants={fadeInUpVariants}
+                                initial="hidden"
+                                animate="visible"
+                            >
+
+                                <div
+                                    className="portfolio-grid-entry"
+                                    onClick={() => openModal(image.imageUrl)}
+                                >
                                     <PortfolioGridEntry imageUrl={image.imageUrl} caption={image.caption} />
                                 </div>
-                            </div>
+                            </motion.div>
                         ))}
                     </Masonry>
                 </ResponsiveMasonry>

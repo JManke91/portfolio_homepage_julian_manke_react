@@ -16,6 +16,8 @@ function Header() {
 
   // References
   const navRef = useRef(null);
+  const headerRef = useRef();
+
   const location = useLocation();
 
   // State Controls
@@ -49,10 +51,18 @@ function Header() {
 
     const handleScroll = () => {
       const currentScrollPos = window.scrollY;
-      const scrollThreshold = 20; // Adjust this threshold as needed
+      const scrollThreshold = 20;
+
+      const windowHeight = window.innerHeight;
+      const myPadding = 0.4 * window.innerHeight;
+      const headerHeight = headerRef.current.clientHeight + myPadding;
 
       if (Math.abs(prevScrollPos - currentScrollPos) > scrollThreshold) {
-        setIsHeaderVisible(prevScrollPos > currentScrollPos || currentScrollPos === 0);
+        setIsHeaderVisible(
+          prevScrollPos > currentScrollPos||
+          currentScrollPos + headerHeight >= windowHeight ||
+          currentScrollPos === 0
+          );
         setPrevScrollPos(currentScrollPos);
       }
     };
@@ -79,7 +89,7 @@ function Header() {
 
   // Render
   return (
-    <header className={`header ${menuOpen ? 'menu-open' : ''} ${!isHeaderVisible ? 'header-hidden' : 'header-visible'}`}>
+    <header ref={headerRef} className={`header ${menuOpen ? 'menu-open' : ''} ${!isHeaderVisible ? 'header-hidden' : 'header-visible'}`}>
       <div className="nav-container">
         <div className="menu-icon" onClick={toggleMenu}>
           <span></span>

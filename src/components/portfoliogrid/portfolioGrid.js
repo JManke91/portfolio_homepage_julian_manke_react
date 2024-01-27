@@ -38,10 +38,10 @@ const PortfolioGrid = () => {
     <motion.div
       key={index}
       /*whileHover={{scale: 1.1,}}*/
-      variants={fadeInUpVariants}
       className="container"
+      variants={fadeInUpVariants}
       initial="hidden"
-      animate="visible"
+      animate="visible" 
     >
       <Link to={`/portfolio/${item.portfolioImageSetId}`} style={{ textDecoration: 'none', color: 'inherit' }}>
         <PortfolioGridEntry imageUrl={item.imageUrl} caption={item.caption} aspectRatio={1 / 1} />
