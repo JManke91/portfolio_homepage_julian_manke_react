@@ -3,13 +3,12 @@ import React, { useState, useEffect, useRef } from 'react';
 import './Home.css';
 import { getHomeImages, fetchQuote } from '../../data/contentful';
 import LoadingSpinner from '../loadingspinner/LoadingSpinner';
-import { homeTextCloudVariants } from './../general/FramerMotionAnimations'
+import { homeTextCloudVariants, homeTextFadeInVariants } from './../general/FramerMotionAnimations'
 import {
   motion,
   useScroll,
   useTransform,
-  easeOut,
-  useAnimation
+  easeOut
 } from "framer-motion";
 
 
@@ -18,6 +17,7 @@ function Home() {
   const [imageUrls, setImageUrls] = useState([]);
   const [quote, setQuote] = useState('');
   const [loading, setLoading] = useState(true);
+  const [isSmallDevice, setIsSmallDevice] = useState(window.innerWidth < 768);
 
   // References
   const ref = useRef(null);
@@ -55,6 +55,17 @@ function Home() {
     }
 
     fetchData();
+
+    // Update the state when the window is resized
+    const handleResize = () => {
+      setIsSmallDevice(window.innerWidth < 768);
+    };
+
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
   }, []);
 
   useEffect(() => {
@@ -73,9 +84,9 @@ function Home() {
       >
 
         <motion.h1
-          variants={homeTextCloudVariants}
+          variants={isSmallDevice ? homeTextFadeInVariants : homeTextCloudVariants}
           initial="hidden"
-          animate={'visible'}
+          animate="visible"
           style={{
             y: textY,
             opacity: textOpacity,
