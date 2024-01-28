@@ -6,7 +6,7 @@ import { fetchAboutPagedata } from '../../data/contentful';
 import LoadingSpinner from './../loadingspinner/LoadingSpinner';
 import ReactMarkdown from 'react-markdown';
 import { Link } from 'react-router-dom';
-import { motion, useAnimation } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { fadeInUpVariants } from './../general/FramerMotionAnimations'
 import Reveal from './../general/Reveal';
 
