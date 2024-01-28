@@ -18,6 +18,7 @@ function Header() {
   const navRef = useRef(null);
   const headerRef = useRef();
 
+  // react-router-dom
   const location = useLocation();
 
   // State Controls
@@ -97,7 +98,9 @@ function Header() {
           <span></span>
         </div>
         <div className="favicon">
-          <img src={logo} alt="logo" />
+          <Link to="/">
+            <img src={logo} alt="logo" />
+          </Link>
         </div>
         <nav
           ref={navRef}
