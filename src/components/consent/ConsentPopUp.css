@@ -1,0 +1,52 @@
+#consent-popup {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 2rem;
+    opacity: 1;
+    transition: opacity .8s ease;
+    background-color: white;
+    
+    z-index: 10; /* Set z-index to 10 */
+    text-align: center; /* Center align the text */
+
+    &.hidden {
+        opacity: 0;
+    }
+}
+
+#consent-popup p {
+    margin: 0;
+    color: black; /* Set text color to black */
+    font-size: 12px;
+}
+
+.button-container {
+    margin-top: 1rem;
+}
+
+.accept-button,
+.decline-button {
+    padding: 0.5rem 1rem;
+    margin: 0.5rem;
+    border: 1px solid #ccc;
+    background-color: #f0f0f0;
+    cursor: pointer;
+}
+
+.accept-button {
+    padding: 0.5rem 1rem;
+    margin: 0.5rem;
+    border: none;
+    background-color: #4CAF50; /* Green */
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+}
+
+.accept-button:hover {
+    background-color: #45a049; /* Darker green */
+}

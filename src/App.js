@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './App.css';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Header from './components/header/Header';
@@ -7,8 +7,14 @@ import PortfolioGrid from './components/portfoliogrid/portfolioGrid';
 import PortfolioDetail from './components/portfoliodetail/portfoliodetail';
 import Footer from './components/footer/Footer';
 import Home from './components/home/Home';
+import { handleConsent } from './components/consent/Consent';
+import ConsentPopUp from './components/consent/ConsentPopUp';
 
 function App() {
+
+  useEffect(() => {
+    handleConsent();
+  }, []);
 
   return (
     <Router>
@@ -23,6 +29,7 @@ function App() {
           {/* Add more routes as needed */}
         </Routes>
         <Footer />
+        <ConsentPopUp/>
       </div>
     </Router>
   );

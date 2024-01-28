@@ -33,3 +33,6 @@ export const COVER_IMAGE_QUALITY = { LARGE: 60, MEDIUM: 50, SMALL: 40 };
 
 // Masonry Layout constants
 export const GUTTER_VALUE = '24px'; // Set your desired gutter value here
+
+// Cookie Values
+export const ANALYTICS_CONSENT_KEY = 'analytics_consent';
