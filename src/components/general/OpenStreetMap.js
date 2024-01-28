@@ -50,7 +50,8 @@ const OpenStreetMap = ({ gpxFileUrl }) => {
 
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
           attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-          className: 'map-tiles'
+          className: 'map-tiles',
+          lang: 'en'
         }).addTo(map);
 
       })
