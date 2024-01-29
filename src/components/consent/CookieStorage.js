@@ -7,8 +7,15 @@ const cookieStorage = {
         return cookies[key];
     },
 
-    setItem: (key, value) => {
-        document.cookie = `${key}=${value}`;
+    setItem: (key, value, daysToExpire) => {
+        let expires = '';
+        if (daysToExpire) {
+            const date = new Date();
+            date.setTime(date.getTime() + (daysToExpire * 24 * 60 * 60 * 1000));
+            expires = `; expires=${date.toUTCString()}`;
+            console.log('cookie expiry date:', expires);
+        }
+        document.cookie = `${key}=${value}${expires}`;
     }
 };
 

@@ -5,7 +5,7 @@ const storageType = cookieStorage;
 const consentProperyName = ANALYTICS_CONSENT_KEY
 
 const shouldShowPopup = () => !storageType.getItem(consentProperyName);
-const saveToStorage = () => storageType.setItem(consentProperyName, true);
+const saveToStorage = () => storageType.setItem(consentProperyName, true, 180);
 
 const setCallBack = (callback, value) => {
     if (typeof callback === 'function') {
