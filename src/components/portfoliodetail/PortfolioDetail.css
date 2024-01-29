@@ -4,9 +4,10 @@
     /* Ensure the background covers the entire viewport height */
     padding-top: 75px;
     /* TODO: style={{ paddingLeft: {GUTTER_VALUE}, paddingRight: {GUTTER_VALUE} }} */
+    margin-bottom: 90px;
+
     padding-left: 24px;
     padding-right: 24px;
-
 }
 
 .scrolling-down .portfolio-grid-detail-wrapper:not(.modal-open) .back-button.changeOpacity {

@@ -88,7 +88,7 @@ function Home() {
           initial="hidden"
           animate="visible"
           style={{
-            y: textY,
+            y: isSmallDevice ? 0 : textY,
             opacity: textOpacity,
             x: '-50%', // Center horizontally
             width: '80%', // Adjust the width as needed
