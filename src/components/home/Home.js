@@ -88,7 +88,7 @@ function Home() {
           initial="hidden"
           animate="visible"
           style={{
-            y: isSmallDevice ? 0 : textY,
+            y: textY,
             opacity: textOpacity,
             x: '-50%', // Center horizontally
             width: '80%', // Adjust the width as needed
@@ -121,7 +121,7 @@ function Home() {
           style={{
             backgroundImage: `url(${imageUrls[1]})`,
 
-            y: bottomY,
+            //y: bottomY, Parallax Effect for bottom image
             transition: 'transform 0.3s ease',
           }}
         />
