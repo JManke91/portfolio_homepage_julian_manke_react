@@ -20,14 +20,9 @@ function Footer() {
             const currentScrollPos = window.scrollY;
             const scrollThreshold = 20; // Adjust this threshold as needed
 
-            const windowHeight = window.innerHeight;
-            const myPadding = 0.4 * window.innerHeight;
-            const footerHeight = footerRef.current.clientHeight + myPadding;
-
             if (Math.abs(prevScrollPos - currentScrollPos) > scrollThreshold) {
                 setIsFooterVisible(
                     prevScrollPos > currentScrollPos ||
-                    currentScrollPos + footerHeight >= windowHeight ||
                     currentScrollPos === 0
                 );
                 setPrevScrollPos(currentScrollPos);

@@ -54,14 +54,9 @@ function Header() {
       const currentScrollPos = window.scrollY;
       const scrollThreshold = 20;
 
-      const windowHeight = window.innerHeight;
-      const myPadding = 0.4 * window.innerHeight;
-      const headerHeight = headerRef.current.clientHeight + myPadding;
-
       if (Math.abs(prevScrollPos - currentScrollPos) > scrollThreshold) {
         setIsHeaderVisible(
           prevScrollPos > currentScrollPos||
-          currentScrollPos + headerHeight >= windowHeight ||
           currentScrollPos === 0
           );
         setPrevScrollPos(currentScrollPos);
