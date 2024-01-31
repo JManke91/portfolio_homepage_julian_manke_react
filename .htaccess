@@ -1,0 +1,9 @@
+Options -MultiViews
+RewriteEngine On
+RewriteBase /
+
+# Handle requests for files that exist
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+# For all other requests, redirect to the index.html file of your React app
+RewriteRule ^ index.html [L]

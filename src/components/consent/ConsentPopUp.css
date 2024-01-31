@@ -8,7 +8,7 @@
     transition: opacity .8s ease;
     background-color: white;
     
-    z-index: 10; /* Set z-index to 10 */
+    z-index: 80; /* Set z-index to 10 */
     text-align: center; /* Center align the text */
 
     &.hidden {
