@@ -7,7 +7,13 @@ import LoadingSpinner from './../loadingspinner/LoadingSpinner'; // Adjust the p
 import './PortfolioDetail.css';
 import ImageModal from '../imagemodal/ImageModal';
 import InfiniteScroll from 'react-infinite-scroll-component';
-import { DEVICE_WIDTH_PIXEL, COLUMN_COUNTS_LAYOUT, MAX_NUMBER_ROWS_LAYOUT, GUTTER_VALUE } from '../../constants/constants';
+import {
+    DEVICE_WIDTH_PIXEL,
+    COLUMN_COUNTS_LAYOUT,
+    MAX_NUMBER_ROWS_LAYOUT,
+    GUTTER_VALUE,
+    BACK_BUTTON_TEXT
+} from '../../constants/constants';
 import { motion } from 'framer-motion';
 import { fadeInUpVariants } from './../general/FramerMotionAnimations'
 
@@ -136,7 +142,7 @@ const PortfolioDetail = () => {
     return (
         <div className={`portfolio-grid-detail-wrapper header-footer-visible ${isModalOpen ? 'modal-open' : 'modal-closed'}`}>
             <button className={`back-button ${changeBackButtonOpacity ? 'original' : 'changeOpacity'}`} onClick={handleBack}>
-                Previous
+                {BACK_BUTTON_TEXT}
             </button>
             <InfiniteScroll
                 dataLength={imageSetData.length}

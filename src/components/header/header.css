@@ -160,7 +160,7 @@ nav ul li:last-child {
         align-items: flex-end;
         /* Align the menu icon to the right */
         right: 0;
-        padding-right: 5%;
+        padding-right: 12px;
 
         /* Adjust the top position as needed */
 

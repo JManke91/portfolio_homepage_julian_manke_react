@@ -37,3 +37,6 @@ export const GUTTER_VALUE = '24px'; // Set your desired gutter value here
 // Cookie & Tracking Values
 export const ANALYTICS_CONSENT_KEY = 'analytics_consent';
 export const GOOGLE_TRACKING_ID = 'G-8HPBSMWJR5';
+
+// PortfolioGrid Detail
+export const BACK_BUTTON_TEXT = 'Previous';
