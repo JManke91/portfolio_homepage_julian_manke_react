@@ -54,11 +54,81 @@
 }
 
 .close-button {
-  position: fixed; /* Change to fixed positioning */
+  position: fixed;
+  /* Change to fixed positioning */
   top: 24px;
   right: 24px;
   font-size: 24px;
   color: #fff;
   cursor: pointer;
-  z-index: 1; /* Ensure the close button is above the overlay content */
+  z-index: 1;
+  /* Ensure the close button is above the overlay content */
+}
+
+.show-more-button {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #333;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px 20px;
+  z-index: 100;
+}
+
+.arrow-up {
+  width: 0;
+  height: 0;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-bottom: 10px solid #fff;
+  margin-bottom: 5px;
+}
+
+.arrow-down {
+  width: 0;
+  height: 0;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-top: 10px solid #fff;
+  /* Change border-bottom to border-top */
+  margin-bottom: 5px;
+  /* Adjust margin to maintain spacing */
+}
+
+.more-info {
+  position: absolute;
+  bottom: 80px;
+  /* Position it below the button */
+  left: 50%;
+  transform: translateX(-50%);
+  color: white;
+  text-align: center;
+  max-width: 40%;
+  z-index: 100;
+  /* Ensure it's above other content */
+  overflow-wrap: break-word;
+}
+
+.markdown-text p {
+  font-size: 16px;
+  font-family: 'Poppins', sans-serif; /* Use the Poppins font family */
+}
+
+/* Style the link */
+a {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+
+@media (max-width: 768px) {
+  .more-info {
+    max-width: 100%;
+  }
 }

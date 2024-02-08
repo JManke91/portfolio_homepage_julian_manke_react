@@ -40,3 +40,9 @@ export const GOOGLE_TRACKING_ID = 'G-8HPBSMWJR5';
 
 // PortfolioGrid Detail
 export const BACK_BUTTON_TEXT = 'Previous';
+
+// Animation Control Constants
+export const INFO_TEXT_FADE_IN_ANIMATION_DURARION = 0.5;
+export const OVERLAY_IMAGE_OPACITY_TRANSITION_DURATION = 0.5;
+export const OVERLAY_IMAGE_END_OPACITY = 0.6;
+export const OVERLAY_IMAGE_BLUR_VALUE = '5px';

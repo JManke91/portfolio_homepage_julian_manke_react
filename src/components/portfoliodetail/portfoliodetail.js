@@ -23,6 +23,7 @@ const PortfolioDetail = () => {
     const [imageSetData, setImageSetData] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [selectedImage, setSelectedImage] = useState(null);
+    const [selectedImageInfo, setSelectedImageInfo] = useState(null);
     const navigate = useNavigate();
     const [prevScrollPos, setPrevScrollPos] = useState(0);
     const [changeBackButtonOpacity, setChangeBackButtonOpacity] = useState(true);
@@ -80,8 +81,9 @@ const PortfolioDetail = () => {
         fetchData();
     }, [portfolioImageSetId, page]);
 
-    const openModal = (imageUrl) => {
-        setSelectedImage(imageUrl);
+    const openModal = (image) => {
+        setSelectedImage(image.imageUrl);
+        setSelectedImageInfo(image.moreInfo);
         setIsModalOpen(true);
         document.body.classList.add('header-footer-hidden');
     };
@@ -163,7 +165,7 @@ const PortfolioDetail = () => {
 
                                 <div
                                     className="portfolio-grid-entry"
-                                    onClick={() => openModal(image.imageUrl)}
+                                    onClick={() => openModal(image)}
                                 >
                                     <PortfolioGridEntry imageUrl={image.imageUrl} caption={image.caption} />
                                 </div>
@@ -173,7 +175,7 @@ const PortfolioDetail = () => {
                 </ResponsiveMasonry>
             </InfiniteScroll>
 
-            {selectedImage && <ImageModal imageUrl={selectedImage} onClose={closeModal} />}
+            {selectedImage && <ImageModal imageUrl={selectedImage} moreInfo={selectedImageInfo} onClose={closeModal} />}
         </div>
     );
 };

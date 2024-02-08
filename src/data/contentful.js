@@ -154,6 +154,7 @@ export const getPortfolioImageSetDataFromContentful = async (coverImageId, page 
       return {
         imageUrl,
         caption: item.fields.caption,
+        moreInfo: item.fields.moreInfo,
       };
     });
 
