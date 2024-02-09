@@ -1,9 +1,10 @@
+// Imports
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import Masonry, { ResponsiveMasonry } from 'react-responsive-masonry';
 import PortfolioGridEntry from '../general/PortfolioGridEntry';
 import { getPortfolioImageSetDataFromContentful } from '../../data/contentful';
-import LoadingSpinner from './../loadingspinner/LoadingSpinner'; // Adjust the path based on your project structure
+import LoadingSpinner from './../loadingspinner/LoadingSpinner';
 import './PortfolioDetail.css';
 import ImageModal from '../imagemodal/ImageModal';
 import InfiniteScroll from 'react-infinite-scroll-component';
@@ -31,7 +32,6 @@ const PortfolioDetail = () => {
     const [page, setPage] = useState(1);
     const [maxPages, setMaxPages] = useState(1); // Assuming initial value is 1
 
-    // TODO: Use constants
     const calculateLimit = () => {
         const screenWidth = window.innerWidth;
 
@@ -81,25 +81,6 @@ const PortfolioDetail = () => {
         fetchData();
     }, [portfolioImageSetId, page]);
 
-    const openModal = (image) => {
-        setSelectedImage(image.imageUrl);
-        setSelectedImageInfo(image.moreInfo);
-        setIsModalOpen(true);
-        document.body.classList.add('header-footer-hidden');
-    };
-
-    const closeModal = () => {
-        setSelectedImage(null);
-        setIsModalOpen(false);
-        document.body.classList.remove('header-footer-hidden');
-    };
-
-    const handleBack = () => {
-        navigate('/portfolio');
-    };
-
-
-
     useEffect(() => {
 
         const handleScroll = () => {
@@ -127,6 +108,24 @@ const PortfolioDetail = () => {
         };
     }, [prevScrollPos, setChangeBackButtonOpacity]);
 
+    // Handle state changes
+    const openModal = (image) => {
+        setSelectedImage(image.imageUrl);
+        setSelectedImageInfo(image.moreInfo);
+        setIsModalOpen(true);
+        document.body.classList.add('header-footer-hidden');
+    };
+
+    const closeModal = () => {
+        setSelectedImage(null);
+        setIsModalOpen(false);
+        document.body.classList.remove('header-footer-hidden');
+    };
+
+    const handleBack = () => {
+        navigate('/portfolio');
+    };
+
     const loadMore = () => {
         // Load more data only if there are more pages to load
         if (process.env.NODE_ENV === 'development') {
@@ -141,6 +140,7 @@ const PortfolioDetail = () => {
         return <LoadingSpinner />;
     }
 
+    // Render
     return (
         <div className={`portfolio-grid-detail-wrapper header-footer-visible ${isModalOpen ? 'modal-open' : 'modal-closed'}`}>
             <button className={`back-button ${changeBackButtonOpacity ? 'original' : 'changeOpacity'}`} onClick={handleBack}>

@@ -14,6 +14,7 @@ import {
   OVERLAY_IMAGE_END_OPACITY,
   OVERLAY_IMAGE_BLUR_VALUE,
 } from './../../constants/constants';
+import { useLockBodyScroll } from '@uidotdev/usehooks';
 
 const ImageModal = ({ imageUrl, moreInfo, onClose }) => {
 
@@ -25,6 +26,8 @@ const ImageModal = ({ imageUrl, moreInfo, onClose }) => {
   useEffect(() => {
     setIsActive(true);
   }, []);
+
+  useLockBodyScroll();
 
   // Animation Controls
   const imageAnimationControls = useAnimation();

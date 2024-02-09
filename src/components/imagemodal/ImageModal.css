@@ -114,6 +114,10 @@
   z-index: 100;
   /* Ensure it's above other content */
   overflow-wrap: break-word;
+
+  overflow-y: auto;
+  max-height: 70vh;
+  padding-right: 10px;
 }
 
 .markdown-text p {
