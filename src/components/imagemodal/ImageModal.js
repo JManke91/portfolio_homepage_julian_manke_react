@@ -25,6 +25,10 @@ const ImageModal = ({ imageUrl, moreInfo, onClose }) => {
   // React Hooks
   useEffect(() => {
     setIsActive(true);
+    document.body.style.overflow = 'hidden'; // Disable scrolling when modal is open
+    return () => {
+      document.body.style.overflow = 'auto'; // Enable scrolling when modal is closed
+    };
   }, []);
 
   useLockBodyScroll();
