@@ -56,9 +56,9 @@ function Header() {
 
       if (Math.abs(prevScrollPos - currentScrollPos) > scrollThreshold) {
         setIsHeaderVisible(
-          prevScrollPos > currentScrollPos||
+          prevScrollPos > currentScrollPos ||
           currentScrollPos === 0
-          );
+        );
         setPrevScrollPos(currentScrollPos);
       }
     };
@@ -118,6 +118,19 @@ function Header() {
               onClick={() => setMenuOpen(false)}
               className={activeLink === 'about' ? 'active' : ''}
             >About</Link></li>
+            <li>
+              <a
+                href="https://www.mipic.co/jmanke"
+                onClick={() => {
+                  setMenuOpen(false);
+                }}
+                className={activeLink === 'prints' ? 'active' : ''}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Prints
+              </a>
+            </li>
           </ul>
         </nav>
       </div>
