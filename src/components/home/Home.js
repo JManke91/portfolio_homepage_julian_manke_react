@@ -10,6 +10,7 @@ import {
   useTransform,
   easeOut
 } from "framer-motion";
+import Lenis from '@studio-freight/lenis'
 
 
 function Home() {
@@ -18,28 +19,44 @@ function Home() {
   const [quote, setQuote] = useState('');
   const [loading, setLoading] = useState(true);
   const [isSmallDevice, setIsSmallDevice] = useState(window.innerWidth < 768);
+  const [imgLoaded, setImgLoaded] = useState(false);
 
   // References
   const ref = useRef(null);
 
   // Animation Controls
-  // FIXME: might cause issues with Safari when scrolling to the very bottom quickly
+
   const { scrollYProgress } = useScroll({
     target: ref,
-    offset: ['0% 0%', '100% 0%'], // Adjusted offset values
+    offset: ['0% 0%', '100% 0%'],
   });
+
+  const scrollRangeStart = 0.0; // Start of the scroll range (20%)
+  const scrollRangeEnd = 1.0; // End of the scroll range (80%)
 
   const bottomY = useTransform(
     scrollYProgress,
-    [0, 1.0],
-    ['90%', '80%'],
+    [scrollRangeStart, scrollRangeEnd],
+    ['100%', '40%'], //'90%', '60%'
     easeOut,
   );
 
   const textY = useTransform(scrollYProgress, [0, 1], ['0%', '800%']);
-  const textOpacity = useTransform(scrollYProgress, [0, 0.45], [1, 0]);
-  
+  const textOpacity = useTransform(scrollYProgress, [0, 0.6], [1, 0]);
+
   // React Hooks
+  useEffect(() => {
+    // Basic setup for `Lenis` (Smooth animation)
+    const lenis = new Lenis()
+
+    function raf(time) {
+      lenis.raf(time)
+      requestAnimationFrame(raf)
+    }
+
+    requestAnimationFrame(raf)
+  })
+
   useEffect(() => {
     async function fetchData() {
       try {
@@ -50,7 +67,7 @@ function Home() {
       } catch (error) {
         console.error(error.message);
       } finally {
-        setLoading(false);    
+        setLoading(false);
       }
     }
 
@@ -70,6 +87,10 @@ function Home() {
 
   useEffect(() => {
   }, [scrollYProgress]);
+
+  const handleImageLoad = () => {
+    setImgLoaded(true);
+  };
 
   // Render
   if (loading) {
@@ -100,30 +121,29 @@ function Home() {
           {quote}
         </motion.h1>
 
-        <motion.div
-          className="background-image"
-          style={{
-            backgroundImage: `url(${imageUrls[0]})`,
-
-          }}
+        <motion.img
+          className={`background-image ${imgLoaded ? 'image' : 'image blur'}`}
+          src={imageUrls[0]}
+          alt="Background"
+          onLoad={handleImageLoad}
         />
 
-        <motion.div
-          className="foreground-image"
-          style={{
-            backgroundImage: `url(${imageUrls[2]})`,
-
-          }}
+        <motion.img
+          className={`foreground-image ${imgLoaded ? 'image' : 'image blur'}`}
+          src={imageUrls[2]}
+          alt="Foreground"
+          onLoad={handleImageLoad}
         />
 
-        <motion.div
-          className="bottom-image"
+        <motion.img
+          className={`bottom-image ${imgLoaded ? 'image' : 'image blur'}`}
+          src={imageUrls[1]}
+          alt="Bottom"
           style={{
-            backgroundImage: `url(${imageUrls[1]})`,
-
-            //y: bottomY, Parallax Effect for bottom image
+            //y: bottomY,
             transition: 'transform 0.3s ease',
           }}
+          onLoad={handleImageLoad}
         />
       </div>
     </div>
