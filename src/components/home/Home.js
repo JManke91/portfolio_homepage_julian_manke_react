@@ -3,22 +3,18 @@ import React, { useState, useEffect, useRef } from 'react';
 import './Home.css';
 import { getHomeImages, fetchQuote } from '../../data/contentful';
 import LoadingSpinner from '../loadingspinner/LoadingSpinner';
-import { homeTextCloudVariants, homeTextFadeInVariants } from './../general/FramerMotionAnimations'
 import {
   motion,
   useScroll,
   useTransform,
-  easeOut
 } from "framer-motion";
-import Lenis from '@studio-freight/lenis'
-
 
 function Home() {
   // State
   const [imageUrls, setImageUrls] = useState([]);
   const [quote, setQuote] = useState('');
   const [loading, setLoading] = useState(true);
-  const [isSmallDevice, setIsSmallDevice] = useState(window.innerWidth < 768);
+  const [setIsSmallDevice] = useState(window.innerWidth < 768);
   const [imgLoaded, setImgLoaded] = useState(false);
 
   // References
@@ -31,31 +27,8 @@ function Home() {
     offset: ['0% 0%', '100% 0%'],
   });
 
-  const scrollRangeStart = 0.0; // Start of the scroll range (20%)
-  const scrollRangeEnd = 1.0; // End of the scroll range (80%)
-
-  const bottomY = useTransform(
-    scrollYProgress,
-    [scrollRangeStart, scrollRangeEnd],
-    ['100%', '40%'], //'90%', '60%'
-    easeOut,
-  );
-
   const textY = useTransform(scrollYProgress, [0, 1], ['0%', '800%']);
   const textOpacity = useTransform(scrollYProgress, [0, 0.6], [1, 0]);
-
-  // React Hooks
-  useEffect(() => {
-    // Basic setup for `Lenis` (Smooth animation)
-    const lenis = new Lenis()
-
-    function raf(time) {
-      lenis.raf(time)
-      requestAnimationFrame(raf)
-    }
-
-    requestAnimationFrame(raf)
-  })
 
   useEffect(() => {
     async function fetchData() {
@@ -72,17 +45,6 @@ function Home() {
     }
 
     fetchData();
-
-    // Update the state when the window is resized
-    const handleResize = () => {
-      setIsSmallDevice(window.innerWidth < 768);
-    };
-
-    window.addEventListener('resize', handleResize);
-
-    return () => {
-      window.removeEventListener('resize', handleResize);
-    };
   }, []);
 
   useEffect(() => {
@@ -105,9 +67,6 @@ function Home() {
       >
 
         <motion.h1
-          variants={isSmallDevice ? homeTextFadeInVariants : homeTextCloudVariants}
-          initial="hidden"
-          animate="visible"
           style={{
             y: textY,
             opacity: textOpacity,
@@ -118,7 +77,23 @@ function Home() {
           className='home-text'
 
         >
-          {quote}
+
+          {
+            quote.split("").map((letter, i) => (
+              <motion.span
+                key={`letter_${i}`}
+                initial={{ opacity: 0, y: -20 }}
+                animate={{ opacity: 1, y: 0 }}
+
+                transition={{
+                  duration: 0.5,
+                  delay: i * 0.04
+                }}
+              >
+                {letter}
+              </motion.span>
+            ))
+          }
         </motion.h1>
 
         <motion.img
