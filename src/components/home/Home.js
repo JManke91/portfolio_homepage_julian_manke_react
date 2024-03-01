@@ -10,6 +10,7 @@ function Home() {
   const [loading, setLoading] = useState(true);
   const [imgLoaded, setImgLoaded] = useState(false);
 
+  // React Hooks
   useEffect(() => {
     async function fetchData() {
       try {
