@@ -9,6 +9,7 @@ Source Code of my private photography portfolio website using react-js. The webs
 * Mobile optimazation for a fluid user interface on smaller devides
 * Integration of SSL certificates to provide a secure and trusted HTTPS connection
 * Self manages Cookie management in order to use Google Analytics for insights in the user demographics and general website interactions.
+* GitHub Action Pipeline for a smooth CD process to the hosting server.
 
 
 # Getting Started with Create React App
