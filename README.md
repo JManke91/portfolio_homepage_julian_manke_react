@@ -1,3 +1,17 @@
+# Portfolio Photography Website React-js 
+Source Code of my private photography portfolio website using react-js. The website provides an easy to use interface and optimizes image loading using various techniques discussed in the next section.
+
+## Relevant technologies and tech stack
+
+* React.js, HTML, CSSm JavsScript
+* Server Side pagination for efficient image loading
+* Responsive image loading for optimal speed efficiency and data usage accross different devices
+* Mobile optimazation for a fluid user interface on smaller devides
+* Integration of SSL certificates to provide a secure and trusted HTTPS connection
+* Self manages Cookie management in order to use Google Analytics for insights in the user demographics and general website interactions.
+* GitHub Action Pipeline for a smooth CD process to the hosting server.
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
