@@ -129,7 +129,7 @@ export const getFreeImagesFromContentful = async () => {
   try {
     const response = await contentfulClient.getEntries({
       content_type: getFreeImageType(), // Use the content type ID you defined in Contentful
-      order: '-sys.createdAt', // Order by creation date, newest first
+      order: 'sys.createdAt', // Order by creation date, newest first
     });
 
     // Calculate device-specific image parameters
