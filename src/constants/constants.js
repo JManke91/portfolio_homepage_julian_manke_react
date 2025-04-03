@@ -9,6 +9,7 @@ export const contentfulConfig = {
 export const getHomeImagesContentType = () => 'homeImage';
 export const getContentType = () => 'portfolioCoverImage';
 export const getWorkCoverImageType = () => 'workCoverImage';
+export const getFreeImageType = () => 'freeImage';
 export const getWorkImageType = () => 'workImage';
 export const getCiteType = () => 'cite';
 export const getAboutPageType = () => 'aboutPage';

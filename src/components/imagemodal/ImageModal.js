@@ -1,4 +1,3 @@
-// Imports
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import './ImageModal.css';
@@ -37,8 +36,15 @@ const ImageModal = ({ imageUrl, moreInfo, onClose }) => {
   const imageAnimationControls = useAnimation();
 
   // State changes
-  const handleClose = () => {
+  const handleClose = (e) => {
+    // Fix: Stop event propagation
+    e.stopPropagation();
+    console.log('handleClose called in ImageModal');
     setIsActive(false);
+    // Fix: Call onClose directly
+    setTimeout(() => {
+      onClose();
+    }, 300); // Match the transition duration
   };
 
   const handleTransitionEnd = () => {
@@ -47,9 +53,22 @@ const ImageModal = ({ imageUrl, moreInfo, onClose }) => {
     }
   };
 
-  const handleShowMore = () => {
+  const handleShowMore = (e) => {
+    // Fix: Stop event propagation
+    e.stopPropagation();
     setShowMoreInfo(prevState => !prevState);
     animateImage();
+  };
+  
+  // Fix: Add click handler for the modal background
+  const handleOverlayClick = (e) => {
+    // Only close if clicking directly on the overlay (not its children)
+    if (e.target === e.currentTarget) {
+      setIsActive(false);
+      setTimeout(() => {
+        onClose();
+      }, 300);
+    }
   };
 
   const animateImage = async () => {
@@ -72,13 +91,16 @@ const ImageModal = ({ imageUrl, moreInfo, onClose }) => {
   return (
     <div
       className={`image-modal-overlay ${isActive ? 'active' : ''}`}
-      //onClick={handleClose}
+      onClick={handleOverlayClick}
       onTransitionEnd={handleTransitionEnd}
     >
       <span className="close-button" onClick={handleClose}>
         &times;
       </span>
-      <div className={`image-modal-content ${isActive ? 'active' : ''}`}>
+      <div 
+        className={`image-modal-content ${isActive ? 'active' : ''}`}
+        onClick={(e) => e.stopPropagation()} // Prevent clicks on content from closing modal
+      >
         <div className="enlarged-image-container">
           <motion.img
             animate={imageAnimationControls}
@@ -111,7 +133,6 @@ const ImageModal = ({ imageUrl, moreInfo, onClose }) => {
           animate={showMoreInfo ? 'visible' : 'hidden'}
           variants={infoTextVariants}
         >
-          {/* Show "hello world" when showMoreInfo is true */}
           <ReactMarkdown
             className="markdown-text"
             components={{

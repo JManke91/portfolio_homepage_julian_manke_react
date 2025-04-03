@@ -109,6 +109,11 @@ function Header() {
               className={activeLink === 'home' ? 'active' : ''}
             >Home</Link></li>
             <li><Link
+              to="/news"
+              onClick={() => setMenuOpen(false)}
+              className={activeLink === 'news' ? 'active' : ''}
+            >News</Link></li>
+            <li><Link
               to="/portfolio"
               onClick={() => setMenuOpen(false)}
               className={activeLink === 'portfolio' ? 'active' : ''}

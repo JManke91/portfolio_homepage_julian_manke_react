@@ -1,6 +1,6 @@
 // api.js
 
-import { contentfulConfig, getHomeImagesContentType, getWorkCoverImageType, getWorkImageType, getCiteType, getAboutPageType } from '../constants/constants';
+import { getFreeImageType, contentfulConfig, getHomeImagesContentType, getWorkCoverImageType, getWorkImageType, getCiteType, getAboutPageType } from '../constants/constants';
 import { createClient } from 'contentful';
 import { calculateImageParameters, calculateCoverImageParameters } from '../components/general/ImageUtils'
 
@@ -121,6 +121,34 @@ export const getCoverImagesDataFromContentful = async () => {
     });
   } catch (error) {
     console.error('Error fetching data from Contentful:', error);
+    return [];
+  }
+};
+
+export const getFreeImagesFromContentful = async () => {
+  try {
+    const response = await contentfulClient.getEntries({
+      content_type: getFreeImageType(), // Use the content type ID you defined in Contentful
+      order: '-sys.createdAt', // Order by creation date, newest first
+    });
+
+    // Calculate device-specific image parameters
+    const { width, height, quality } = calculateImageParameters();
+
+    // Process the response and return the formatted data
+    return response.items.map((item) => {
+      const imageUrl = `${item.fields.image.fields.file.url}?w=${width}&h=${height}&q=${quality}`;
+      const caption = item.fields.image.fields.title || ''; // Use image title as caption
+      const moreInfo = item.fields.moreInfo || '';
+      
+      return {
+        imageUrl,
+        caption,
+        moreInfo,
+      };
+    });
+  } catch (error) {
+    console.error('Error fetching FreeImages from Contentful:', error);
     return [];
   }
 };
