@@ -55,14 +55,53 @@
 
 .close-button {
   position: fixed;
-  /* Change to fixed positioning */
-  top: 24px;
-  right: 24px;
-  font-size: 24px;
-  color: #fff;
+  top: 20px;
+  right: 20px;
+  width: 48px;
+  height: 48px;
+  color: rgba(255, 255, 255, 0.95);
   cursor: pointer;
-  z-index: 1;
-  /* Ensure the close button is above the overlay content */
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.25);
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  font-family: inherit;
+  padding: 0;
+  box-shadow: 
+    0 8px 32px rgba(0, 0, 0, 0.12),
+    0 2px 8px rgba(0, 0, 0, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.15);
+}
+
+.close-button:hover {
+  background: rgba(0, 0, 0, 0.35);
+  border-color: rgba(255, 255, 255, 0.25);
+  transform: scale(1.04);
+  box-shadow: 
+    0 12px 40px rgba(0, 0, 0, 0.15),
+    0 4px 12px rgba(0, 0, 0, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+.close-button:focus {
+  outline: 3px solid rgba(255, 255, 255, 0.3);
+  outline-offset: 2px;
+  background: rgba(0, 0, 0, 0.35);
+  border-color: rgba(255, 255, 255, 0.25);
+}
+
+.close-button:active {
+  transform: scale(0.96);
+  box-shadow: 
+    0 4px 16px rgba(0, 0, 0, 0.1),
+    0 1px 4px rgba(0, 0, 0, 0.06),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
 }
 
 .show-more-button {
@@ -134,5 +173,27 @@ a {
 @media (max-width: 768px) {
   .more-info {
     max-width: 100%;
+  }
+  
+  .close-button {
+    top: 16px;
+    right: 16px;
+    width: 52px;
+    height: 52px;
+  }
+}
+
+/* Safe area support for devices with notches */
+@supports (padding: max(0px)) {
+  .close-button {
+    top: max(20px, env(safe-area-inset-top));
+    right: max(20px, env(safe-area-inset-right));
+  }
+  
+  @media (max-width: 768px) {
+    .close-button {
+      top: max(16px, env(safe-area-inset-top));
+      right: max(16px, env(safe-area-inset-right));
+    }
   }
 }

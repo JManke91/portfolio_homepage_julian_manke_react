@@ -25,10 +25,24 @@ const ImageModal = ({ imageUrl, moreInfo, onClose }) => {
   useEffect(() => {
     setIsActive(true);
     document.body.style.overflow = 'hidden'; // Disable scrolling when modal is open
+    
+    // Add keyboard event listener for ESC key
+    const handleKeyDown = (event) => {
+      if (event.key === 'Escape') {
+        setIsActive(false);
+        setTimeout(() => {
+          onClose();
+        }, 300);
+      }
+    };
+    
+    document.addEventListener('keydown', handleKeyDown);
+    
     return () => {
       document.body.style.overflow = 'auto'; // Enable scrolling when modal is closed
+      document.removeEventListener('keydown', handleKeyDown);
     };
-  }, []);
+  }, [onClose]);
 
   useLockBodyScroll();
 
@@ -94,9 +108,28 @@ const ImageModal = ({ imageUrl, moreInfo, onClose }) => {
       onClick={handleOverlayClick}
       onTransitionEnd={handleTransitionEnd}
     >
-      <span className="close-button" onClick={handleClose}>
-        &times;
-      </span>
+      <button 
+        className="close-button" 
+        onClick={handleClose}
+        aria-label="Close image modal"
+        title="Close (ESC)"
+        autoFocus
+      >
+        <svg 
+          width="18" 
+          height="18" 
+          viewBox="0 0 18 18" 
+          fill="none" 
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path 
+            d="M1 1L17 17M1 17L17 1" 
+            stroke="currentColor" 
+            strokeWidth="2.5" 
+            strokeLinecap="round"
+          />
+        </svg>
+      </button>
       <div 
         className={`image-modal-content ${isActive ? 'active' : ''}`}
         onClick={(e) => e.stopPropagation()} // Prevent clicks on content from closing modal
