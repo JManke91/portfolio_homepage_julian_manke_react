@@ -123,19 +123,6 @@ function Header() {
               onClick={() => setMenuOpen(false)}
               className={activeLink === 'about' ? 'active' : ''}
             >About</Link></li>
-            <li>
-              <a
-                href="https://www.mipic.co/jmanke"
-                onClick={() => {
-                  setMenuOpen(false);
-                }}
-                className={activeLink === 'prints' ? 'active' : ''}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Prints
-              </a>
-            </li>
           </ul>
         </nav>
       </div>
