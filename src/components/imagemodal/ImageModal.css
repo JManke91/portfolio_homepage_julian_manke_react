@@ -51,6 +51,36 @@
   height: 100%;
   object-fit: contain;
   cursor: pointer;
+  transition: opacity 0.3s ease;
+}
+
+.enlarged-image.loading-high-res {
+  opacity: 0.9;
+}
+
+.enlarged-image.high-res-loaded {
+  opacity: 1;
+}
+
+.high-res-loading-indicator {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  z-index: 10;
+}
+
+.loading-spinner-small {
+  width: 20px;
+  height: 20px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-top: 2px solid rgba(255, 255, 255, 0.8);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }
 
 .close-button {

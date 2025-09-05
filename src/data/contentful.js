@@ -1,8 +1,8 @@
 // api.js
 
-import { getFreeImageType, contentfulConfig, getHomeImagesContentType, getWorkCoverImageType, getWorkImageType, getCiteType, getAboutPageType } from '../constants/constants';
+import { getFreeImageType, contentfulConfig, getHomeImagesContentType, getGridImageContentType, getWorkCoverImageType, getWorkImageType, getCiteType, getAboutPageType } from '../constants/constants';
 import { createClient } from 'contentful';
-import { calculateImageParameters, calculateCoverImageParameters } from '../components/general/ImageUtils'
+import { calculateImageParameters, calculateCoverImageParameters, calculateFullscreenImageParameters } from '../components/general/ImageUtils'
 
 const { spaceId, accessToken } = contentfulConfig;
 
@@ -10,6 +10,19 @@ const contentfulClient = createClient({
   space: spaceId,
   accessToken: accessToken,
 });
+
+// Helper function to generate fullscreen quality URL from grid URL
+export const generateFullscreenImageUrl = (gridImageUrl) => {
+  if (!gridImageUrl) return null;
+  
+  const { width, height, quality } = calculateFullscreenImageParameters();
+  
+  // Extract base URL (remove existing query parameters)
+  const baseUrl = gridImageUrl.split('?')[0];
+  
+  // Generate new URL with fullscreen parameters
+  return `${baseUrl}?w=${width}&h=${height}&q=${quality}`;
+};
 
 export async function fetchAboutPagedata() {
   try {
@@ -91,6 +104,32 @@ export async function getHomeImages() {
     return imageUrls;
   } catch (error) {
     console.error('Error fetching image URLs:', error);
+    throw error;
+  }
+}
+
+export async function getGridImages() {
+  try {
+    const response = await contentfulClient.getEntries({
+      content_type: getGridImageContentType(),
+      order: 'sys.createdAt', // Sorting by creation date in descending order
+    });
+
+    // For grid images, calculate appropriate image parameters for 4:3 aspect ratio
+    // We'll calculate width based on the viewport but with 4:3 aspect ratio
+    const { width, quality } = calculateImageParameters();
+    const gridWidth = Math.min(width, 600); // Max width for grid items
+    const gridHeight = Math.round(gridWidth * 0.75); // 4:3 aspect ratio (3/4 = 0.75)
+
+    // Process the response and return the formatted data
+    const imageUrls = response.items.map((item) => {
+      const imageUrl = `${item.fields.image.fields.file.url}?w=${gridWidth}&h=${gridHeight}&q=${quality}&fit=fill`;
+      return imageUrl;
+    });
+
+    return imageUrls;
+  } catch (error) {
+    console.error('Error fetching grid image URLs:', error);
     throw error;
   }
 }

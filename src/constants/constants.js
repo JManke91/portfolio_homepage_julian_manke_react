@@ -7,6 +7,7 @@ export const contentfulConfig = {
 };
 
 export const getHomeImagesContentType = () => 'homeImage';
+export const getGridImageContentType = () => 'gridImage';
 export const getContentType = () => 'portfolioCoverImage';
 export const getWorkCoverImageType = () => 'workCoverImage';
 export const getFreeImageType = () => 'freeImage';
@@ -24,8 +25,12 @@ export const COLUMN_COUNTS_LAYOUT = { SMALL: 1, MEDIUM: 2, LARGE: 3 };
 export const MAX_NUMBER_ROWS_LAYOUT = 2;
 
 // Responsive API Request
-export const IMAGE_WIDTH_PIXEL = { LARGE: 3200, MEDIUM: 2400, SMALL: 1600};
-export const IMAGE_QUALITY = { LARGE: 80, MEDIUM: 70, SMALL: 60 };
+export const IMAGE_WIDTH_PIXEL = { LARGE: 1400, MEDIUM: 1000, SMALL: 700};
+export const IMAGE_QUALITY = { LARGE: 80, MEDIUM: 75, SMALL: 70 };
+
+// Fullscreen Image Parameters (high quality for modal viewing)
+export const FULLSCREEN_IMAGE_WIDTH_PIXEL = { LARGE: 2400, MEDIUM: 1800, SMALL: 1200};
+export const FULLSCREEN_IMAGE_QUALITY = { LARGE: 90, MEDIUM: 85, SMALL: 80 };
 export const ASPECT_RATIO = 16 / 9;
 
 export const ASPECT_RATIO_COVER_IMAGES = 1 / 1;

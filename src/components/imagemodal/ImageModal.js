@@ -14,6 +14,7 @@ import {
   OVERLAY_IMAGE_BLUR_VALUE,
 } from './../../constants/constants';
 import { useLockBodyScroll } from '@uidotdev/usehooks';
+import { generateFullscreenImageUrl } from '../../data/contentful';
 
 const ImageModal = ({ 
   imageUrl, 
@@ -31,6 +32,8 @@ const ImageModal = ({
   const [showMoreInfo, setShowMoreInfo] = useState(false);
   const [touchStart, setTouchStart] = useState({ x: 0, y: 0 });
   const [touchEnd, setTouchEnd] = useState({ x: 0, y: 0 });
+  const [currentImageSrc, setCurrentImageSrc] = useState(imageUrl);
+  const [isLoadingHighRes, setIsLoadingHighRes] = useState(false);
 
   // React Hooks
   useEffect(() => {
@@ -66,6 +69,38 @@ const ImageModal = ({
   }, [onClose, onNavigate, currentIndex, images]);
 
   useLockBodyScroll();
+
+  // Progressive loading: Start with grid image, load high-res in background
+  useEffect(() => {
+    if (!imageUrl) return;
+    
+    // Start with the grid image
+    setCurrentImageSrc(imageUrl);
+    setIsLoadingHighRes(true);
+    
+    // Generate and load high-res version
+    const highResUrl = generateFullscreenImageUrl(imageUrl);
+    
+    if (highResUrl && highResUrl !== imageUrl) {
+      const highResImage = new Image();
+      
+      highResImage.onload = () => {
+        // Smoothly transition to high-res image
+        setCurrentImageSrc(highResUrl);
+        setIsLoadingHighRes(false);
+      };
+      
+      highResImage.onerror = () => {
+        // If high-res fails, stick with grid image
+        setIsLoadingHighRes(false);
+      };
+      
+      highResImage.src = highResUrl;
+    } else {
+      // No high-res version needed
+      setIsLoadingHighRes(false);
+    }
+  }, [imageUrl]);
 
   // Animation Controls
   const imageAnimationControls = useAnimation();
@@ -319,10 +354,15 @@ const ImageModal = ({
         <div className="enlarged-image-container">
           <motion.img
             animate={imageAnimationControls}
-            className="enlarged-image"
-            src={imageUrl}
+            className={`enlarged-image ${isLoadingHighRes ? 'loading-high-res' : 'high-res-loaded'}`}
+            src={currentImageSrc}
             alt="Enlarged"
           />
+          {isLoadingHighRes && (
+            <div className="high-res-loading-indicator">
+              <div className="loading-spinner-small"></div>
+            </div>
+          )}
         </div>
         {moreInfo && (
           <motion.button

@@ -1,20 +1,20 @@
 // Imports
 import React, { useState, useEffect } from 'react';
 import './Home.css';
-import { getHomeImages } from '../../data/contentful';
+import { getGridImages } from '../../data/contentful';
 import LoadingSpinner from '../loadingspinner/LoadingSpinner';
 
 function Home() {
   // State
   const [imageUrls, setImageUrls] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [imgLoaded, setImgLoaded] = useState(false);
+  const [loadedImages, setLoadedImages] = useState(new Set());
 
   // React Hooks
   useEffect(() => {
     async function fetchData() {
       try {
-        const urls = await getHomeImages();
+        const urls = await getGridImages();
         setImageUrls(urls);
       } catch (error) {
         console.error(error.message);
@@ -26,8 +26,8 @@ function Home() {
     fetchData();
   }, []);
 
-  const handleImageLoad = () => {
-    setImgLoaded(true);
+  const handleImageLoad = (index) => {
+    setLoadedImages(prev => new Set([...prev, index]));
   };
 
   // Render
@@ -36,18 +36,18 @@ function Home() {
   }
 
   return (
-    <div>
-      <div
-        className="home"
-      >
-
-        <img
-          className={`background-image ${imgLoaded ? 'image' : 'image blur'}`}
-          src={imageUrls[0]}
-          alt="Background"
-          onLoad={handleImageLoad}
-        />
-
+    <div className="home">
+      <div className="image-grid">
+        {imageUrls.map((imageUrl, index) => (
+          <img
+            key={index}
+            className={`grid-image ${loadedImages.has(index) ? 'loaded' : ''}`}
+            src={imageUrl}
+            alt={`Grid image ${index + 1}`}
+            onLoad={() => handleImageLoad(index)}
+            loading="lazy"
+          />
+        ))}
       </div>
     </div>
   );
