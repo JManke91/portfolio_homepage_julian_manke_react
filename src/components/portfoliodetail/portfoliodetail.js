@@ -1,5 +1,5 @@
 // Imports
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import Masonry, { ResponsiveMasonry } from 'react-responsive-masonry';
 import PortfolioGridEntry from '../general/PortfolioGridEntry';
@@ -23,8 +23,8 @@ const PortfolioDetail = () => {
     const portfolioImageSetId = id;
     const [imageSetData, setImageSetData] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
-    const [selectedImage, setSelectedImage] = useState(null);
-    const [selectedImageInfo, setSelectedImageInfo] = useState(null);
+    const [selectedImageIndex, setSelectedImageIndex] = useState(null);
+    const [pendingNavigationIndex, setPendingNavigationIndex] = useState(null);
     const navigate = useNavigate();
     const [prevScrollPos, setPrevScrollPos] = useState(0);
     const [changeBackButtonOpacity, setChangeBackButtonOpacity] = useState(true);
@@ -68,18 +68,44 @@ const PortfolioDetail = () => {
                     const newDataWithoutDuplicates = data.filter((image) => !existingImageUrls.has(image.imageUrl));
 
                     // Combine previous data with the filtered new data
-                    return [...prevData, ...newDataWithoutDuplicates];
+                    const updatedData = [...prevData, ...newDataWithoutDuplicates];
+                    
+                    // Handle pending navigation after data is loaded
+                    if (pendingNavigationIndex !== null) {
+                        setTimeout(() => {
+                            if (pendingNavigationIndex < updatedData.length) {
+                                setSelectedImageIndex(pendingNavigationIndex);
+                            } else {
+                                // If we still can't navigate to the desired index, 
+                                // navigate to the last available image
+                                setSelectedImageIndex(updatedData.length - 1);
+                                if (process.env.NODE_ENV === 'development') {
+                                    console.log('Reached end of collection, showing last image');
+                                }
+                            }
+                            setPendingNavigationIndex(null);
+                        }, 100); // Small delay to ensure state is updated
+                    }
+                    
+                    return updatedData;
                 });
 
             } catch (error) {
                 console.error('Error fetching data:', error);
+                // Handle error case for pending navigation
+                if (pendingNavigationIndex !== null) {
+                    setPendingNavigationIndex(null);
+                    if (process.env.NODE_ENV === 'development') {
+                        console.log('Failed to load next page for navigation');
+                    }
+                }
             } finally {
                 setIsLoading(false);
             }
         };
 
         fetchData();
-    }, [portfolioImageSetId, page]);
+    }, [portfolioImageSetId, page, pendingNavigationIndex]);
 
     useEffect(() => {
 
@@ -109,18 +135,44 @@ const PortfolioDetail = () => {
     }, [prevScrollPos, setChangeBackButtonOpacity]);
 
     // Handle state changes
-    const openModal = (image) => {
-        setSelectedImage(image.imageUrl);
-        setSelectedImageInfo(image.moreInfo);
+    const openModal = (imageIndex) => {
+        setSelectedImageIndex(imageIndex);
         setIsModalOpen(true);
         document.body.classList.add('header-footer-hidden');
     };
 
     const closeModal = () => {
-        setSelectedImage(null);
+        setSelectedImageIndex(null);
         setIsModalOpen(false);
         document.body.classList.remove('header-footer-hidden');
     };
+
+    const handleNavigate = useCallback(async (newIndex) => {
+        // Check if we're trying to navigate to a photo that exists
+        if (newIndex >= 0 && newIndex < imageSetData.length) {
+            setSelectedImageIndex(newIndex);
+            
+            // Check if we're near the end and need to load more
+            // Load next page when we're within 2 photos of the end
+            const shouldLoadMore = newIndex >= imageSetData.length - 2 && page < maxPages;
+            
+            if (shouldLoadMore) {
+                if (process.env.NODE_ENV === 'development') {
+                    console.log('Auto-loading next page for navigation:', page + 1);
+                }
+                setPage((prevPage) => prevPage + 1);
+            }
+        }
+        // Check if we're trying to navigate beyond current data but more pages exist
+        else if (newIndex >= imageSetData.length && page < maxPages) {
+            if (process.env.NODE_ENV === 'development') {
+                console.log('Loading next page to continue navigation to index:', newIndex);
+            }
+            setPendingNavigationIndex(newIndex);
+            setPage((prevPage) => prevPage + 1);
+            // The navigation will happen after the new data is loaded via useEffect
+        }
+    }, [imageSetData.length, page, maxPages]);
 
     const handleBack = () => {
         navigate('/portfolio');
@@ -165,7 +217,7 @@ const PortfolioDetail = () => {
 
                                 <div
                                     className="portfolio-grid-entry"
-                                    onClick={() => openModal(image)}
+                                    onClick={() => openModal(index)}
                                 >
                                     <PortfolioGridEntry imageUrl={image.imageUrl} caption={image.caption} />
                                 </div>
@@ -175,7 +227,18 @@ const PortfolioDetail = () => {
                 </ResponsiveMasonry>
             </InfiniteScroll>
 
-            {selectedImage && <ImageModal imageUrl={selectedImage} moreInfo={selectedImageInfo} onClose={closeModal} />}
+            {selectedImageIndex !== null && (
+                <ImageModal 
+                    imageUrl={imageSetData[selectedImageIndex]?.imageUrl}
+                    moreInfo={imageSetData[selectedImageIndex]?.moreInfo}
+                    images={imageSetData}
+                    currentIndex={selectedImageIndex}
+                    onNavigate={handleNavigate}
+                    onClose={closeModal}
+                    hasMorePages={page < maxPages}
+                    isLoadingNextPage={pendingNavigationIndex !== null}
+                />
+            )}
         </div>
     );
 };

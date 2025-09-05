@@ -15,24 +15,45 @@ import {
 } from './../../constants/constants';
 import { useLockBodyScroll } from '@uidotdev/usehooks';
 
-const ImageModal = ({ imageUrl, moreInfo, onClose }) => {
+const ImageModal = ({ 
+  imageUrl, 
+  moreInfo, 
+  onClose,
+  images = [],
+  currentIndex = 0,
+  onNavigate,
+  hasMorePages = false,
+  isLoadingNextPage = false
+}) => {
 
   // State
   const [isActive, setIsActive] = useState(false);
   const [showMoreInfo, setShowMoreInfo] = useState(false);
+  const [touchStart, setTouchStart] = useState({ x: 0, y: 0 });
+  const [touchEnd, setTouchEnd] = useState({ x: 0, y: 0 });
 
   // React Hooks
   useEffect(() => {
     setIsActive(true);
     document.body.style.overflow = 'hidden'; // Disable scrolling when modal is open
     
-    // Add keyboard event listener for ESC key
+    // Add keyboard event listener for ESC and arrow keys
     const handleKeyDown = (event) => {
       if (event.key === 'Escape') {
         setIsActive(false);
         setTimeout(() => {
           onClose();
         }, 300);
+      } else if (event.key === 'ArrowRight') {
+        event.preventDefault();
+        if (images.length > 0 && currentIndex < images.length - 1 && onNavigate) {
+          onNavigate(currentIndex + 1);
+        }
+      } else if (event.key === 'ArrowLeft') {
+        event.preventDefault();
+        if (images.length > 0 && currentIndex > 0 && onNavigate) {
+          onNavigate(currentIndex - 1);
+        }
       }
     };
     
@@ -42,12 +63,93 @@ const ImageModal = ({ imageUrl, moreInfo, onClose }) => {
       document.body.style.overflow = 'auto'; // Enable scrolling when modal is closed
       document.removeEventListener('keydown', handleKeyDown);
     };
-  }, [onClose]);
+  }, [onClose, onNavigate, currentIndex, images]);
 
   useLockBodyScroll();
 
   // Animation Controls
   const imageAnimationControls = useAnimation();
+
+  // Preload adjacent images for smooth navigation
+  useEffect(() => {
+    if (images.length > 1) {
+      const preloadImage = (imageUrl) => {
+        const img = new Image();
+        img.src = imageUrl;
+      };
+
+      // Preload next image
+      if (currentIndex < images.length - 1) {
+        preloadImage(images[currentIndex + 1].imageUrl);
+      }
+
+      // Preload previous image
+      if (currentIndex > 0) {
+        preloadImage(images[currentIndex - 1].imageUrl);
+      }
+    }
+  }, [currentIndex, images]);
+
+  // Navigation handlers
+  const canGoNext = () => {
+    // Can go next if there's a next image in current data OR if more pages are available
+    return images.length > 0 && (currentIndex < images.length - 1 || hasMorePages);
+  };
+  const canGoPrevious = () => images.length > 0 && currentIndex > 0;
+
+  const handleNext = (e) => {
+    e?.stopPropagation();
+    if (canGoNext() && onNavigate) {
+      onNavigate(currentIndex + 1);
+    }
+  };
+
+  const handlePrevious = (e) => {
+    e?.stopPropagation();
+    if (canGoPrevious() && onNavigate) {
+      onNavigate(currentIndex - 1);
+    }
+  };
+
+  // Touch event handlers for swipe gestures
+  const handleTouchStart = (e) => {
+    setTouchStart({
+      x: e.targetTouches[0].clientX,
+      y: e.targetTouches[0].clientY,
+    });
+  };
+
+  const handleTouchMove = (e) => {
+    setTouchEnd({
+      x: e.targetTouches[0].clientX,
+      y: e.targetTouches[0].clientY,
+    });
+  };
+
+  const handleTouchEnd = () => {
+    if (!touchStart.x || !touchEnd.x) return;
+    
+    const deltaX = touchStart.x - touchEnd.x;
+    const deltaY = touchStart.y - touchEnd.y;
+    const minSwipeDistance = 50;
+    
+    // Check if horizontal swipe is more significant than vertical
+    if (Math.abs(deltaX) > Math.abs(deltaY)) {
+      if (Math.abs(deltaX) > minSwipeDistance) {
+        if (deltaX > 0) {
+          // Swiped left -> Next image
+          handleNext();
+        } else {
+          // Swiped right -> Previous image
+          handlePrevious();
+        }
+      }
+    }
+    
+    // Reset touch positions
+    setTouchStart({ x: 0, y: 0 });
+    setTouchEnd({ x: 0, y: 0 });
+  };
 
   // State changes
   const handleClose = (e) => {
@@ -107,6 +209,9 @@ const ImageModal = ({ imageUrl, moreInfo, onClose }) => {
       className={`image-modal-overlay ${isActive ? 'active' : ''}`}
       onClick={handleOverlayClick}
       onTransitionEnd={handleTransitionEnd}
+      onTouchStart={handleTouchStart}
+      onTouchMove={handleTouchMove}
+      onTouchEnd={handleTouchEnd}
     >
       <button 
         className="close-button" 
@@ -130,6 +235,83 @@ const ImageModal = ({ imageUrl, moreInfo, onClose }) => {
           />
         </svg>
       </button>
+      
+      {/* Navigation Arrows */}
+      {canGoPrevious() && (
+        <button 
+          className="nav-arrow nav-arrow-left" 
+          onClick={handlePrevious}
+          aria-label="Previous image"
+          title="Previous (←)"
+        >
+          <svg 
+            width="20" 
+            height="20" 
+            viewBox="0 0 24 24" 
+            fill="none" 
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path 
+              d="M15 18L9 12L15 6" 
+              stroke="currentColor" 
+              strokeWidth="2.5" 
+              strokeLinecap="round" 
+              strokeLinejoin="round"
+            />
+          </svg>
+        </button>
+      )}
+      
+      {canGoNext() && (
+        <button 
+          className={`nav-arrow nav-arrow-right ${isLoadingNextPage ? 'loading' : ''}`} 
+          onClick={handleNext}
+          aria-label="Next image"
+          title={isLoadingNextPage ? "Loading..." : "Next (→)"}
+          disabled={isLoadingNextPage}
+        >
+          {isLoadingNextPage ? (
+            <div className="loading-spinner">
+              <svg 
+                width="20" 
+                height="20" 
+                viewBox="0 0 24 24" 
+                fill="none" 
+                xmlns="http://www.w3.org/2000/svg"
+                className="spin"
+              >
+                <circle 
+                  cx="12" 
+                  cy="12" 
+                  r="10" 
+                  stroke="currentColor" 
+                  strokeWidth="2" 
+                  strokeLinecap="round" 
+                  strokeDasharray="60" 
+                  strokeDashoffset="60"
+                />
+              </svg>
+            </div>
+          ) : (
+            <svg 
+              width="20" 
+              height="20" 
+              viewBox="0 0 24 24" 
+              fill="none" 
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path 
+                d="M9 18L15 12L9 6" 
+                stroke="currentColor" 
+                strokeWidth="2.5" 
+                strokeLinecap="round" 
+                strokeLinejoin="round"
+              />
+            </svg>
+          )}
+        </button>
+      )}
+      
       <div 
         className={`image-modal-content ${isActive ? 'active' : ''}`}
         onClick={(e) => e.stopPropagation()} // Prevent clicks on content from closing modal
@@ -185,6 +367,13 @@ const ImageModal = ({ imageUrl, moreInfo, onClose }) => {
             {moreInfo}
           </ReactMarkdown>
         </motion.div>
+        
+        {/* Position Indicator */}
+        {images.length > 1 && (
+          <div className="position-indicator">
+            <span>{currentIndex + 1} / {images.length}</span>
+          </div>
+        )}
       </div>
     </div>
   );
@@ -194,6 +383,11 @@ ImageModal.propTypes = {
   imageUrl: PropTypes.string.isRequired,
   moreInfo: PropTypes.string,
   onClose: PropTypes.func.isRequired,
+  images: PropTypes.array,
+  currentIndex: PropTypes.number,
+  onNavigate: PropTypes.func,
+  hasMorePages: PropTypes.bool,
+  isLoadingNextPage: PropTypes.bool,
 };
 
 export default ImageModal;
