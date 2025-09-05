@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import './App.css';
 import { BrowserRouter as Router, Route, Routes, useLocation } from 'react-router-dom';
 import Header from './components/header/Header';
-import About from './components/about/About';
 import Places from './components/places/Places';
 import PortfolioGrid from './components/portfoliogrid/portfolioGrid';
 import PortfolioDetail from './components/portfoliodetail/portfoliodetail';
@@ -66,7 +65,6 @@ function AppRoutes() {
       <Route path="/places" element={<Places />} />
       <Route path="/portfolio" element={<PortfolioGrid />} />
       <Route path="/portfolio/:id" element={<PortfolioDetail />} />
-      <Route path="/about" element={<About />} />
     </Routes>
   )
 }
