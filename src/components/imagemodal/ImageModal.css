@@ -55,9 +55,10 @@
 }
 
 .hardware-accelerated {
-  will-change: transform, opacity;
+  will-change: opacity;
   transform: translate3d(0, 0, 0);
   backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
   perspective: 1000px;
 }
 
@@ -65,6 +66,19 @@
 @media (prefers-reduced-motion: reduce) {
   .hardware-accelerated {
     transition-duration: 0.1s !important;
+  }
+}
+
+/* Safari-specific optimizations */
+@media screen and (-webkit-min-device-pixel-ratio: 0) {
+  .enlarged-image {
+    -webkit-font-smoothing: antialiased;
+    -webkit-backface-visibility: hidden;
+  }
+  
+  .hardware-accelerated {
+    -webkit-transform: translate3d(0, 0, 0);
+    -webkit-backface-visibility: hidden;
   }
 }
 

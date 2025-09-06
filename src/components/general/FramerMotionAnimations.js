@@ -209,4 +209,29 @@ export const hybridReducedMotionVariants = {
   }
 };
 
+// Safari-optimized animation variants - simple opacity-only transitions
+export const safariOptimizedCrossfadeVariants = {
+  enter: {
+    opacity: 0,
+    transition: {
+      duration: 0.3,
+      ease: "easeOut"
+    }
+  },
+  center: {
+    opacity: 1,
+    transition: {
+      duration: 0.3,
+      ease: "easeOut"
+    }
+  },
+  exit: {
+    opacity: 0,
+    transition: {
+      duration: 0.25,
+      ease: "easeOut"
+    }
+  }
+};
+
 

@@ -4,13 +4,6 @@ import './ImageModal.css';
 import ReactMarkdown from 'react-markdown';
 import { Link } from 'react-router-dom';
 import {
-  motion,
-  useAnimation,
-  AnimatePresence,
-  useReducedMotion,
-} from "framer-motion";
-import { infoTextVariants, buttonVariants, hybridInitialVariants, hybridNavigationVariants, hybridReducedMotionVariants, hybridCrossfadeVariants } from './../general/FramerMotionAnimations';
-import {
   OVERLAY_IMAGE_OPACITY_TRANSITION_DURATION,
   OVERLAY_IMAGE_END_OPACITY,
   OVERLAY_IMAGE_BLUR_VALUE,
@@ -29,19 +22,14 @@ const ImageModal = ({
   isLoadingNextPage = false
 }) => {
 
-  // State
+  // Component State
   const [isActive, setIsActive] = useState(false);
   const [showMoreInfo, setShowMoreInfo] = useState(false);
   const [touchStart, setTouchStart] = useState({ x: 0, y: 0 });
   const [touchEnd, setTouchEnd] = useState({ x: 0, y: 0 });
   const [currentImageSrc, setCurrentImageSrc] = useState(imageUrl);
   const [isLoadingHighRes, setIsLoadingHighRes] = useState(false);
-  const [direction, setDirection] = useState(0);
-  const [navigationMethod, setNavigationMethod] = useState('directional'); // 'directional' or 'crossfade'
-  const [isInitialLoad, setIsInitialLoad] = useState(true);
-
-  // React Hooks
-  const shouldReduceMotion = useReducedMotion();
+  
   useEffect(() => {
     setIsActive(true);
     document.body.style.overflow = 'hidden'; // Disable scrolling when modal is open
@@ -56,32 +44,12 @@ const ImageModal = ({
       } else if (event.key === 'ArrowRight') {
         event.preventDefault();
         if (images.length > 0 && currentIndex < images.length - 1 && onNavigate) {
-          setDirection(1);
-          setNavigationMethod('directional');
-          
-          if (isInitialLoad) {
-            setIsInitialLoad(false);
-            setTimeout(() => {
-              onNavigate(currentIndex + 1);
-            }, 50);
-          } else {
-            onNavigate(currentIndex + 1);
-          }
+          onNavigate(currentIndex + 1);
         }
       } else if (event.key === 'ArrowLeft') {
         event.preventDefault();
         if (images.length > 0 && currentIndex > 0 && onNavigate) {
-          setDirection(-1);
-          setNavigationMethod('directional');
-          
-          if (isInitialLoad) {
-            setIsInitialLoad(false);
-            setTimeout(() => {
-              onNavigate(currentIndex - 1);
-            }, 50);
-          } else {
-            onNavigate(currentIndex - 1);
-          }
+          onNavigate(currentIndex - 1);
         }
       }
     };
@@ -128,8 +96,6 @@ const ImageModal = ({
     }
   }, [imageUrl]);
 
-  // Animation Controls
-  const imageAnimationControls = useAnimation();
 
   // Preload adjacent images for smooth navigation
   useEffect(() => {
@@ -161,38 +127,14 @@ const ImageModal = ({
   const handleNext = (e) => {
     e?.stopPropagation();
     if (canGoNext() && onNavigate) {
-      setDirection(1);
-      setNavigationMethod('directional');
-      
-      if (isInitialLoad) {
-        // For first navigation, switch systems then navigate
-        setIsInitialLoad(false);
-        // Small delay to ensure AnimatePresence is ready
-        setTimeout(() => {
-          onNavigate(currentIndex + 1);
-        }, 50);
-      } else {
-        onNavigate(currentIndex + 1);
-      }
+      onNavigate(currentIndex + 1);
     }
   };
 
   const handlePrevious = (e) => {
     e?.stopPropagation();
     if (canGoPrevious() && onNavigate) {
-      setDirection(-1);
-      setNavigationMethod('directional');
-      
-      if (isInitialLoad) {
-        // For first navigation, switch systems then navigate
-        setIsInitialLoad(false);
-        // Small delay to ensure AnimatePresence is ready
-        setTimeout(() => {
-          onNavigate(currentIndex - 1);
-        }, 50);
-      } else {
-        onNavigate(currentIndex - 1);
-      }
+      onNavigate(currentIndex - 1);
     }
   };
 
@@ -223,17 +165,11 @@ const ImageModal = ({
       if (Math.abs(deltaX) > minSwipeDistance) {
         if (deltaX > 0) {
           // Swiped left -> Next image
-          setDirection(1);
-          setNavigationMethod('crossfade');
-          setIsInitialLoad(false);
           if (canGoNext() && onNavigate) {
             onNavigate(currentIndex + 1);
           }
         } else {
           // Swiped right -> Previous image
-          setDirection(-1);
-          setNavigationMethod('crossfade');
-          setIsInitialLoad(false);
           if (canGoPrevious() && onNavigate) {
             onNavigate(currentIndex - 1);
           }
@@ -268,7 +204,6 @@ const ImageModal = ({
     // Fix: Stop event propagation
     e.stopPropagation();
     setShowMoreInfo(prevState => !prevState);
-    animateImage();
   };
   
   // Fix: Add click handler for the modal background
@@ -282,21 +217,6 @@ const ImageModal = ({
     }
   };
 
-  const animateImage = async () => {
-    if (showMoreInfo) {
-      await imageAnimationControls.start({
-        opacity: 1.0,
-        filter: 'blur(0px)'
-      },
-        { duration: OVERLAY_IMAGE_OPACITY_TRANSITION_DURATION });
-    } else {
-      await imageAnimationControls.start({
-        opacity: OVERLAY_IMAGE_END_OPACITY,
-        filter: `blur(${OVERLAY_IMAGE_BLUR_VALUE})`
-      },
-        { duration: OVERLAY_IMAGE_OPACITY_TRANSITION_DURATION });
-    }
-  };
 
   // Render
   return (
@@ -412,47 +332,16 @@ const ImageModal = ({
         onClick={(e) => e.stopPropagation()} // Prevent clicks on content from closing modal
       >
         <div className="enlarged-image-container">
-          {isInitialLoad ? (
-            // Initial image - EXACTLY as it was originally, no AnimatePresence interference
-            <motion.img
-              animate={imageAnimationControls}
-              className={`enlarged-image ${isLoadingHighRes ? 'loading-high-res' : 'high-res-loaded'}`}
-              src={currentImageSrc}
-              alt="Enlarged"
-            />
-          ) : (
-            // Navigation system - includes initial image with exit capability
-            <AnimatePresence mode="wait" custom={direction} initial={false}>
-              <motion.img
-                key={currentImageSrc}
-                className={`enlarged-image ${isLoadingHighRes ? 'loading-high-res' : 'high-res-loaded'} hardware-accelerated`}
-                src={currentImageSrc}
-                alt="Enlarged"
-                variants={
-                  shouldReduceMotion 
-                    ? hybridReducedMotionVariants 
-                    : navigationMethod === 'crossfade' 
-                      ? hybridCrossfadeVariants 
-                      : hybridNavigationVariants
-                }
-                initial="enter"
-                animate="center"
-                exit="exit"
-                custom={direction}
-                style={{
-                  willChange: 'transform, opacity',
-                  transform: 'translate3d(0, 0, 0)'
-                }}
-                onAnimationComplete={() => {
-                  imageAnimationControls.start(
-                    showMoreInfo 
-                      ? { opacity: OVERLAY_IMAGE_END_OPACITY, filter: `blur(${OVERLAY_IMAGE_BLUR_VALUE})` }
-                      : { opacity: 1.0, filter: 'blur(0px)' }
-                  );
-                }}
-              />
-            </AnimatePresence>
-          )}
+          <img
+            className={`enlarged-image ${isLoadingHighRes ? 'loading-high-res' : 'high-res-loaded'}`}
+            src={currentImageSrc}
+            alt="Enlarged"
+            style={{
+              opacity: showMoreInfo ? OVERLAY_IMAGE_END_OPACITY : 1.0,
+              filter: showMoreInfo ? `blur(${OVERLAY_IMAGE_BLUR_VALUE})` : 'blur(0px)',
+              transition: `opacity ${OVERLAY_IMAGE_OPACITY_TRANSITION_DURATION}s ease, filter ${OVERLAY_IMAGE_OPACITY_TRANSITION_DURATION}s ease`
+            }}
+          />
           {isLoadingHighRes && (
             <div className="high-res-loading-indicator">
               <div className="loading-spinner-small"></div>
@@ -460,28 +349,26 @@ const ImageModal = ({
           )}
         </div>
         {moreInfo && (
-          <motion.button
+          <button
             className="show-more-button"
             onClick={handleShowMore}
-            variants={buttonVariants}
-            whileHover="hover"
-            whileTap="tap"
             style={{ fontFamily: "'Poppins', sans-serif" }}
           >
-            <motion.div
+            <div
               className={showMoreInfo ? "arrow-down" : "arrow-up"}
-            ></motion.div>
+            ></div>
             {showMoreInfo ? "Show Less" : "Show More"}
-          </motion.button>
+          </button>
         )}
-        <motion.div
+        <div
+          className={`more-info ${showMoreInfo ? 'visible' : 'hidden'}`}
           style={{
-            x: '-50%', // Center horizontally
+            left: '50%',
+            transform: 'translateX(-50%)',
+            opacity: showMoreInfo ? 1 : 0,
+            y: showMoreInfo ? -10 : 10,
+            transition: `opacity ${OVERLAY_IMAGE_OPACITY_TRANSITION_DURATION}s ease, transform ${OVERLAY_IMAGE_OPACITY_TRANSITION_DURATION}s ease`
           }}
-          className="more-info"
-          initial="hidden"
-          animate={showMoreInfo ? 'visible' : 'hidden'}
-          variants={infoTextVariants}
         >
           <ReactMarkdown
             className="markdown-text"
@@ -501,7 +388,7 @@ const ImageModal = ({
           >
             {moreInfo}
           </ReactMarkdown>
-        </motion.div>
+        </div>
         
         {/* Position Indicator */}
         {images.length > 1 && (
