@@ -6,8 +6,10 @@ import { Link } from 'react-router-dom';
 import {
   motion,
   useAnimation,
+  AnimatePresence,
+  useReducedMotion,
 } from "framer-motion";
-import { infoTextVariants, buttonVariants } from './../general/FramerMotionAnimations';
+import { infoTextVariants, buttonVariants, hybridInitialVariants, hybridNavigationVariants, hybridReducedMotionVariants, hybridCrossfadeVariants } from './../general/FramerMotionAnimations';
 import {
   OVERLAY_IMAGE_OPACITY_TRANSITION_DURATION,
   OVERLAY_IMAGE_END_OPACITY,
@@ -34,8 +36,12 @@ const ImageModal = ({
   const [touchEnd, setTouchEnd] = useState({ x: 0, y: 0 });
   const [currentImageSrc, setCurrentImageSrc] = useState(imageUrl);
   const [isLoadingHighRes, setIsLoadingHighRes] = useState(false);
+  const [direction, setDirection] = useState(0);
+  const [navigationMethod, setNavigationMethod] = useState('directional'); // 'directional' or 'crossfade'
+  const [isInitialLoad, setIsInitialLoad] = useState(true);
 
   // React Hooks
+  const shouldReduceMotion = useReducedMotion();
   useEffect(() => {
     setIsActive(true);
     document.body.style.overflow = 'hidden'; // Disable scrolling when modal is open
@@ -50,12 +56,32 @@ const ImageModal = ({
       } else if (event.key === 'ArrowRight') {
         event.preventDefault();
         if (images.length > 0 && currentIndex < images.length - 1 && onNavigate) {
-          onNavigate(currentIndex + 1);
+          setDirection(1);
+          setNavigationMethod('directional');
+          
+          if (isInitialLoad) {
+            setIsInitialLoad(false);
+            setTimeout(() => {
+              onNavigate(currentIndex + 1);
+            }, 50);
+          } else {
+            onNavigate(currentIndex + 1);
+          }
         }
       } else if (event.key === 'ArrowLeft') {
         event.preventDefault();
         if (images.length > 0 && currentIndex > 0 && onNavigate) {
-          onNavigate(currentIndex - 1);
+          setDirection(-1);
+          setNavigationMethod('directional');
+          
+          if (isInitialLoad) {
+            setIsInitialLoad(false);
+            setTimeout(() => {
+              onNavigate(currentIndex - 1);
+            }, 50);
+          } else {
+            onNavigate(currentIndex - 1);
+          }
         }
       }
     };
@@ -135,14 +161,38 @@ const ImageModal = ({
   const handleNext = (e) => {
     e?.stopPropagation();
     if (canGoNext() && onNavigate) {
-      onNavigate(currentIndex + 1);
+      setDirection(1);
+      setNavigationMethod('directional');
+      
+      if (isInitialLoad) {
+        // For first navigation, switch systems then navigate
+        setIsInitialLoad(false);
+        // Small delay to ensure AnimatePresence is ready
+        setTimeout(() => {
+          onNavigate(currentIndex + 1);
+        }, 50);
+      } else {
+        onNavigate(currentIndex + 1);
+      }
     }
   };
 
   const handlePrevious = (e) => {
     e?.stopPropagation();
     if (canGoPrevious() && onNavigate) {
-      onNavigate(currentIndex - 1);
+      setDirection(-1);
+      setNavigationMethod('directional');
+      
+      if (isInitialLoad) {
+        // For first navigation, switch systems then navigate
+        setIsInitialLoad(false);
+        // Small delay to ensure AnimatePresence is ready
+        setTimeout(() => {
+          onNavigate(currentIndex - 1);
+        }, 50);
+      } else {
+        onNavigate(currentIndex - 1);
+      }
     }
   };
 
@@ -173,10 +223,20 @@ const ImageModal = ({
       if (Math.abs(deltaX) > minSwipeDistance) {
         if (deltaX > 0) {
           // Swiped left -> Next image
-          handleNext();
+          setDirection(1);
+          setNavigationMethod('crossfade');
+          setIsInitialLoad(false);
+          if (canGoNext() && onNavigate) {
+            onNavigate(currentIndex + 1);
+          }
         } else {
           // Swiped right -> Previous image
-          handlePrevious();
+          setDirection(-1);
+          setNavigationMethod('crossfade');
+          setIsInitialLoad(false);
+          if (canGoPrevious() && onNavigate) {
+            onNavigate(currentIndex - 1);
+          }
         }
       }
     }
@@ -352,12 +412,47 @@ const ImageModal = ({
         onClick={(e) => e.stopPropagation()} // Prevent clicks on content from closing modal
       >
         <div className="enlarged-image-container">
-          <motion.img
-            animate={imageAnimationControls}
-            className={`enlarged-image ${isLoadingHighRes ? 'loading-high-res' : 'high-res-loaded'}`}
-            src={currentImageSrc}
-            alt="Enlarged"
-          />
+          {isInitialLoad ? (
+            // Initial image - EXACTLY as it was originally, no AnimatePresence interference
+            <motion.img
+              animate={imageAnimationControls}
+              className={`enlarged-image ${isLoadingHighRes ? 'loading-high-res' : 'high-res-loaded'}`}
+              src={currentImageSrc}
+              alt="Enlarged"
+            />
+          ) : (
+            // Navigation system - includes initial image with exit capability
+            <AnimatePresence mode="wait" custom={direction} initial={false}>
+              <motion.img
+                key={currentImageSrc}
+                className={`enlarged-image ${isLoadingHighRes ? 'loading-high-res' : 'high-res-loaded'} hardware-accelerated`}
+                src={currentImageSrc}
+                alt="Enlarged"
+                variants={
+                  shouldReduceMotion 
+                    ? hybridReducedMotionVariants 
+                    : navigationMethod === 'crossfade' 
+                      ? hybridCrossfadeVariants 
+                      : hybridNavigationVariants
+                }
+                initial="enter"
+                animate="center"
+                exit="exit"
+                custom={direction}
+                style={{
+                  willChange: 'transform, opacity',
+                  transform: 'translate3d(0, 0, 0)'
+                }}
+                onAnimationComplete={() => {
+                  imageAnimationControls.start(
+                    showMoreInfo 
+                      ? { opacity: OVERLAY_IMAGE_END_OPACITY, filter: `blur(${OVERLAY_IMAGE_BLUR_VALUE})` }
+                      : { opacity: 1.0, filter: 'blur(0px)' }
+                  );
+                }}
+              />
+            </AnimatePresence>
+          )}
           {isLoadingHighRes && (
             <div className="high-res-loading-indicator">
               <div className="loading-spinner-small"></div>

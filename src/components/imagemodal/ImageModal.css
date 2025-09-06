@@ -54,6 +54,20 @@
   transition: opacity 0.3s ease;
 }
 
+.hardware-accelerated {
+  will-change: transform, opacity;
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
+
+/* Optimized for reduced motion users */
+@media (prefers-reduced-motion: reduce) {
+  .hardware-accelerated {
+    transition-duration: 0.1s !important;
+  }
+}
+
 .enlarged-image.loading-high-res {
   opacity: 0.9;
 }
