@@ -3,6 +3,7 @@ import './App.css';
 import { BrowserRouter as Router, Route, Routes, useLocation } from 'react-router-dom';
 import Header from './components/header/Header';
 import Places from './components/places/Places';
+import Things from './components/things/Things';
 import PortfolioGrid from './components/portfoliogrid/portfolioGrid';
 import PortfolioDetail from './components/portfoliodetail/portfoliodetail';
 import Footer from './components/footer/Footer';
@@ -65,6 +66,7 @@ function AppRoutes() {
     <Routes>
       <Route path="/" element={<Home />} />
       <Route path="/places" element={<Places />} />
+      <Route path="/things" element={<Things />} />
       <Route path="/portfolio" element={<PortfolioGrid />} />
       <Route path="/portfolio/:id" element={<PortfolioDetail />} />
     </Routes>

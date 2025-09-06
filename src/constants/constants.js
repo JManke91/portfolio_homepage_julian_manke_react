@@ -15,6 +15,7 @@ export const getWorkImageType = () => 'workImage';
 export const getCiteType = () => 'cite';
 export const getAboutPageType = () => 'aboutPage';
 export const getGridImagePlacesType = () => 'gridImagePlaces';
+export const getGridImageThingsType = () => 'gridImageThings';
 
 // Debounce Scrolling
 export const DEBOUNCE_SCROLLING = 50; 
