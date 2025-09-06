@@ -9,7 +9,6 @@
     width: 100%;
     z-index: 10;
     padding: 20px 0;
-    transition: opacity 0.5s ease, visibility 0.5s ease;
 }
 
 .favicon {
@@ -25,30 +24,11 @@
 }
 
 .nav-links {
-    position: fixed;
+    position: absolute;
     right: 0;
     padding-right: 5%;
 }
 
-.header-footer-hidden .header {
-    opacity: 0;
-    visibility: hidden;
-}
-
-.header-footer-visible .header {
-    opacity: 1;
-    visibility: visible;
-}
-
-.header-hidden {
-    opacity: 0;
-    visibility: hidden;
-}
-
-.header-visible {
-    opacity: 1;
-    visibility: visible;
-}
 
 .nav-container {
     display: flex;
@@ -141,10 +121,20 @@ nav ul li:last-child {
 
 @media (max-width: 768px) {
 
+    /* Make header sticky on small devices */
+    .header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 10;
+        padding: 0;
+    }
+
     /* Add dark grey background color to the header for small devices and adjusts the height with padding */
     .nav-container {
         background-color: rgba(0, 0, 0, 1.0);
-        position: fixed;
+        position: relative;
         padding: 15px; /* determines height of nav bar additionally to content size*/
         z-index: 1;
     }

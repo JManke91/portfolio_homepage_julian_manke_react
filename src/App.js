@@ -17,7 +17,9 @@ function App() {
     <Router>
       <div className="App">
         <Header />
-        <AppRoutes />
+        <main className="main-content">
+          <AppRoutes />
+        </main>
         <Footer />
         <ConsentPopUp />
       </div>

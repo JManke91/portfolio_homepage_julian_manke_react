@@ -2,16 +2,12 @@
 import React, { useState, useEffect, useRef } from 'react';
 import './header.css';
 import { Link, useLocation } from 'react-router-dom';
-import _debounce from 'lodash/debounce';
-import { DEBOUNCE_SCROLLING } from '../../constants/constants';
 import logo from '../../images/wb_logo.png';
 
 function Header() {
   // State
   const [menuOpen, setMenuOpen] = useState(false);
   const [isTransitionEnabled, setIsTransitionEnabled] = useState(false);
-  const [isHeaderVisible, setIsHeaderVisible] = useState(true);
-  const [prevScrollPos, setPrevScrollPos] = useState(0);
   const [activeLink, setActiveLink] = useState(null);
 
   // References
@@ -50,31 +46,13 @@ function Header() {
       }
     };
 
-    const handleScroll = () => {
-      const currentScrollPos = window.scrollY;
-      const scrollThreshold = 20;
-
-      if (Math.abs(prevScrollPos - currentScrollPos) > scrollThreshold) {
-        setIsHeaderVisible(
-          prevScrollPos > currentScrollPos ||
-          currentScrollPos === 0
-        );
-        setPrevScrollPos(currentScrollPos);
-      }
-    };
-
-    const debouncedHandleScroll = _debounce(handleScroll, DEBOUNCE_SCROLLING); // Adjust the debounce delay
-
     const navElement = navRef.current;
     navElement.addEventListener('transitionend', onTransitionEnd);
 
-    window.addEventListener('scroll', debouncedHandleScroll);
-
     return () => {
       navElement.removeEventListener('transitionend', onTransitionEnd);
-      window.removeEventListener('scroll', debouncedHandleScroll);
     };
-  }, [menuOpen, setIsHeaderVisible, prevScrollPos]);
+  }, [menuOpen]);
 
   useEffect(() => {
     // Extract the route name from the location pathname
@@ -85,7 +63,7 @@ function Header() {
 
   // Render
   return (
-    <header ref={headerRef} className={`header ${menuOpen ? 'menu-open' : ''} ${!isHeaderVisible ? 'header-hidden' : 'header-visible'}`}>
+    <header ref={headerRef} className={`header ${menuOpen ? 'menu-open' : ''}`}>
       <div className="nav-container">
         <div className="menu-icon" onClick={toggleMenu}>
           <span></span>
