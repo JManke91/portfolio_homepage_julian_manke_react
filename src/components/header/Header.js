@@ -100,7 +100,7 @@ function Header() {
               to="/portfolio"
               onClick={() => setMenuOpen(false)}
               className={activeLink === 'portfolio' ? 'active' : ''}
-            >Work</Link></li>
+            >Collabs</Link></li>
           </ul>
         </nav>
       </div>
