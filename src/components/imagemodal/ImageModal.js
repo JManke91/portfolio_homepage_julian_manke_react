@@ -67,33 +67,45 @@ const ImageModal = ({
   // Progressive loading: Start with grid image, load high-res in background
   useEffect(() => {
     if (!imageUrl) return;
-    
+
+    // Flag to track if this effect is still active (prevents race conditions)
+    let isCurrent = true;
+
     // Start with the grid image
     setCurrentImageSrc(imageUrl);
     setIsLoadingHighRes(true);
-    
+
     // Generate and load high-res version
     const highResUrl = generateFullscreenImageUrl(imageUrl);
-    
+
     if (highResUrl && highResUrl !== imageUrl) {
       const highResImage = new Image();
-      
+
       highResImage.onload = () => {
-        // Smoothly transition to high-res image
-        setCurrentImageSrc(highResUrl);
-        setIsLoadingHighRes(false);
+        // Only update if this is still the current image
+        if (isCurrent) {
+          setCurrentImageSrc(highResUrl);
+          setIsLoadingHighRes(false);
+        }
       };
-      
+
       highResImage.onerror = () => {
         // If high-res fails, stick with grid image
-        setIsLoadingHighRes(false);
+        if (isCurrent) {
+          setIsLoadingHighRes(false);
+        }
       };
-      
+
       highResImage.src = highResUrl;
     } else {
       // No high-res version needed
       setIsLoadingHighRes(false);
     }
+
+    // Cleanup: Mark this effect as stale when imageUrl changes
+    return () => {
+      isCurrent = false;
+    };
   }, [imageUrl]);
 
 

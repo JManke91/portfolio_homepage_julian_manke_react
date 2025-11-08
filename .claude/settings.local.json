@@ -8,7 +8,8 @@
       "mcp__context7__resolve-library-id",
       "mcp__context7__get-library-docs",
       "WebSearch",
-      "mcp__ide__getDiagnostics"
+      "mcp__ide__getDiagnostics",
+      "Bash(npm run build:*)"
     ],
     "deny": [],
     "ask": []
