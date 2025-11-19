@@ -8,6 +8,7 @@ import PortfolioGrid from './components/portfoliogrid/portfolioGrid';
 import PortfolioDetail from './components/portfoliodetail/portfoliodetail';
 import Footer from './components/footer/Footer';
 import Home from './components/home/Home';
+import AboutMinimal from './components/about/AboutMinimal';
 import { handleConsent } from './components/consent/Consent';
 import ConsentPopUp from './components/consent/ConsentPopUp';
 import { GOOGLE_TRACKING_ID } from './constants/constants';
@@ -69,6 +70,7 @@ function AppRoutes() {
       <Route path="/things" element={<Things />} />
       <Route path="/portfolio" element={<PortfolioGrid />} />
       <Route path="/portfolio/:id" element={<PortfolioDetail />} />
+      <Route path="/about" element={<AboutMinimal />} />
     </Routes>
   )
 }

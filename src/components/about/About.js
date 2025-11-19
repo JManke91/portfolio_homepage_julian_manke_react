@@ -19,6 +19,8 @@ function About() {
   const [isLoading, setIsLoading] = useState(true);
   const [aboutPhotoURL, setAboutPhotoURL] = useState();
   const [aboutText, setAboutText] = useState();
+  const [aboutImageURL, setAboutImageURL] = useState();
+  const [aboutInfoText, setAboutInfoText] = useState();
 
   // React Hooks
   useEffect(() => {
@@ -38,6 +40,8 @@ function About() {
           setAboutText(aboutText);
           setHeaderText(firstEntry.aboutHeader);
           setRouteHeader(firstEntry.routeHeader);
+          setAboutImageURL(firstEntry.aboutImageURL);
+          setAboutInfoText(firstEntry.aboutInfoText);
         }
       } catch (error) {
         console.error(error.message);
@@ -92,6 +96,54 @@ function About() {
           <img src={aboutPhotoURL} alt="About" />
         </motion.div>
       </section>
+
+      <section className={styles['horizontal-line-section']}>
+        <motion.div
+          className={styles['horizontal-line']}
+          variants={fadeInUpVariants}
+          initial="hidden"
+          animate="visible"
+        >
+        </motion.div>
+      </section>
+
+      {aboutImageURL && aboutInfoText && (
+        <section className={styles['new-about-section']}>
+          <motion.div
+            className={styles['new-about-image-container']}
+            variants={fadeInUpVariants}
+            initial="hidden"
+            animate="visible"
+          >
+            <img src={aboutImageURL} alt="About" className={styles['new-about-image']} />
+          </motion.div>
+
+          <motion.div
+            className={styles['new-about-text-container']}
+            variants={fadeInUpVariants}
+            initial="hidden"
+            animate="visible"
+          >
+            <ReactMarkdown
+              components={{
+                a: ({ node, ...props }) => (
+                  props.href.startsWith('/') ? (
+                    <Link to={props.href}>{props.children}</Link>
+                  ) : (
+                    <a href={props.href} target="_blank" rel="noopener noreferrer">
+                      {props.children}
+                    </a>
+                  )
+                ),
+                p: ({ node, ...props }) => <p>{props.children}</p>,
+                span: ({ node, ...props }) => <span>{props.children}</span>,
+              }}
+            >
+              {aboutInfoText}
+            </ReactMarkdown>
+          </motion.div>
+        </section>
+      )}
 
       <section className={styles['horizontal-line-section']}>
         <motion.div

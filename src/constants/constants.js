@@ -13,7 +13,7 @@ export const getWorkCoverImageType = () => 'workCoverImage';
 export const getFreeImageType = () => 'freeImage';
 export const getWorkImageType = () => 'workImage';
 export const getCiteType = () => 'cite';
-export const getAboutPageType = () => 'aboutPage';
+export const getAboutPageType = () => 'about';
 export const getGridImagePlacesType = () => 'gridImagePlaces';
 export const getGridImageThingsType = () => 'gridImageThings';
 

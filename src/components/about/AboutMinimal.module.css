@@ -1,0 +1,282 @@
+/* AboutMinimal.module.css - Modern and Minimalistic Design */
+
+.about-minimal {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12vh 0;
+  position: relative;
+}
+
+/* Subtle background gradient for depth */
+.about-minimal::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(ellipse at top left, rgba(255, 255, 255, 0.03) 0%, transparent 50%),
+              radial-gradient(ellipse at bottom right, rgba(255, 255, 255, 0.02) 0%, transparent 50%);
+  pointer-events: none;
+}
+
+.about-container {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 8%;
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: 0 6%;
+  position: relative;
+  z-index: 1;
+}
+
+.image-container {
+  flex: 1;
+  max-width: 48%;
+  position: relative;
+}
+
+/* Modern image styling with gradient border effect */
+.image-container::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.03) 100%);
+  border-radius: 12px;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  z-index: -1;
+}
+
+.image-container:hover::before {
+  opacity: 1;
+}
+
+.about-image {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  border-radius: 10px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3),
+              0 8px 20px rgba(0, 0, 0, 0.2);
+  transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1),
+              box-shadow 0.5s ease;
+  will-change: transform;
+}
+
+.about-image:hover {
+  transform: translateY(-8px) scale(1.01);
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.4),
+              0 12px 30px rgba(0, 0, 0, 0.25);
+}
+
+.text-container {
+  flex: 1;
+  max-width: 48%;
+}
+
+.about-header {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 700;
+  font-size: 48px;
+  line-height: 1.15em;
+  letter-spacing: -0.03em;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0.85) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 1em;
+  margin-top: 0;
+  position: relative;
+  display: inline-block;
+}
+
+/* Subtle accent line under header */
+.about-header::after {
+  content: '';
+  position: absolute;
+  bottom: -0.2em;
+  left: 0;
+  width: 60px;
+  height: 3px;
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0.6) 0%, rgba(255, 255, 255, 0.1) 100%);
+  border-radius: 2px;
+}
+
+.text-container h1 {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+  font-size: 38px;
+  line-height: 1.3em;
+  letter-spacing: -0.02em;
+  color: rgba(255, 255, 255, 0.98);
+  margin-bottom: 0.7em;
+  margin-top: 1.8em;
+}
+
+.text-container h2 {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 500;
+  font-size: 28px;
+  line-height: 1.4em;
+  letter-spacing: -0.01em;
+  color: rgba(255, 255, 255, 0.92);
+  margin-top: 2em;
+  margin-bottom: 0.8em;
+}
+
+.text-container h3 {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 500;
+  font-size: 22px;
+  line-height: 1.5em;
+  letter-spacing: -0.005em;
+  color: rgba(255, 255, 255, 0.88);
+  margin-top: 1.6em;
+  margin-bottom: 0.7em;
+}
+
+.text-container p {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 300;
+  font-size: 17px;
+  line-height: 1.85em;
+  letter-spacing: 0.01em;
+  color: rgba(255, 255, 255, 0.82);
+  margin-bottom: 1.6em;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Modern link styling with smooth underline effect */
+.text-container a {
+  color: rgba(255, 255, 255, 0.95);
+  text-decoration: none;
+  position: relative;
+  transition: color 0.3s ease;
+  background-image: linear-gradient(90deg, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0.5) 100%);
+  background-size: 0% 1px;
+  background-repeat: no-repeat;
+  background-position: left bottom;
+  padding-bottom: 2px;
+  transition: background-size 0.3s cubic-bezier(0.4, 0, 0.2, 1), color 0.3s ease;
+}
+
+.text-container a:hover {
+  color: rgba(255, 255, 255, 1);
+  background-size: 100% 1px;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  .about-minimal {
+    padding: 10vh 0 8vh 0;
+  }
+
+  .about-minimal::before {
+    background: radial-gradient(ellipse at top, rgba(255, 255, 255, 0.02) 0%, transparent 50%);
+  }
+
+  .about-container {
+    flex-direction: column;
+    gap: 10%;
+    padding: 0 6%;
+  }
+
+  .image-container,
+  .text-container {
+    max-width: 100%;
+  }
+
+  .image-container {
+    margin-bottom: 2rem;
+  }
+
+  .about-image {
+    border-radius: 8px;
+    box-shadow: 0 15px 45px rgba(0, 0, 0, 0.25),
+                0 6px 15px rgba(0, 0, 0, 0.18);
+  }
+
+  .about-image:hover {
+    transform: translateY(-4px) scale(1.005);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3),
+                0 8px 20px rgba(0, 0, 0, 0.2);
+  }
+
+  .about-header {
+    font-size: 36px;
+    line-height: 1.2em;
+  }
+
+  .about-header::after {
+    width: 50px;
+    height: 2px;
+  }
+
+  .text-container h1 {
+    font-size: 28px;
+    margin-top: 1.5em;
+  }
+
+  .text-container h2 {
+    font-size: 24px;
+    margin-top: 1.5em;
+  }
+
+  .text-container h3 {
+    font-size: 20px;
+    margin-top: 1.3em;
+  }
+
+  .text-container p {
+    font-size: 16px;
+    line-height: 1.75em;
+    margin-bottom: 1.4em;
+  }
+}
+
+/* Tablet Responsive */
+@media (max-width: 1024px) and (min-width: 769px) {
+  .about-container {
+    gap: 6%;
+    padding: 0 5%;
+  }
+
+  .about-header {
+    font-size: 42px;
+  }
+
+  .text-container h1 {
+    font-size: 32px;
+  }
+
+  .text-container h2 {
+    font-size: 26px;
+  }
+
+  .text-container h3 {
+    font-size: 20px;
+  }
+
+  .text-container p {
+    font-size: 16px;
+  }
+}
+
+/* Large screens - enhance spacing */
+@media (min-width: 1400px) {
+  .about-container {
+    max-width: 1400px;
+    gap: 10%;
+  }
+
+  .about-header {
+    font-size: 52px;
+  }
+}

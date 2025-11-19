@@ -49,6 +49,14 @@ export async function fetchAboutPagedata() {
         ? `${aboutPhotoURL}?w=${width}&h=${height}&q=${quality}`
         : '';
 
+      // Extract new fields for the About section
+      const aboutImage = item.fields.aboutImage;
+      const aboutImageURL = aboutImage?.fields.file.url;
+      const responsiveAboutImageURL = aboutImageURL
+        ? `${aboutImageURL}?w=${width}&h=${height}&q=${quality}`
+        : '';
+      const aboutInfoText = item.fields.aboutInfoText;
+
       return {
         gpxFileUrl,
         routeInformation,
@@ -57,6 +65,8 @@ export async function fetchAboutPagedata() {
         aboutText,
         aboutHeader,
         routeHeader,
+        aboutImageURL: responsiveAboutImageURL,
+        aboutInfoText,
       };
     });
 

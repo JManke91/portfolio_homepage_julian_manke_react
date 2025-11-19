@@ -102,6 +102,57 @@ a {
   margin-top: 30px;
 }
 
+/* New About Section - Modern and Minimalistic */
+.new-about-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8%;
+  padding: 6% 8%;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.new-about-image-container {
+  flex: 1;
+  max-width: 50%;
+}
+
+.new-about-image {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  border-radius: 2px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.new-about-text-container {
+  flex: 1;
+  max-width: 50%;
+}
+
+.new-about-text-container p {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 300;
+  font-size: 16px;
+  line-height: 1.8em;
+  letter-spacing: .02em;
+  color: rgba(255, 255, 255, 0.95);
+  margin-bottom: 1.2em;
+}
+
+.new-about-text-container a {
+  color: rgba(200, 200, 200, 0.9);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(200, 200, 200, 0.3);
+  transition: all 0.3s ease;
+}
+
+.new-about-text-container a:hover {
+  color: rgba(255, 255, 255, 1);
+  border-bottom-color: rgba(255, 255, 255, 0.6);
+}
+
 @media (max-width: 768px) {
   .about {
     flex-direction: column-reverse;
@@ -148,5 +199,22 @@ a {
   .about-image-section {
     flex-direction: column-reverse;
     padding-bottom: 20px;
+  }
+
+  /* New About Section - Mobile Responsive */
+  .new-about-section {
+    flex-direction: column;
+    padding: 8% 8%;
+    gap: 6%;
+  }
+
+  .new-about-image-container,
+  .new-about-text-container {
+    max-width: 100%;
+  }
+
+  .new-about-text-container p {
+    font-size: 15px;
+    line-height: 1.6em;
   }
 }
